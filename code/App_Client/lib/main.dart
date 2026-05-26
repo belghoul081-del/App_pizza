@@ -1,18 +1,37 @@
-import 'package:app_pizza_client/view/home/homePage.dart';
+import 'package:app_pizza_client/constant/app_color.dart';
+import 'package:app_pizza_client/view/home/home_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const HomePage(),
+      theme: ThemeData(
+        fontFamily: "Inter",
+        appBarTheme: AppBarTheme(
+          backgroundColor: AppColor_Background.appbarecolor,
+        ),
+        scaffoldBackgroundColor: AppColor_Background.backgroundcolor,
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: AppColor_Background.appbarecolor,
+        ),
+      ),
+      home: HomePage(),
+      routes: {
+        "HomePage": (context) => HomePage(),
+        //"Account": (context) => Account(),
+      },
     );
   }
 }
