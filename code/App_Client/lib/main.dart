@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/view/home/home_view.dart';
-import 'package:flutter/material.dart';
+import 'package:app_pizza_client/view/start/loading_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,20 +18,21 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "Inter",
         appBarTheme: AppBarTheme(
-          backgroundColor: AppColor_Background.appbarecolor,
+          backgroundColor: ColorApp_Background.appbarecolor,
         ),
-        scaffoldBackgroundColor: AppColor_Background.backgroundcolor,
+        scaffoldBackgroundColor: ColorApp_Background.backgroundcolor,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: AppColor_Background.appbarecolor,
+          backgroundColor: ColorApp_Background.appbarecolor,
         ),
       ),
-      home: HomePage(),
+      home: Loading_Page(),
       routes: {
-        "HomePage": (context) => HomePage(),
-        //"Account": (context) => Account(),
+        "Home": (context) => Home_Page(),
+        "Loading": (context) => Loading_Page(),
       },
     );
   }
