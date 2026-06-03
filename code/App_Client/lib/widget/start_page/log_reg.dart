@@ -6,11 +6,13 @@ class Widget_chose_l_or_r extends StatelessWidget {
   final String l_or_r;
   final String text_o;
   final String text_b;
+  final VoidCallback onPressed;
+
   const Widget_chose_l_or_r({
     super.key,
     required this.l_or_r,
     required this.text_o,
-    required this.text_b,
+    required this.text_b, required this.onPressed,
   });
 
   @override
@@ -47,7 +49,7 @@ class Widget_chose_l_or_r extends StatelessWidget {
     MaterialButton MaterialButton_costum() {
       return MaterialButton(
         padding: EdgeInsets.zero,
-        onPressed: () {},
+        onPressed: onPressed,
         child: Container(
           height: context.heightPct(6),
           width: context.widthPct(55),

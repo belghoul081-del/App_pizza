@@ -4,9 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/view/home/home_view.dart';
 import 'package:app_pizza_client/view/start/loading_view.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 3. تحديد الأوضاع المسموح بها (العمودي فقط)
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(const MyApp()); // 4. تشغيل التطبيق بعد تطبيق الإعدادات
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -24,6 +33,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         fontFamily: "Inter",
         appBarTheme: AppBarTheme(
+          
           backgroundColor: ColorApp_Background.appbarecolor,
         ),
         scaffoldBackgroundColor: ColorApp_Background.backgroundcolor,
