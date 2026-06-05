@@ -1,9 +1,7 @@
-import 'package:app_pizza_client/constant/app_color.dart';
-import 'package:app_pizza_client/models/client/client_info.dart';
+import 'package:app_pizza_client/models/client/client_Model.dart';
 import 'package:app_pizza_client/view/auth/matterial_log_sig_page.dart';
 import 'package:app_pizza_client/view/auth/appbare.dart';
 import 'package:flutter/material.dart';
-import 'package:app_pizza_client/constant/app_size.dart';
 
 class Login_Page extends StatefulWidget {
   final int x;

@@ -7,7 +7,6 @@ class Logo_Studio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String nn;
     Text funte(String nn) {
       return Text(
         "$nn",
@@ -38,4 +37,3 @@ class Logo_Studio extends StatelessWidget {
     );
   }
 }
-

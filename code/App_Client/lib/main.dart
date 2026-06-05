@@ -1,3 +1,5 @@
+import 'package:app_pizza_client/view/cart/cart_view.dart';
+import 'package:app_pizza_client/view/chat/message.dart';
 import 'package:app_pizza_client/view/start/choose_L_R_view.dart';
 import 'package:app_pizza_client/view/start/welcome_view.dart';
 import 'package:flutter/material.dart';
@@ -33,22 +35,26 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         fontFamily: "Inter",
         appBarTheme: AppBarTheme(
-          
           backgroundColor: ColorApp_Background.appbarecolor,
         ),
         scaffoldBackgroundColor: ColorApp_Background.backgroundcolor,
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: ColorApp_Background.appbarecolor,
-        ),
+        
       ),
-      home: Loading_Page(),
+      home: Home_Page(),
       routes: {
+        /// home page :
         "Home": (context) => Home_Page(),
 
-        /// stare pages :  
+        /// stare pages :
         "Loading": (context) => Loading_Page(),
         "Welcome": (context) => Welcome_Page(),
         "Welcome_chose": (context) => Welcome_chose_L_or_R(),
+
+        /// chat page :
+        "chat": (context) => Chat_page(),
+
+        /// order page :
+        "order": (context) => Order_Page(),
       },
     );
   }

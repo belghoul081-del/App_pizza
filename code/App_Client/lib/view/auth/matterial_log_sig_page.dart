@@ -1,6 +1,6 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/models/client/client_info.dart';
+import 'package:app_pizza_client/models/client/client_Model.dart';
 import 'package:app_pizza_client/widget/login_page/body/botton_login.dart';
 import 'package:app_pizza_client/widget/login_page/body/image_rchma.dart';
 import 'package:app_pizza_client/widget/login_page/body/textArea.dart';

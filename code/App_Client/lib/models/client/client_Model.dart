@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 
 class Client_Data {
   //int uID;
