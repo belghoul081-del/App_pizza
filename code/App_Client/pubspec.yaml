@@ -78,6 +78,8 @@ flutter:
     - assets/images/categories_images/categories_taccos.png
 
     - assets/images/home_images/logo_home.png
+    - assets/images/home_images/announc/announc.png
+    - assets/images/home_images/announc/announc_II.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 Widget Bar_Location_Notificaion_Bccount({required BuildContext context}) {
   return Container(
     margin: EdgeInsets.symmetric(vertical: context.heightPct(1)),
-    padding: EdgeInsets.symmetric(horizontal: context.heightPct(2)),
+    padding: EdgeInsets.symmetric(
+      horizontal: context.heightPct(2),
+    ),
     height: context.heightPct(8),
     width: context.widthPct(100),
     child: Row(

@@ -4,7 +4,7 @@ class Client_Data {
   String name;
   //رمز اشعار
   //String addres;
-  //Image image;
+  //String image;
   String number;
   String password;
 
