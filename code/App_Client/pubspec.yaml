@@ -68,7 +68,16 @@ flutter:
     - assets/images/login_images/logo_burger.png
     - assets/images/login_images/logo_seconde.png
     - assets/images/login_images/rchma.png
-    
+
+    - assets/images/categories_images/categories_burger.png
+    - assets/images/categories_images/categories_jues.png
+    - assets/images/categories_images/categories_kaick.png
+    - assets/images/categories_images/categories_pizza.png
+    - assets/images/categories_images/categories_sandwich.png
+    - assets/images/categories_images/categories_taccos.png
+
+    # - assets/images/home_images/logo_home.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
@@ -93,6 +102,10 @@ flutter:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter-Regular.ttf
+
+    - family: SemiBold
+      fonts:
+        - asset: assets/fonts/Inter_28pt-SemiBold.ttf
 
     - family: InriaSerif
       fonts:
