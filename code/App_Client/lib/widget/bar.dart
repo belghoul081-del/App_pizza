@@ -21,7 +21,7 @@ class DashedLineDivider extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: context.heightPct(2),
-        vertical: context.heightPct(2),
+        // vertical: context.heightPct(1),
       ),
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {

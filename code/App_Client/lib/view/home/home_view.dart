@@ -5,6 +5,7 @@ import 'package:app_pizza_client/view/home/b_N_Bar_home.dart';
 import 'package:app_pizza_client/view/home/categories_home.dart';
 import 'package:app_pizza_client/models/model_category/category_Model.dart';
 import 'package:app_pizza_client/view/home/lo_noti_acc.dart';
+import 'package:app_pizza_client/view/home/products/cards_home.dart';
 import 'package:app_pizza_client/widget/bar.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
@@ -57,67 +58,75 @@ class _Home_PageState extends State<Home_Page> {
               ),
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  /// bar
-                  Bar_Location_Notificaion_Bccount(context: context),
+              child: CustomScrollView(
+                slivers: [
+                  ///هذه التي تتحرك
+                  SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        /// bar
+                        Bar_Location_Notificaion_Bccount(context: context),
 
-                  /// announcement
-                  Announcement_home(totalBar: _totalBarcounter),
-
-                  /// categories
-                  SizedBox(height: context.heightPct(1)),
-                  categories(
-                    context: context,
-                    selectedIndex: _selectedCategoryIndex,
-                    onCategorySelected: (index) {
-                      setState(() {
-                        _selectedCategoryIndex = index;
-                      });
-                      print(
-                        "تم اختيار فئة: ${Category_Data.categories[index].name}",
-                      );
-                    },
-                  ),
-
-                  DashedLineDivider(
-                    height: context.heightPct(0.2),
-                    dashWidth: context.heightPct(3),
-                    dashSpace: context.heightPct(2),
-                    color: ColorApp_Icon_border.bottonbrown,
-                  ),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10, // المسافة الأفقية بين الكرتين
-                      mainAxisSpacing: 12, // المسافة العمودية بين السطور
-                      // 💡 النسبة بين العرض والارتفاع (childAspectRatio)
-                      // العرض / الارتفاع -> إذا كان 1 يكون الكرت مربعاً تماماً
-                      // إذا كان 0.75 أو 0.8 يصبح الكرت مستطيلاً عمودياً أنيقاً يتسع لـ (صورة، اسم البيتزا، السعر، وزر الإضافة)
-                      childAspectRatio: 0.8,
+                        /// announcement
+                        Announcement_home(totalBar: _totalBarcounter),
+                      ],
                     ),
+                  ),
 
-                    itemCount: cards.length, // عدد المنتجات
-                    itemBuilder: (context, index) {
-                      return Container(
-                        // 💡 تخلصنا من الـ width والـ height اليدوية لأن الـ Grid تكفل بها عبر childAspectRatio
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.04),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
+                  /// لا تتجرك
+                  SliverAppBar(
+                    shadowColor: Colors.black,
+                    floating: false,
+                    elevation: 0,
+                    automaticallyImplyLeading: false,
+                    toolbarHeight: context.heightPct(10.2),
+                    titleSpacing: 0,
+                    pinned: true,
+                    backgroundColor: ColorApp_Background.backgroundcolor,
+                    surfaceTintColor: ColorApp_Background.backgroundcolor,
+                    title: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        /// categories
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: context.heightPct(1.5),
+                            bottom: context.heightPct(1.5),
+                          ),
+                          child: categories(
+                            context: context,
+                            selectedIndex: _selectedCategoryIndex,
+                            onCategorySelected: (index) {
+                              setState(() {
+                                _selectedCategoryIndex = index;
+                              });
+                              print(
+                                "تم اختيار فئة: ${Category_Data.categories[index].name}",
+                              );
+                            },
+                          ),
                         ),
-                        child: const Center(child: Text("Card Pizza")),
-                      );
-                    },
+
+                        DashedLineDivider(
+                          height: context.heightPct(0.2),
+                          dashWidth: context.heightPct(3.5),
+                          dashSpace: context.heightPct(2),
+                          color: ColorApp_Icon_border.bottonbrown,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  /// cards
+                  SliverPadding(
+                    padding: EdgeInsets.zero,
+                    sliver: SliverToBoxAdapter(
+                      child: Products_cards_home(
+                        selectedCategory: Category_Data
+                            .categories[_selectedCategoryIndex]
+                            .categories,
+                      ),
+                    ),
                   ),
                 ],
               ),
