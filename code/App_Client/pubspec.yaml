@@ -80,6 +80,27 @@ flutter:
     - assets/images/home_images/logo_home.png
     - assets/images/home_images/announc/announc.png
     - assets/images/home_images/announc/announc_II.png
+ 
+    # Burger
+    - assets/images/prodect_images/burger/burger.png
+    # Jues
+    - assets/images/prodect_images/jues/canet_cocacola.png
+    - assets/images/prodect_images/jues/cocacola_1L_.png
+    - assets/images/prodect_images/jues/cocacola_33Cl_.png
+    - assets/images/prodect_images/jues/gif_canet_cocacola.png
+    - assets/images/prodect_images/jues/gif_cocacola_1L_.png
+    # Kaick
+    - assets/images/prodect_images/kaick/kaick.png
+    # Pizza
+    - assets/images/prodect_images/pizza/pizza_4Fromage.png
+    - assets/images/prodect_images/pizza/pizza_Vegitaria.png
+    - assets/images/prodect_images/pizza/pizza_Viande.png
+    # Sandwich
+    - assets/images/prodect_images/sandwich/sandwich_poli.png
+    - assets/images/prodect_images/sandwich/sandwich_viand.png
+    # Taccos
+    - assets/images/prodect_images/taccos/takos.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -1,0 +1,3 @@
+size of photo:
+announce : 1200X400
+photo Of prodect : 1000X1000 // 500X500

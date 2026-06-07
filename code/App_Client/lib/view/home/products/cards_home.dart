@@ -22,6 +22,7 @@ class _Products_cards_homeState extends State<Products_cards_home> {
         top: context.heightPct(1),
         left: context.heightPct(2),
         right: context.heightPct(2),
+        bottom: context.heightPct(5),
       ),
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
