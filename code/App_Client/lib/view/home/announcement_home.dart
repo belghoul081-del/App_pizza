@@ -1,6 +1,6 @@
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/widget/home_page/announcement/bar_of_change.dart';
-import 'package:app_pizza_client/widget/home_page/announcement/content_ann.dart';
+import 'package:app_pizza_client/view/home/widget/announcement/bar_of_change.dart';
+import 'package:app_pizza_client/view/home/widget/announcement/content_ann.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 

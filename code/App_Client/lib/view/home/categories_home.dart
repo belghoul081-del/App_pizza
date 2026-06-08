@@ -1,7 +1,7 @@
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/model_category/category_Model.dart';
-import 'package:app_pizza_client/widget/home_page/categories_bar/no_sel_category.dart';
-import 'package:app_pizza_client/widget/home_page/categories_bar/sel_category.dart';
+import 'package:app_pizza_client/view/home/widget/categories_bar/no_sel_category.dart';
+import 'package:app_pizza_client/view/home/widget/categories_bar/sel_category.dart';
 import 'package:flutter/material.dart';
 
 Widget categories({

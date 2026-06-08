@@ -6,7 +6,7 @@ import 'package:app_pizza_client/view/home/categories_home.dart';
 import 'package:app_pizza_client/models/model_category/category_Model.dart';
 import 'package:app_pizza_client/view/home/lo_noti_acc.dart';
 import 'package:app_pizza_client/view/home/products/cards_home.dart';
-import 'package:app_pizza_client/widget/bar.dart';
+import 'package:app_pizza_client/widget/custom/costum_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 
@@ -27,11 +27,7 @@ class _Home_PageState extends State<Home_Page> {
   @override
   Widget build(BuildContext context) {
     double screenWidht = MediaQuery.of(context).size.width;
-    final List cards = [
-      Container(height: 40, width: 40, color: Colors.green),
-      Container(height: 40, width: 40, color: Colors.green),
-      Container(height: 40, width: 40, color: Colors.green),
-    ];
+
     return Scaffold(
       bottomNavigationBar: bottomNavigationBar_home(context, _currentIndex, (
         value,
@@ -41,7 +37,7 @@ class _Home_PageState extends State<Home_Page> {
             _currentIndex = value;
           });
         } else if (value == 1) {
-          Navigator.of(context).pushNamed("order");
+          Navigator.of(context).pushNamed("cart");
         } else if (value == 2) {
           Navigator.of(context).pushNamed("chat");
         }

@@ -1,9 +1,9 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/client/client_Model.dart';
-import 'package:app_pizza_client/widget/login_page/body/botton_login.dart';
-import 'package:app_pizza_client/widget/login_page/body/image_rchma.dart';
-import 'package:app_pizza_client/widget/login_page/body/textArea.dart';
+import 'package:app_pizza_client/widget/custom/costum_botton.dart';
+import 'package:app_pizza_client/view/auth/widget/body/image_rchma.dart';
+import 'package:app_pizza_client/view/auth/widget/body/textArea.dart';
 import 'package:flutter/material.dart';
 
 Widget buildSignInForm(
@@ -117,11 +117,17 @@ Widget buildSignInForm(
                   ],
                 ),
               ),
-              botton_login(context, "Login", () {
-                if (siginInFromKey.currentState!.validate()) {
-                  Navigator.of(context).pushReplacementNamed("Home");
-                }
-              }),
+              Widget_botton(
+                context,
+                text: "Login",
+                onPressed: () {
+                  if (siginInFromKey.currentState!.validate()) {
+                    Navigator.of(context).pushReplacementNamed("Home");
+                  }
+                },
+                height: 7,
+                width: 60,
+              ),
             ],
           ),
         ),
@@ -245,9 +251,15 @@ Widget buildSignUpForm(
                   ],
                 ),
               ),
-              botton_login(context, "Sigin Up", () {
-                if (siginUpFromKey.currentState!.validate()) {}
-              }),
+              Widget_botton(
+                context,
+                text: "Sigin Up",
+                onPressed: () {
+                  if (siginUpFromKey.currentState!.validate()) {}
+                },
+                height: 7,
+                width: 60,
+              ),
             ],
           ),
         ),

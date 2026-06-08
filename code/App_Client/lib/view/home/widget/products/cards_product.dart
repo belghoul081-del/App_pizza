@@ -1,10 +1,10 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/model_products/products_Model.dart';
-import 'package:app_pizza_client/widget/home_page/products/botton_Cards.dart';
-import 'package:app_pizza_client/widget/home_page/products/faverit_icon.dart';
-import 'package:app_pizza_client/widget/home_page/products/image_cards.dart';
-import 'package:app_pizza_client/widget/home_page/products/text_cards.dart';
+import 'package:app_pizza_client/view/home/widget/products/botton_Cards.dart';
+import 'package:app_pizza_client/view/home/widget/products/faverit_icon.dart';
+import 'package:app_pizza_client/view/home/widget/products/image_cards.dart';
+import 'package:app_pizza_client/view/home/widget/products/text_cards.dart';
 import 'package:flutter/material.dart';
 
 class Widget_Cards_product extends StatefulWidget {

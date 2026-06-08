@@ -1,7 +1,7 @@
 import 'package:app_pizza_client/constant/text/text_logo_studio.dart';
 import 'package:app_pizza_client/view/auth/login_view.dart';
-import 'package:app_pizza_client/widget/start_page/image_text.dart';
-import 'package:app_pizza_client/widget/start_page/log_reg.dart';
+import 'package:app_pizza_client/view/start/widget/image_text.dart';
+import 'package:app_pizza_client/view/start/widget/log_reg.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_client/constant/app_image.dart';
 import 'package:app_pizza_client/constant/app_size.dart';

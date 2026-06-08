@@ -1,6 +1,6 @@
 import 'package:app_pizza_client/constant/app_image.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/widget/costum_loading.dart';
+import 'package:app_pizza_client/widget/custom/costum_loading.dart';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types

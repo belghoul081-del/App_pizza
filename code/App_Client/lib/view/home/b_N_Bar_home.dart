@@ -1,6 +1,6 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/widget/home_page/bottom_bar/navigationDestination_homr.dart';
+import 'package:app_pizza_client/view/home/widget/bottom_bar/navigationDestination_homr.dart';
 import 'package:flutter/material.dart';
 
 Widget bottomNavigationBar_home(
