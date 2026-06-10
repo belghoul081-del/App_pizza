@@ -4,8 +4,7 @@ import 'package:app_pizza_client/widget/custom/costum_bar.dart';
 import 'package:app_pizza_client/widget/custom/costum_botton.dart';
 import 'package:flutter/material.dart';
 
-Widget widget_BottomNavigationBar(BuildContext context) {
-  int price = 1200;
+Widget widget_BottomNavigationBar(BuildContext context,{required int priceTotal}) {
   return Container(
     height: context.heightPct(20),
     width: double.infinity,
@@ -30,7 +29,7 @@ Widget widget_BottomNavigationBar(BuildContext context) {
                 vertical: context.heightPct(1),
               ),
               child: Text(
-                "${price.toString()} Da",
+                "${priceTotal} Da",
                 style: TextStyle(
                   fontSize: context.heightPct(3),
                   fontFamily: "SemiBold",

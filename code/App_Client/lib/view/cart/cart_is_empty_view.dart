@@ -6,7 +6,7 @@ import 'package:app_pizza_client/view/cart/widget/widget_bottomNavigationBar.dar
 import 'package:app_pizza_client/view/cart/widget/widget_cart.dart';
 import 'package:app_pizza_client/widget/custom/costum_bar.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/svg.dart';
 
 class empty_Order_Page extends StatefulWidget {
   const empty_Order_Page({super.key});
@@ -75,14 +75,22 @@ class _empty_Order_PageState extends State<empty_Order_Page> {
               color: Color(0xFF616161),
             ),
           ),
-          // SvgPicture.asset(
-          //   'assets/icons/sad-face.svg',
-          //   height: context.heightPct(40),
-          //   colorFilter: const ColorFilter.mode(
-          //     Color(0xFF616161),
-          //     BlendMode.srcIn,
-          //   ),
-          // ),
+
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: context.heightPct(10)),
+            child: Opacity(
+              opacity: 0.7,
+              child: SvgPicture.asset(
+                'assets/icons/sad-face.svg',
+
+                height: context.heightPct(30),
+                colorFilter: const ColorFilter.mode(
+                  Color(0xFF616161),
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
