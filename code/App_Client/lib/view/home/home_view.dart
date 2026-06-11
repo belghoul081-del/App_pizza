@@ -1,5 +1,6 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/models/model_announcement/announcement_Model.dart';
+import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_client/view/home/announcement_home.dart';
 import 'package:app_pizza_client/view/home/b_N_Bar_home.dart';
 import 'package:app_pizza_client/view/home/categories_home.dart';
@@ -9,6 +10,7 @@ import 'package:app_pizza_client/view/home/products/cards_home.dart';
 import 'package:app_pizza_client/widget/custom/costum_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:provider/provider.dart';
 
 class Home_Page extends StatefulWidget {
   const Home_Page({super.key});
@@ -26,6 +28,7 @@ class _Home_PageState extends State<Home_Page> {
 
   @override
   Widget build(BuildContext context) {
+      CartProvider cartProvider = Provider.of<CartProvider>(context);
     double screenWidht = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -41,7 +44,7 @@ class _Home_PageState extends State<Home_Page> {
         } else if (value == 2) {
           Navigator.of(context).pushNamed("chat");
         }
-      }),
+      }, quantity: cartProvider.carts.length),
       body: SafeArea(
         child: Column(
           children: [

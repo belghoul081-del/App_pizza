@@ -2,11 +2,16 @@ import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:flutter/material.dart';
 
-Widget widget_Container_ofCart(BuildContext context,{required VoidCallback onAdd,
-required VoidCallback onRemove,
-required int quantity,required int price,required String name}) {
+Widget widget_Container_ofCart(
+  BuildContext context, {
+  required VoidCallback onAdd,
+  required VoidCallback onRemove,
+  required int quantity,
+  required int price,
+  required String name,
+}) {
   return Padding(
-    padding: EdgeInsets.symmetric(horizontal: context.widthPct(0.1)),
+    padding: EdgeInsets.only(left: context.widthPct(6)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +36,12 @@ required int quantity,required int price,required String name}) {
                 color: ColorApp_Text.textbrown,
               ),
             ),
-            Botton_ADD_OR_SubTract(context, onAdd: onAdd, onRemove: onRemove, quantity: quantity),
+            Botton_ADD_OR_SubTract(
+              context,
+              onAdd: onAdd,
+              onRemove: onRemove,
+              quantity: quantity,
+            ),
           ],
         ),
       ],
@@ -39,9 +49,12 @@ required int quantity,required int price,required String name}) {
   );
 }
 
-Widget Botton_ADD_OR_SubTract(BuildContext context,{required VoidCallback onAdd,
-required VoidCallback onRemove,
-required int quantity,}) {
+Widget Botton_ADD_OR_SubTract(
+  BuildContext context, {
+  required VoidCallback onAdd,
+  required VoidCallback onRemove,
+  required int quantity,
+}) {
   return Container(
     height: context.heightPct(4),
     width: context.widthPct(30),

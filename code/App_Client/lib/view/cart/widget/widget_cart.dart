@@ -5,10 +5,16 @@ import 'package:app_pizza_client/view/cart/widget/widget_container.dart';
 import 'package:app_pizza_client/widget/custom/costum_image_cards.dart';
 import 'package:flutter/material.dart';
 
-Widget widget_Card_Cart(BuildContext context,{required VoidCallback onAdd,
-required VoidCallback onRemove,
-required int quantity,required int price,required String imagePath,required String name}) {
-
+Widget widget_Card_Cart(
+  BuildContext context, {
+  required VoidCallback onAdd,
+  required VoidCallback onRemove,
+  required VoidCallback delete_press,
+  required int quantity,
+  required int price,
+  required String imagePath,
+  required String name,
+}) {
   return Align(
     alignment: Alignment.centerRight,
     child: Padding(
@@ -18,6 +24,7 @@ required int quantity,required int price,required String imagePath,required Stri
         clipBehavior: Clip.none,
         children: [
           Container(
+            margin: EdgeInsets.only(right: context.heightPct(1)),
             padding: EdgeInsets.only(
               top: context.heightPct(0.5),
               bottom: context.heightPct(0.5),
@@ -25,7 +32,7 @@ required int quantity,required int price,required String imagePath,required Stri
               left: context.heightPct(8),
             ),
             height: context.heightPct(17),
-            width: context.widthPct(75),
+            width: context.widthPct(80),
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -43,17 +50,30 @@ required int quantity,required int price,required String imagePath,required Stri
               context,
               onAdd: onAdd,
               onRemove: onRemove,
-              quantity: quantity, price: price,
-              name:name
+              quantity: quantity,
+              price: price,
+              name: name,
             ),
           ),
 
           Positioned(
             right: context.widthPct(58),
-            child: Widget_Images_Cards(
-              context,
-              image: imagePath,
-              size: 15,
+            child: Widget_Images_Cards(context, image: imagePath, size: 15),
+          ),
+          Positioned(
+            top: -context.heightPct(1),
+            right: -context.widthPct(4),
+            child: GestureDetector(
+              onTap: delete_press,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.red,
+                ),
+                padding: EdgeInsets.all(3),
+
+                child: Icon(Icons.close, color: Colors.white),
+              ),
             ),
           ),
         ],

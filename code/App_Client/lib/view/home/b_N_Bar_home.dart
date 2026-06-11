@@ -7,6 +7,7 @@ Widget bottomNavigationBar_home(
   BuildContext context,
   int _currentIndex,
   ValueChanged<int> ontap,
+  {int?quantity,}
 ) {
   return NavigationBarTheme(
     data: NavigationBarThemeData(
@@ -32,7 +33,7 @@ Widget bottomNavigationBar_home(
       height: context.heightPct(7.5),
       destinations: [
         NavigationDestination_bar_home(context: context, x: 1),
-        NavigationDestination_bar_home(context: context, x: 2),
+        NavigationDestination_bar_home(context: context, x: 2,quantity:quantity ),
         NavigationDestination_bar_home(context: context, x: 3),
       ],
     ),

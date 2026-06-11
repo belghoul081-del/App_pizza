@@ -1,11 +1,13 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/model_products/products_Model.dart';
+import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_client/view/home/widget/products/botton_Cards.dart';
 import 'package:app_pizza_client/view/home/widget/products/faverit_icon.dart';
 import 'package:app_pizza_client/widget/custom/costum_image_cards.dart';
 import 'package:app_pizza_client/view/home/widget/products/text_cards.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Widget_Cards_product extends StatefulWidget {
   final Products_model product;
@@ -18,6 +20,7 @@ class Widget_Cards_product extends StatefulWidget {
 class _Widget_Cards_productState extends State<Widget_Cards_product> {
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return Container(
       decoration: BoxDecoration(
         color: ColorApp_Background.appbarecolor,
@@ -40,7 +43,11 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Widget_Images_Cards(context, image: widget.product.imagePath, size: 15),
+                Widget_Images_Cards(
+                  context,
+                  image: widget.product.imagePath,
+                  size: 15,
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: context.heightPct(0.6),
@@ -59,14 +66,16 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
                             context,
                             color: ColorApp_Background.backgroundcolorII,
                             icon: Icons.list,
+                            onPress: () {},
                           ),
                           SizedBox(width: context.widthPct(1)),
                           widget_Botton_Cards(
                             context,
                             color: ColorApp_Botton.bottonOrange,
-                            icon: 
-                              Icons.add,
-                            
+                            icon: Icons.add,
+                            onPress: () {
+                              cartProvider.add_Cart(widget.product);
+                            },
                           ),
                         ],
                       ),

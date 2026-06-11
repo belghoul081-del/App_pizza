@@ -6,6 +6,7 @@ Widget widget_Botton_Cards(
   BuildContext context, {
   required Color color,
   required IconData icon,
+  required  VoidCallback onPress
 }) {
   return Container(
     height: context.heightPct(4),
@@ -17,7 +18,7 @@ Widget widget_Botton_Cards(
     child: Center(
       child: IconButton(
         padding: EdgeInsets.zero,
-        onPressed: () {},
+        onPressed: onPress,
         icon: Icon(
           icon,
           color: ColorApp_Icon_border.bottontblack,

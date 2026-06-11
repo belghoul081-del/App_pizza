@@ -4,7 +4,7 @@ import 'package:app_pizza_client/widget/custom/costum_bar.dart';
 import 'package:app_pizza_client/widget/custom/costum_botton.dart';
 import 'package:flutter/material.dart';
 
-Widget widget_BottomNavigationBar(BuildContext context,{required int priceTotal}) {
+Widget widget_BottomNavigationBar(BuildContext context,{required double priceTotal}) {
   return Container(
     height: context.heightPct(20),
     width: double.infinity,

@@ -1,3 +1,7 @@
+import 'package:app_pizza_client/models/model_cart/cart_Model.dart';
+import 'package:app_pizza_client/models/model_products/products_Model.dart';
+import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
+import 'package:app_pizza_client/view/cart/cart_is_empty_view.dart';
 import 'package:app_pizza_client/view/cart/cart_view.dart';
 import 'package:app_pizza_client/view/chat/message.dart';
 import 'package:app_pizza_client/view/start/choose_L_R_view.dart';
@@ -7,6 +11,7 @@ import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/view/home/home_view.dart';
 import 'package:app_pizza_client/view/start/loading_view.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,32 +35,36 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Inter",
-        appBarTheme: AppBarTheme(
-          backgroundColor: ColorApp_Background.appbarecolor,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=>CartProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: "Inter",
+          appBarTheme: AppBarTheme(
+            backgroundColor: ColorApp_Background.appbarecolor,
+          ),
+          scaffoldBackgroundColor: ColorApp_Background.backgroundcolor,
         ),
-        scaffoldBackgroundColor: ColorApp_Background.backgroundcolor,
-        
+        home: Home_Page(),
+        routes: {
+          /// home page :
+          "Home": (context) => Home_Page(),
+      
+          /// stare pages :
+          "Loading": (context) => Loading_Page(),
+          "Welcome": (context) => Welcome_Page(),
+          "Welcome_chose": (context) => Welcome_chose_L_or_R(),
+      
+          /// chat page :
+          "chat": (context) => Chat_page(),
+      
+          /// cart page :
+          "cart": (context) => Order_Page(),
+        },
       ),
-      home: Home_Page(),
-      routes: {
-        /// home page :
-        "Home": (context) => Home_Page(),
-
-        /// stare pages :
-        "Loading": (context) => Loading_Page(),
-        "Welcome": (context) => Welcome_Page(),
-        "Welcome_chose": (context) => Welcome_chose_L_or_R(),
-
-        /// chat page :
-        "chat": (context) => Chat_page(),
-
-        /// order page :
-        "order": (context) => Order_Page(),
-      },
     );
   }
 }
