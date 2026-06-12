@@ -4,6 +4,7 @@ import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_client/view/cart/cart_is_empty_view.dart';
 import 'package:app_pizza_client/view/cart/cart_view.dart';
 import 'package:app_pizza_client/view/chat/message.dart';
+import 'package:app_pizza_client/view/profile/account_view.dart';
 import 'package:app_pizza_client/view/start/choose_L_R_view.dart';
 import 'package:app_pizza_client/view/start/welcome_view.dart';
 import 'package:flutter/material.dart';
@@ -59,10 +60,13 @@ class _MyAppState extends State<MyApp> {
           "Welcome_chose": (context) => Welcome_chose_L_or_R(),
       
           /// chat page :
-          "chat": (context) => Chat_page(),
+          "Chat": (context) => Chat_page(),
       
           /// cart page :
           "cart": (context) => Order_Page(),
+
+          /// profile page :
+          "Profile": (context) => Profile_Page(),
         },
       ),
     );

@@ -1,0 +1,39 @@
+import 'package:app_pizza_client/constant/app_color.dart';
+import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:flutter/material.dart';
+
+Widget Text_info_profile(BuildContext context) {
+  return Container(
+    height: context.heightPct(7),
+    width: context.widthPct(100),
+    decoration: BoxDecoration(
+      color: ColorApp_Background.appbarecolor,
+      borderRadius: BorderRadius.all(Radius.circular(50)),
+      border: Border.all(color: ColorApp_Icon_border.bottonbrown),
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: context.heightPct(1)),
+          child: Icon(
+            Icons.numbers,
+            color: ColorApp_Botton.bottonOrange,
+            size: context.heightPct(5),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: context.heightPct(3)),
+          child: Text(
+            "0559 85 30 37",
+            style: TextStyle(
+              fontSize: context.heightPct(3),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
