@@ -1,8 +1,9 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:app_pizza_client/models/client/client_Model.dart';
 import 'package:flutter/material.dart';
 
-Widget Text_info_profile(BuildContext context) {
+Widget Text_info_profile(BuildContext context, Client_Model clientInf) {
   return Container(
     height: context.heightPct(7),
     width: context.widthPct(100),
@@ -26,7 +27,7 @@ Widget Text_info_profile(BuildContext context) {
         Padding(
           padding: EdgeInsets.only(left: context.heightPct(3)),
           child: Text(
-            "0559 85 30 37",
+            clientInf.number,
             style: TextStyle(
               fontSize: context.heightPct(3),
               fontWeight: FontWeight.bold,

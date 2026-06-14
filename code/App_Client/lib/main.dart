@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
           ),
           scaffoldBackgroundColor: ColorApp_Background.backgroundcolor,
         ),
-        home: Home_Page(),
+        home: Loading_Page(),
         routes: {
           /// home page :
           "Home": (context) => Home_Page(),

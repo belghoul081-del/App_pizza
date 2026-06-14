@@ -10,9 +10,10 @@ Widget buildSignInForm(
   BuildContext context,
   GlobalKey<FormState> siginInFromKey,
   bool rememberMeValue,
-  Client_Data clientDataInstance,
+  Client_Model client_Model,
   ValueChanged<bool> onRemeberChanged,
 ) {
+  final chekInf = Client_Model();
   return SingleChildScrollView(
     child: Stack(
       children: [
@@ -26,20 +27,24 @@ Widget buildSignInForm(
                 isPassword: false,
                 context: context,
                 label: "Number",
-                maxLength: 14,
+                maxLength: 10,
                 hintText: "Enter your number",
                 icon: Icons.phone,
                 keyboardType: TextInputType.phone,
                 onChanged: (value) {
-                  clientDataInstance.number = value;
+                  client_Model.number = value;
                 },
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return "pleaze phone number ";
                   }
-                  if (value.length < 14) {
-                    return "enter 14 number";
+                  if (value.length < 10) {
+                    return "enter 10 number";
                   }
+                  if (value != chekInf.number) {
+                    return "you are enter wrong password";
+                  }
+
                   return null;
                 },
               ),
@@ -53,7 +58,7 @@ Widget buildSignInForm(
                 icon: Icons.vpn_key_rounded,
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
-                  clientDataInstance.password = value;
+                  client_Model.password = value;
                 },
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -61,6 +66,9 @@ Widget buildSignInForm(
                   }
                   if (value.length < 8) {
                     return "enter 8 or more words";
+                  }
+                  if (value != chekInf.password) {
+                    return "you are enter wrong password";
                   }
 
                   return null;
@@ -140,7 +148,7 @@ Widget buildSignUpForm(
   BuildContext context,
   GlobalKey<FormState> siginUpFromKey,
   bool rememberMeValue,
-  Client_Data clientDataInstance,
+  Client_Model client_Model,
   ValueChanged<bool> onRemeberChanged,
 ) {
   return SingleChildScrollView(
@@ -161,7 +169,8 @@ Widget buildSignUpForm(
                 icon: Icons.person_rounded,
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
-                  clientDataInstance.name = value;
+                  final chekInf = Client_Model();
+                  chekInf.name = value;
                 },
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -181,7 +190,7 @@ Widget buildSignUpForm(
                 icon: Icons.phone,
                 keyboardType: TextInputType.phone,
                 onChanged: (value) {
-                  clientDataInstance.number = value;
+                  client_Model.number = value;
                 },
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
@@ -203,16 +212,16 @@ Widget buildSignUpForm(
                 icon: Icons.vpn_key_rounded,
                 keyboardType: TextInputType.text,
                 onChanged: (value) {
-                  clientDataInstance.password = value;
+                  client_Model.password = value;
                 },
                 validator: (value) {
+                  final chekInf = Client_Model();
                   if (value == null || value.trim().isEmpty) {
                     return "pleaze cheke your password  ";
                   }
                   if (value.length < 8) {
                     return "enter 8 or more words";
                   }
-
                   return null;
                 },
               ),

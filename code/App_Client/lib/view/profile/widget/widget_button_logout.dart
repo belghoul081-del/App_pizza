@@ -4,7 +4,11 @@ import 'package:app_pizza_client/constant/app_size.dart';
 
 Widget Widget_botton_Logout(BuildContext context) {
   return MaterialButton(
-    onPressed: () {},
+    onPressed: () {
+      Navigator.of(
+        context,
+      ).pushNamedAndRemoveUntil("Welcome", (Route<dynamic> route) => false);
+    },
     child: Container(
       height: context.heightPct(8),
       width: context.widthPct(60),

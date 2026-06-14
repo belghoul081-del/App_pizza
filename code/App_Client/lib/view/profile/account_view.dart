@@ -1,5 +1,6 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:app_pizza_client/models/client/client_Model.dart';
 import 'package:app_pizza_client/view/profile/widget/column_profile.dart';
 import 'package:app_pizza_client/view/profile/widget/widget_clipper.dart';
 import 'package:app_pizza_client/widget/appbare_widget/appBar_widget.dart';
@@ -15,6 +16,7 @@ class Profile_Page extends StatefulWidget {
 class _Profile_PageState extends State<Profile_Page> {
   @override
   Widget build(BuildContext context) {
+    final clientInf = Client_Model();
     return Scaffold(
       appBar: Widget_appBar(
         context,
@@ -36,19 +38,19 @@ class _Profile_PageState extends State<Profile_Page> {
             ///container
             Padding(
               padding: EdgeInsets.only(top: context.heightPct(17)),
-              child: widget_ClipPath(context),
+              child: widget_ClipPath(context,clientInf),
             ),
 
             ///image
             Padding(
-              padding: EdgeInsets.only(top: context.heightPct(5)),
+              padding: EdgeInsets.only(top: context.heightPct(4.5)),
               child: Container(
                 height: context.heightPct(25),
                 decoration: BoxDecoration(shape: BoxShape.circle),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(200)),
                   child: Image.asset(
-                    "assets/images/profila_pucture.png",
+                    clientInf.image,
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -4,6 +4,7 @@ import 'package:app_pizza_client/models/client/client_Model.dart';
 import 'package:flutter/material.dart';
 
 Widget Bar_Location_Notificaion_Bccount({required BuildContext context}) {
+  final clientInf = Client_Model();
   return Container(
     margin: EdgeInsets.symmetric(vertical: context.heightPct(1)),
     padding: EdgeInsets.symmetric(horizontal: context.heightPct(2)),
@@ -57,10 +58,7 @@ Widget Bar_Location_Notificaion_Bccount({required BuildContext context}) {
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: Image.asset(
-                    "assets/images/profila_pucture.png",
-                    fit: BoxFit.cover,
-                  ),
+                  child: Image.asset(clientInf.image, fit: BoxFit.cover),
                 ),
                 Positioned.fill(
                   child: Material(

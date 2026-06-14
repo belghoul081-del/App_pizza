@@ -16,7 +16,7 @@ class _Login_PageState extends State<Login_Page>
   late TabController _tabController;
   final GlobalKey<FormState> _siginINFromKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _siginUPFromKey = GlobalKey<FormState>();
-  final Client_Data clientDataInstance = Client_Data();
+  final Client_Model clientDataInstance = Client_Model();
   bool _rememberMe = false;
   @override
   void initState() {

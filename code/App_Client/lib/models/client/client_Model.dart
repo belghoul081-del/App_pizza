@@ -1,14 +1,18 @@
-
-class Client_Data {
+class Client_Model {
   //int uID;
   String name;
   //رمز اشعار
   //String addres;
-  //String image;
+  String image;
   String number;
   String password;
 
-  Client_Data({this.number = '', this.password = '',this.name=''});
+  Client_Model({
+    this.number = '0559853037',
+    this.password = 'kader0811',
+    this.name = 'Kader081',
+    this.image = "assets/images/profila_pucture.png",
+  });
 }
 
 

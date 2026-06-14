@@ -1,10 +1,11 @@
+import 'package:app_pizza_client/models/client/client_Model.dart';
 import 'package:app_pizza_client/view/profile/widget/widget_TextInfo.dart';
 import 'package:app_pizza_client/view/profile/widget/widget_button_logout.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 
-Widget Widget_profile(BuildContext context) {
+Widget Widget_profile(BuildContext context, Client_Model clientInf) {
   return Column(
     children: [
       Padding(
@@ -27,13 +28,13 @@ Widget Widget_profile(BuildContext context) {
         child: Column(
           children: [
             Text(
-              "Kader081",
+              clientInf.name,
               style: TextStyle(
                 fontSize: context.heightPct(5),
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text_info_profile(context),
+            Text_info_profile(context,clientInf),
             Padding(
               padding: EdgeInsets.only(top: context.heightPct(25)),
               child: Widget_botton_Logout(context),
