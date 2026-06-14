@@ -38,7 +38,9 @@ Widget Bar_Location_Notificaion_Bccount({required BuildContext context}) {
         Container(
           width: context.heightPct(8),
           child: MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed("Notification");
+            },
             child: Icon(
               Icons.notifications_none_rounded,
               color: ColorApp_Botton.bottonOrange,

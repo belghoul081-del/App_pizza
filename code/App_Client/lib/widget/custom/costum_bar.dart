@@ -1,4 +1,3 @@
-import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:flutter/material.dart';
 

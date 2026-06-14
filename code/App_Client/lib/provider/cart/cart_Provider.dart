@@ -66,8 +66,8 @@ class CartProvider with ChangeNotifier {
     }
   }
 ///سعر اجمالي 
-  double total_Price_Cart() {
-    double total = 0;
+  int total_Price_Cart() {
+    int total = 0;
     for (var i = 0; i < _carts.length; i++) {
       total +=
           _carts[i].quantity * _carts[i].product.price;

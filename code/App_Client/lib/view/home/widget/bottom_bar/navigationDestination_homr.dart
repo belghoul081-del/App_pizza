@@ -32,7 +32,7 @@ NavigationDestination NavigationDestination_bar_home({
                   padding: EdgeInsets.zero,
                   shape: CircleBorder(),
                   onPressed: () {
-                    Navigator.of(context).pushNamed("cart");
+                    Navigator.of(context).pushNamed("Cart");
                   },
                   child: Icon(
                     Icons.shopping_cart,

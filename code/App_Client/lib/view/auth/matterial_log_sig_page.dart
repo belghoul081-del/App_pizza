@@ -215,7 +215,6 @@ Widget buildSignUpForm(
                   client_Model.password = value;
                 },
                 validator: (value) {
-                  final chekInf = Client_Model();
                   if (value == null || value.trim().isEmpty) {
                     return "pleaze cheke your password  ";
                   }

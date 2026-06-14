@@ -1,6 +1,4 @@
-import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/models/model_cart/cart_Model.dart';
 import 'package:app_pizza_client/view/cart/widget/widget_container.dart';
 import 'package:app_pizza_client/widget/custom/costum_image_cards.dart';
 import 'package:flutter/material.dart';

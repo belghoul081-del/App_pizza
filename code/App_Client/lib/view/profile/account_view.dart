@@ -1,7 +1,5 @@
-import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/client/client_Model.dart';
-import 'package:app_pizza_client/view/profile/widget/column_profile.dart';
 import 'package:app_pizza_client/view/profile/widget/widget_clipper.dart';
 import 'package:app_pizza_client/widget/appbare_widget/appBar_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +18,6 @@ class _Profile_PageState extends State<Profile_Page> {
     return Scaffold(
       appBar: Widget_appBar(
         context,
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
         title: 'account',
       ),
       body: Padding(

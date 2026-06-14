@@ -40,9 +40,9 @@ class _Home_PageState extends State<Home_Page> {
             _currentIndex = value;
           });
         } else if (value == 1) {
-          Navigator.of(context).pushNamed("cart");
+          Navigator.of(context).pushNamed("Cart");
         } else if (value == 2) {
-          Navigator.of(context).pushNamed("chat");
+          Navigator.of(context).pushNamed("Chat");
         }
       }, quantity: cartProvider.carts.length),
       body: SafeArea(

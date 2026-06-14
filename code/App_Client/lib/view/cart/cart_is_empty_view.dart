@@ -1,9 +1,5 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/view/home/b_N_Bar_home.dart';
-import 'package:app_pizza_client/widget/appbare_widget/sliverAppBar_widget.dart';
-import 'package:app_pizza_client/view/cart/widget/widget_bottomNavigationBar.dart';
-import 'package:app_pizza_client/view/cart/widget/widget_cart.dart';
 import 'package:app_pizza_client/widget/custom/costum_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
