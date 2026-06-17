@@ -34,30 +34,39 @@ class Notification_O_View extends StatelessWidget {
                       horizontal: context.heightPct(5),
                       vertical: context.heightPct(4),
                     ),
-                    child: Text(
-                      "timer: ${Time_Calculate().showFullTime(notification.createdTime)}",
-                      style: TextStyle(fontSize: context.heightPct(2.5)),
+                    child: WidgetTextRich(
+                      context,
+                      text: "timer: ",
+                      content:
+                          '${Time_Calculate().showFullTime(notification.createdTime)}',
+                      colorContent: Colors.black,
                     ),
                   ),
-                  Text(
-                    "Orger:1000D293RR",
-                    style: TextStyle(fontSize: context.heightPct(2.5)),
+                  WidgetTextRich(
+                    context,
+                    text: "Orger: ",
+                    content: "1000D293RR",
+                    colorContent: Colors.black,
                   ),
-                  Text(
-                    "Name: ${Client_Model().name}",
-                    style: TextStyle(fontSize: context.heightPct(2.5)),
+                  WidgetTextRich(
+                    context,
+                    text: "Name: ",
+                    content: "${Client_Model().name}",
+                    colorContent: Colors.black,
                   ),
-                  Text(
-                    "Location: Dalas-100-b2",
-                    style: TextStyle(fontSize: context.heightPct(2.5)),
+                  WidgetTextRich(
+                    context,
+                    text: "Location: ",
+                    content: "Dalas-100-b2",
+                    colorContent: Colors.black,
                   ),
-                  Text(
-                    "Price: ${notification.price} Da",
-                    style: TextStyle(
-                      fontSize: context.heightPct(2.5),
-                      color: ColorApp_Botton.bottonOrange,
-                    ),
+                  WidgetTextRich(
+                    context,
+                    text: "Price: ",
+                    content: "${notification.price} Da",
+                    colorContent: const Color.fromARGB(255, 252, 147, 0),
                   ),
+
                   Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: context.heightPct(3),
@@ -75,7 +84,7 @@ class Notification_O_View extends StatelessWidget {
                     ),
                     child: Text(
                       notification.description,
-                      style: TextStyle(fontSize: context.heightPct(2)),
+                      style: TextStyle(fontSize: context.heightPct(2.5)),
                     ),
                   ),
                 ],
@@ -86,4 +95,32 @@ class Notification_O_View extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget WidgetTextRich(
+  BuildContext context, {
+  required String text,
+  required String content,
+  required Color colorContent,
+}) {
+  return Text.rich(
+    TextSpan(
+      children: [
+        TextSpan(
+          text: text,
+          style: TextStyle(
+            fontSize: context.heightPct(2.5),
+            fontFamily: "InterBold",
+          ),
+        ),
+        TextSpan(
+          text: content,
+          style: TextStyle(
+            fontSize: context.heightPct(2.5),
+            color: colorContent,
+          ),
+        ),
+      ],
+    ),
+  );
 }

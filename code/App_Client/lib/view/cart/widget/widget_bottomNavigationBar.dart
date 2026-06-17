@@ -1,5 +1,6 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:app_pizza_client/view/cart/widget/showDialog/show_card_dialg.dart';
 import 'package:app_pizza_client/widget/custom/costum_bar.dart';
 import 'package:app_pizza_client/widget/custom/costum_botton.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,14 @@ Widget widget_BottomNavigationBar(
           child: Widget_botton(
             context,
             text: "Checkout",
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return costumAlertDialog(context,priceTotal:priceTotal);
+                },
+              );
+            },
             height: 8,
             width: 90,
           ),

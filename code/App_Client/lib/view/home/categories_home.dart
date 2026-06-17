@@ -1,5 +1,6 @@
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/model_category/category_Model.dart';
+import 'package:app_pizza_client/view/home/widget/categories_bar/favorit_category.dart';
 import 'package:app_pizza_client/view/home/widget/categories_bar/no_sel_category.dart';
 import 'package:app_pizza_client/view/home/widget/categories_bar/sel_category.dart';
 import 'package:flutter/material.dart';
@@ -14,29 +15,40 @@ Widget categories({
   return Container(
     height: context.heightPct(7),
     width: screenWidht,
-    child: ListView.builder(
+    child: ListView(
       scrollDirection: Axis.horizontal,
-      itemCount: Category_Data.categories.length,
-      itemBuilder: (context, index) {
-        final category = Category_Data.categories[index];
-        final isSelected = selectedIndex == index;
-        return GestureDetector(
-          onTap: () {
-            onCategorySelected(index);
-          },
-          child: isSelected
-              ? card_category_I(
-                  context: context,
-                  category: category,
-                  isSelected: isSelected,
-                )
-              : card_category_II(
-                  context: context,
-                  category: category,
-                  isSelected: isSelected,
-                ),
-        );
-      },
-    ),
+      children: [
+        GestureDetector(
+
+          onTap: () => onCategorySelected(-1) ,
+          child: card_category_Favorit(context: context, favorit: selectedIndex == -1),
+        ),
+        ...List.generate(Category_Data.categories.length, (index){
+          final category = Category_Data.categories[index];
+            final isSelected = selectedIndex == index;
+            return GestureDetector(
+              onTap: () {
+                onCategorySelected(index);
+              },
+              child: isSelected
+                  ? card_category_I(
+                      context: context,
+                      category: category,
+                      isSelected: isSelected,
+                    )
+                  : card_category_II(
+                      context: context,
+                      category: category,
+                      isSelected: isSelected,
+                    ),
+            );
+        })
+      ],
+    )
+     
   );
 }
+
+
+
+        // 

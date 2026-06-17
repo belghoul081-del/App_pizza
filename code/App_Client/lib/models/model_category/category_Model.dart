@@ -3,7 +3,7 @@ class Category_model {
   final String name;
   final String imagePath;
   final double size;
-  final String categories; 
+  final String categories;
   Category_model({
     required this.id,
     required this.name,
@@ -20,35 +20,35 @@ class Category_Data {
       name: "  sandwich   ",
       imagePath: "assets/images/categories_images/categories_sandwich.png",
       size: 0.1,
-      categories: "##-sandwich"
+      categories: "##-sandwich",
     ),
     Category_model(
       id: 2,
       name: "  pizza   ",
       imagePath: "assets/images/categories_images/categories_pizza.png",
       size: 0.1,
-      categories: "##-pizza"
+      categories: "##-pizza",
     ),
     Category_model(
       id: 3,
       name: "  burger   ",
       imagePath: "assets/images/categories_images/categories_burger.png",
       size: 0.3,
-      categories: "##-burger"
+      categories: "##-burger",
     ),
     Category_model(
       id: 4,
       name: "  jues   ",
       imagePath: "assets/images/categories_images/categories_jues.png",
       size: 0.2,
-      categories: "##-jues"
+      categories: "##-jues",
     ),
     Category_model(
       id: 5,
       name: "  taccos   ",
       imagePath: "assets/images/categories_images/categories_taccos.png",
       size: 0.2,
-      categories: "##-taccos"
+      categories: "##-taccos",
     ),
 
     Category_model(
@@ -56,7 +56,7 @@ class Category_Data {
       name: "  kaick   ",
       imagePath: "assets/images/categories_images/categories_kaick.png",
       size: 0.7,
-      categories: "##-kaick"
+      categories: "##-kaick",
     ),
   ];
 }

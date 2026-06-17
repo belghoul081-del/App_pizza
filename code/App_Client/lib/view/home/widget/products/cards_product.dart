@@ -11,7 +11,12 @@ import 'package:provider/provider.dart';
 
 class Widget_Cards_product extends StatefulWidget {
   final Products_model product;
-  const Widget_Cards_product({super.key, required this.product});
+  final VoidCallback onChanged;
+  const Widget_Cards_product({
+    super.key,
+    required this.product,
+    required this.onChanged,
+  });
 
   @override
   State<Widget_Cards_product> createState() => _Widget_Cards_productState();
@@ -36,7 +41,16 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
       ),
       child: Stack(
         children: [
-          Widget_Faverit_Icon(context),
+          Widget_Faverit_Icon(
+            context,
+            selectFavIcon: widget.product.favorit,
+            ontab: () {
+              setState(() {
+                widget.product.favorit = !widget.product.favorit;
+              });
+              widget.onChanged();
+            },
+          ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: context.heightPct(0.5)),
             child: Column(

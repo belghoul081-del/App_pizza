@@ -1,11 +1,12 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:app_pizza_client/view/cart/cart_is_empty_view.dart';
 import 'package:flutter/material.dart';
 
 NavigationDestination NavigationDestination_bar_home({
   required BuildContext context,
   required int x,
-   int? quantity,
+  int? quantity,
 }) {
   if (x == 1) {
     return NavigationDestination(icon: Icon(Icons.home_sharp), label: '');
@@ -32,7 +33,15 @@ NavigationDestination NavigationDestination_bar_home({
                   padding: EdgeInsets.zero,
                   shape: CircleBorder(),
                   onPressed: () {
-                    Navigator.of(context).pushNamed("Cart");
+                    if (quantity == 0) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => empty_Order_Page(),
+                        ),
+                      );
+                    } else {
+                      Navigator.of(context).pushNamed("Cart");
+                    }
                   },
                   child: Icon(
                     Icons.shopping_cart,

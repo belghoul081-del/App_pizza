@@ -5,13 +5,19 @@ class Products_model {
   final String imagePath;
   final String categories;
   // final bool isAvailable;
+  bool favorit;
   // final suplint;
+
+  void toggleFavorite() {
+    favorit = !favorit;
+  }
+
   Products_model({
     required this.id,
     required this.name,
     required this.price,
     required this.categories,
-
+    this.favorit = false,
     // required this.isAvailable,
     required this.imagePath,
   });

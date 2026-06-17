@@ -39,6 +39,15 @@ dependencies:
   provider: ^6.1.5+1
   
 dev_dependencies:
+
+  flutter_launcher_icons: "^0.14.4"
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/home_images/launch_Icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+
   flutter_test:
     sdk: flutter
 
@@ -78,6 +87,8 @@ flutter:
     - assets/images/categories_images/categories_pizza.png
     - assets/images/categories_images/categories_sandwich.png
     - assets/images/categories_images/categories_taccos.png
+    # launch icon
+    - assets/images/home_images/launch_Icon.png
 
     - assets/images/home_images/logo_home.png
     - assets/images/home_images/announc/announc.png
@@ -134,6 +145,10 @@ flutter:
     - family: SemiBold
       fonts:
         - asset: assets/fonts/Inter_28pt-SemiBold.ttf
+
+    - family: InterBold
+      fonts:
+        - asset: assets/fonts/Inter_28pt-Bold.ttf
 
     - family: InriaSerif
       fonts:

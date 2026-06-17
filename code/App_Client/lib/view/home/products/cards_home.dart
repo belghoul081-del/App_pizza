@@ -14,9 +14,12 @@ class Products_cards_home extends StatefulWidget {
 class _Products_cards_homeState extends State<Products_cards_home> {
   @override
   Widget build(BuildContext context) {
-    final filterProducts = Products_Data.cards_of_Products
-        .where((protected) => protected.categories == widget.selectedCategory)
-        .toList();
+    final filterProducts = Products_Data.cards_of_Products.where((protected) {
+      if (widget.selectedCategory == "favorit") {
+        return protected.favorit;
+      }
+      return protected.categories == widget.selectedCategory;
+    }).toList();
     return GridView.builder(
       padding: EdgeInsets.only(
         top: context.heightPct(1),
@@ -37,7 +40,12 @@ class _Products_cards_homeState extends State<Products_cards_home> {
       itemCount: filterProducts.length,
       itemBuilder: (context, index) {
         final currentProduct = filterProducts[index];
-        return Widget_Cards_product(product: currentProduct);
+        return Widget_Cards_product(
+          product: currentProduct,
+          onChanged: () {
+            setState(() {});
+          },
+        );
       },
     );
   }
