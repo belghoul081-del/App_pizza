@@ -1,4 +1,5 @@
 import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
+import 'package:app_pizza_client/provider/cart/sepliment_Provider.dart';
 import 'package:app_pizza_client/view/cart/cart_view.dart';
 import 'package:app_pizza_client/view/chat/message.dart';
 import 'package:app_pizza_client/view/event/notification_view.dart';
@@ -15,12 +16,12 @@ import 'package:provider/provider.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 3. تحديد الأوضاع المسموح بها (العمودي فقط)
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((_) {
-    runApp(const MyApp()); // 4. تشغيل التطبيق بعد تطبيق الإعدادات
+    runApp(const MyApp());
   });
 }
 
@@ -37,6 +38,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_)=>CartProvider()),
+         ChangeNotifierProvider(create: (_) => SeplimentProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
