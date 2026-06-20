@@ -2,7 +2,9 @@ import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/model_products/products_Model.dart';
 import 'package:app_pizza_client/models/model_sepliment/sepliment_Model.dart';
+import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_client/provider/cart/sepliment_Provider.dart';
+import 'package:app_pizza_client/view/home/widget/products/sepliment/buttton_of_sepliment.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -71,7 +73,21 @@ Dialog SeplimentDialog(
                   ),
 
                   MaterialButton(
-                    onPressed: () => Navigator.pop(context), // إغلاق الدايلوج
+                    onPressed: () {
+                      final CartProvider cartProvider =
+                          Provider.of<CartProvider>(context, listen: false);
+                      final SeplimentProvider seplimentProvider =
+                          Provider.of<SeplimentProvider>(
+                            context,
+                            listen: false,
+                          );
+                      cartProvider.add_Cart_sepliment(
+                        product,
+                        seplimentProvider,
+                      );
+                      seplimentProvider.clearSepliment();
+                      Navigator.pop(context);
+                    }, // إغلاق الدايلوج
                     color: ColorApp_Botton.bottonOrange,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -89,48 +105,4 @@ Dialog SeplimentDialog(
       ),
     ),
   );
-}
-
-class ButttonOfSepliment extends StatefulWidget {
-  final String name;
-  final int price;
-  final Function(bool?) onchange; // تأكد من مطابقة هذا النوع
-  const ButttonOfSepliment({
-    super.key,
-    required this.name,
-    required this.price,
-    required this.onchange,
-  });
-
-  @override
-  State<ButttonOfSepliment> createState() => _ButttonOfSeplimentState();
-}
-
-class _ButttonOfSeplimentState extends State<ButttonOfSepliment> {
-  bool isChecked = false; // حالة الاختيار هنا
-  final currentSupplement = Sepliment_model;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          "${widget.name} (${widget.price} Da)",
-          style: TextStyle(
-            fontSize: context.heightPct(2),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Checkbox(
-          value: isChecked,
-          onChanged: (bool? value) {
-            setState(() {
-              isChecked = value!;
-            });
-            widget.onchange(value);
-          },
-        ),
-      ],
-    );
-  }
 }

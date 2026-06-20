@@ -1,5 +1,6 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:app_pizza_client/models/model_sepliment/sepliment_Model.dart';
 import 'package:flutter/material.dart';
 
 Widget widget_Container_ofCart(
@@ -9,6 +10,7 @@ Widget widget_Container_ofCart(
   required int quantity,
   required int price,
   required String name,
+  required List<Sepliment_model> sepliment,
 }) {
   return Padding(
     padding: EdgeInsets.only(left: context.widthPct(6)),
@@ -24,6 +26,19 @@ Widget widget_Container_ofCart(
             color: ColorApp_Text.textblack,
           ),
         ),
+        if (sepliment.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(
+              left: context.heightPct(2),
+              bottom: context.heightPct(1),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: sepliment
+                  .map((item) => Text("- ${item.name} (${item.price}Da)"))
+                  .toList(),
+            ),
+          ),
 
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

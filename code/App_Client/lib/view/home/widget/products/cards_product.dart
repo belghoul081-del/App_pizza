@@ -3,6 +3,7 @@ import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/model_products/products_Model.dart';
 import 'package:app_pizza_client/models/model_sepliment/sepliment_Model.dart';
 import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
+import 'package:app_pizza_client/provider/cart/sepliment_Provider.dart';
 import 'package:app_pizza_client/view/home/widget/products/botton_Cards.dart';
 import 'package:app_pizza_client/view/home/widget/products/faverit_icon.dart';
 import 'package:app_pizza_client/view/home/widget/products/sepliment/sepliment_Dialog.dart';
@@ -83,12 +84,28 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
                             color: ColorApp_Background.backgroundcolorII,
                             icon: Icons.list,
                             onPress: () {
+                              final provider = Provider.of<SeplimentProvider>(
+                                context,
+                                listen: false,
+                              ).clearSepliment();
                               showDialog(
+                                barrierDismissible: true,
                                 context: context,
                                 builder: (context) {
-                                  return SeplimentDialog(
-                                    context,
-                                    product: widget.product,
+                                  return GestureDetector(
+                                    onTap: () {
+                                      provider;
+                                      Navigator.pop(context);
+                                    },
+                                    child: Center(
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: SeplimentDialog(
+                                          context,
+                                          product: widget.product,
+                                        ),
+                                      ),
+                                    ),
                                   );
                                 },
                               );
@@ -100,7 +117,12 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
                             color: ColorApp_Botton.bottonOrange,
                             icon: Icons.add,
                             onPress: () {
-                              cartProvider.add_Cart(widget.product);
+                              final seplimentProvider =
+                                  Provider.of<SeplimentProvider>(
+                                    context,
+                                    listen: false,
+                                  );
+                              cartProvider.add_Cart(widget.product,seplimentProvider);
                             },
                           ),
                         ],

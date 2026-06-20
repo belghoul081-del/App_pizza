@@ -1,5 +1,6 @@
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/model_cart/cart_Model.dart';
+import 'package:app_pizza_client/models/model_sepliment/sepliment_Model.dart';
 import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_client/widget/appbare_widget/sliverAppBar_widget.dart';
 import 'package:app_pizza_client/view/cart/widget/widget_bottomNavigationBar.dart';
@@ -15,7 +16,6 @@ class Order_Page extends StatefulWidget {
 }
 
 class _Order_PageState extends State<Order_Page> {
-
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
@@ -44,24 +44,46 @@ class _Order_PageState extends State<Order_Page> {
               itemCount: carts.length,
               itemBuilder: (BuildContext context, int index) {
                 final item = carts[index];
+              
                 return ListTile(
                   minVerticalPadding: context.heightPct(1.5),
-                  title: widget_Card_Cart(
+                  title: item.sepliment.isEmpty?
+                  
+                   widget_Card_Cart(
                     context,
                     onAdd: () {
-                      cartProvider.addQuantity(item.product);
+                      cartProvider.addQuantity(item);
                     },
                     onRemove: () {
-                      cartProvider.removeQuantity(item.product);
+                      cartProvider.removeQuantity(item);
                     },
                     quantity: item.quantity,
                     price: item.product.price * item.quantity,
                     imagePath: item.product.imagePath,
                     name: item.product.name,
+                    sepliment: List.empty(),
                     delete_press: () {
-                      cartProvider.removeFromCart(item.product);
+                      cartProvider.removeFromCart(item);
+                    },
+                  )
+                 : widget_Card_Cart(
+                    context,
+                    onAdd: () {
+                      cartProvider.addQuantity(item);
+                    },
+                    onRemove: () {
+                      cartProvider.removeQuantity(item);
+                    },
+                    quantity: item.quantity,
+                    price: item.product.price * item.quantity,
+                    imagePath: item.product.imagePath,
+                    name: item.product.name,
+                    sepliment: item.sepliment,
+                    delete_press: () {
+                      cartProvider.removeFromCart(item);
                     },
                   ),
+                
                 );
               },
             ),

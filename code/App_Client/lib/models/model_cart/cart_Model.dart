@@ -1,12 +1,11 @@
 import 'package:app_pizza_client/models/model_products/products_Model.dart';
+import 'package:app_pizza_client/models/model_sepliment/sepliment_Model.dart';
 
 class Cart_model {
   final Products_model product;
   int quantity;
-  Cart_model({
-    required this.product, 
-    this.quantity = 1,
-  });
+  List<Sepliment_model> sepliment;
+  Cart_model({required this.product, this.quantity = 1,this.sepliment=const[]});
 }
 
 // class Cart_Data {

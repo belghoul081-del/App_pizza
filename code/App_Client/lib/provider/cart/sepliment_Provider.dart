@@ -22,7 +22,7 @@ class SeplimentProvider with ChangeNotifier {
   }
 
   void clearSepliment() {
-    _selectSepliment.cast();
+    _selectSepliment.clear();
     notifyListeners();
   }
 }

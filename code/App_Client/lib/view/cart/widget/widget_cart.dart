@@ -1,4 +1,5 @@
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:app_pizza_client/models/model_sepliment/sepliment_Model.dart';
 import 'package:app_pizza_client/view/cart/widget/widget_container.dart';
 import 'package:app_pizza_client/widget/custom/costum_image_cards.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ Widget widget_Card_Cart(
   required int price,
   required String imagePath,
   required String name,
+  required List<Sepliment_model> sepliment,
 }) {
   return Align(
     alignment: Alignment.centerRight,
@@ -29,7 +31,7 @@ Widget widget_Card_Cart(
               right: context.heightPct(1),
               left: context.heightPct(8),
             ),
-            height: context.heightPct(17),
+            constraints: BoxConstraints(minHeight: context.heightPct(17)),
             width: context.widthPct(80),
             decoration: BoxDecoration(
               boxShadow: [
@@ -51,6 +53,7 @@ Widget widget_Card_Cart(
               quantity: quantity,
               price: price,
               name: name,
+              sepliment: sepliment,
             ),
           ),
 
