@@ -4,7 +4,7 @@ class Products_model {
   final int price;
   final String imagePath;
   final String categories;
-  // final bool isAvailable;
+  bool isAvailable;
   bool favorit;
   // final suplint;
 
@@ -20,6 +20,7 @@ class Products_model {
     this.favorit = false,
     // required this.isAvailable,
     required this.imagePath,
+    this.isAvailable = true,
   });
 }
 
@@ -92,6 +93,7 @@ class Products_Data {
       price: 450,
       categories: '##-sandwich',
       imagePath: 'assets/images/prodect_images/sandwich/sandwich_viand.png',
+      isAvailable: false,
     ),
 
     // --- TACCOS ---
