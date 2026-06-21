@@ -1,5 +1,6 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:app_pizza_client/models/model_cart/cart_Model.dart';
 import 'package:app_pizza_client/models/model_products/products_Model.dart';
 import 'package:app_pizza_client/models/model_sepliment/sepliment_Model.dart';
 import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
@@ -64,7 +65,7 @@ Dialog SeplimentDialog(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Total: ${provider.CalculatePrice(product.price)} Da",
+                    "Total: ${provider.calculatePrice(product.price)} Da",
                     style: TextStyle(
                       fontSize: context.heightPct(2),
                       color: ColorApp_Botton.bottonOrange,
@@ -81,10 +82,7 @@ Dialog SeplimentDialog(
                             context,
                             listen: false,
                           );
-                      cartProvider.add_Cart_sepliment(
-                        product,
-                        seplimentProvider,
-                      );
+                      cartProvider.add_Cart(product, seplimentProvider);
                       seplimentProvider.clearSepliment();
                       Navigator.pop(context);
                     }, // إغلاق الدايلوج

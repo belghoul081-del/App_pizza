@@ -5,7 +5,19 @@ class Cart_model {
   final Products_model product;
   int quantity;
   List<Sepliment_model> sepliment;
-  Cart_model({required this.product, this.quantity = 1,this.sepliment=const[]});
+  String get uniqueId =>
+      "${product.id}_${sepliment.map((e) => e.name).join('_')}";
+
+  Cart_model({
+    required this.product,
+    this.quantity = 1,
+    this.sepliment = const [],
+  });
+
+  int get pricePerUnit {
+    int seplimentPrice = sepliment.fold(0, (sum, item) => sum + item.price);
+    return product.price + seplimentPrice;
+  }
 }
 
 // class Cart_Data {

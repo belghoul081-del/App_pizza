@@ -16,16 +16,12 @@ class CartProvider with ChangeNotifier {
   ///دالة اضافة للسلة
   void add_Cart(Products_model cartItem, SeplimentProvider sepliment) {
     List<Sepliment_model> selectSepliment = sepliment.carts;
-    if (productExist(cartItem)) {
-      int index = _carts.indexWhere(
-        (element) =>
-            element.product.id == cartItem.id &&
-            areSeplimentEqual(element.sepliment, selectSepliment),
-      );
-      if (index!= -1) {
-         _carts[index].quantity = _carts[index].quantity + 1;
-      }
-     
+    String newId =
+        "${cartItem.id}_${selectSepliment.map((e) => e.name).join('_')}";
+
+    int index = _carts.indexWhere((element) => element.uniqueId == newId);
+    if (index != -1) {
+      _carts[index].quantity = _carts[index].quantity + 1;
     } else {
       _carts.add(
         Cart_model(
@@ -41,9 +37,7 @@ class CartProvider with ChangeNotifier {
   ///دالة زيادة كمية المنتج
   void addQuantity(Cart_model cartItem) {
     int index = _carts.indexWhere(
-      (element) =>
-          element.product.id == cartItem.product.id &&
-          areSeplimentEqual(element.sepliment, cartItem.sepliment),
+      (element) => element.uniqueId == cartItem.uniqueId,
     );
     if (index != -1) {
       _carts[index].quantity = _carts[index].quantity + 1;
@@ -54,31 +48,31 @@ class CartProvider with ChangeNotifier {
   ///دالة انقاص كمية المنتج
   void removeQuantity(Cart_model cartItem) {
     int index = _carts.indexWhere(
-      (element) =>
-          element.product.id == cartItem.product.id &&
-          areSeplimentEqual(element.sepliment, cartItem.sepliment),
+      (element) => element.uniqueId == cartItem.uniqueId,
     );
     if (index != -1) {
-      _carts[index].quantity = _carts[index].quantity - 1;
-      notifyListeners();
+      if (_carts[index].quantity > 1) {
+        _carts[index].quantity = _carts[index].quantity - 1;
+      }
     } else if (index != -1 && _carts[index].quantity == 1) {
       removeFromCart(cartItem);
     }
+    notifyListeners();
   }
 
   ///تحقق اذا كان في الكارت قبلا
 
-  bool productExist(Products_model product) {
-    return _carts.indexWhere((element) => element.product.id == product.id) !=
+  bool productExist(Cart_model cartItem) {
+    return _carts.indexWhere(
+          (element) => element.uniqueId == cartItem.uniqueId,
+        ) !=
         -1;
   }
 
   ///حذف من الكارد
   void removeFromCart(Cart_model cartItem) {
     int index = _carts.indexWhere(
-      (element) =>
-          element.product.id == cartItem.product.id &&
-          areSeplimentEqual(element.sepliment, cartItem.sepliment),
+      (element) => element.uniqueId == cartItem.uniqueId,
     );
     if (index != -1) {
       _carts.removeAt(index);
@@ -90,45 +84,8 @@ class CartProvider with ChangeNotifier {
   int total_Price_Cart() {
     int total = 0;
     for (var i = 0; i < _carts.length; i++) {
-      total += _carts[i].quantity * _carts[i].product.price;
+      total += _carts[i].quantity * _carts[i].pricePerUnit;
     }
     return total;
-  }
-
-  ///sepliment
-
-  void add_Cart_sepliment(Products_model product, SeplimentProvider sepliment) {
-    List<Sepliment_model> selectSepliment = List.from(sepliment.carts);
-    if (productExist(product)) {
-      int index = _carts.indexWhere(
-        (element) =>
-            element.product.id == product.id &&
-            areSeplimentEqual(element.sepliment, selectSepliment),
-      );
-      if (index != -1) {
-        _carts[index].quantity += 1;
-      }
-    } else {
-      _carts.add(
-        Cart_model(product: product, quantity: 1, sepliment: selectSepliment),
-      );
-    }
-    notifyListeners();
-  }
-
-  bool areSeplimentEqual(
-    List<Sepliment_model> list1,
-    List<Sepliment_model> list2,
-  ) {
-    if (list1.length != list2.length) {
-      return false;
-    }
-    for (var item in list2) {
-      bool found = list2.any((item2) => item2.name == item.name);
-      if (!found) {
-        return false;
-      }
-    }
-    return true;
   }
 }

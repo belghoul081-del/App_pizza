@@ -16,7 +16,7 @@ class SeplimentProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  int CalculatePrice(int productprice) {
+  int calculatePrice(int productprice) {
     int newPrice = _selectSepliment.fold(0, (sum, item) => sum + item.price);
     return newPrice + productprice;
   }
