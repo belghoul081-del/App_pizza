@@ -1,6 +1,7 @@
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/model_cart/cart_Model.dart';
 import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
+import 'package:app_pizza_client/view/cart/cart_is_empty_view.dart';
 import 'package:app_pizza_client/widget/appbare_widget/sliverAppBar_widget.dart';
 import 'package:app_pizza_client/view/cart/widget/widget_bottomNavigationBar.dart';
 import 'package:app_pizza_client/view/cart/widget/widget_cart.dart';
@@ -21,75 +22,77 @@ class _Order_PageState extends State<Order_Page> {
 
     List<Cart_model> carts = cartProvider.carts.reversed.toList();
 
-    return Scaffold(
-      bottomNavigationBar: widget_BottomNavigationBar(
-        context,
-        priceTotal: cartProvider.total_Price_Cart(),
-      ),
-
-      body: CustomScrollView(
-        slivers: [
-          //
-          widget_SliverAppBar(
-            context,
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            title: "Cart Details",
-          ),
-
-          SliverPadding(
-            padding: EdgeInsets.only(top: context.heightPct(5)),
-            sliver: SliverList.builder(
-              itemCount: carts.length,
-              itemBuilder: (BuildContext context, int index) {
-                final item = carts[index];
-
-                return ListTile(
-                  minVerticalPadding: context.heightPct(1.5),
-                  title: item.sepliment.isEmpty
-                      ? widget_Card_Cart(
-                          context,
-                          onAdd: () {
-                            cartProvider.addQuantity(item);
-                          },
-                          onRemove: () {
-                            cartProvider.removeQuantity(item);
-                          },
-                          quantity: item.quantity,
-                          price: item.product.price * item.quantity,
-                          imagePath: item.product.imagePath,
-                          name: item.product.name,
-                          sepliment: List.empty(),
-                          delete_press: () {
-                            cartProvider.removeFromCart(item);
-                          },
-                        )
-                      : widget_Card_Cart(
-                          context,
-                          onAdd: () {
-                            cartProvider.addQuantity(item);
-                          },
-                          onRemove: () {
-                            cartProvider.removeQuantity(item);
-                          },
-                          quantity: item.quantity,
-
-                          price: item.pricePerUnit * item.quantity,
-
-                          imagePath: item.product.imagePath,
-                          name: item.product.name,
-                          sepliment: item.sepliment,
-                          delete_press: () {
-                            cartProvider.removeFromCart(item);
-                          },
-                        ),
-                );
-              },
+    return cartProvider.carts.isEmpty
+        ? empty_Order_Page()
+        : Scaffold(
+            bottomNavigationBar: widget_BottomNavigationBar(
+              context,
+              priceTotal: cartProvider.total_Price_Cart(),
             ),
-          ),
-        ],
-      ),
-    );
+
+            body: CustomScrollView(
+              slivers: [
+                //
+                widget_SliverAppBar(
+                  context,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  title: "Cart Details",
+                ),
+
+                SliverPadding(
+                  padding: EdgeInsets.only(top: context.heightPct(5)),
+                  sliver: SliverList.builder(
+                    itemCount: carts.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = carts[index];
+
+                      return ListTile(
+                        minVerticalPadding: context.heightPct(1.5),
+                        title: item.sepliment.isEmpty
+                            ? widget_Card_Cart(
+                                context,
+                                onAdd: () {
+                                  cartProvider.addQuantity(item);
+                                },
+                                onRemove: () {
+                                  cartProvider.removeQuantity(item);
+                                },
+                                quantity: item.quantity,
+                                price: item.product.price * item.quantity,
+                                imagePath: item.product.imagePath,
+                                name: item.product.name,
+                                sepliment: List.empty(),
+                                delete_press: () {
+                                  cartProvider.removeFromCart(item);
+                                },
+                              )
+                            : widget_Card_Cart(
+                                context,
+                                onAdd: () {
+                                  cartProvider.addQuantity(item);
+                                },
+                                onRemove: () {
+                                  cartProvider.removeQuantity(item);
+                                },
+                                quantity: item.quantity,
+
+                                price: item.pricePerUnit * item.quantity,
+
+                                imagePath: item.product.imagePath,
+                                name: item.product.name,
+                                sepliment: item.sepliment,
+                                delete_press: () {
+                                  cartProvider.removeFromCart(item);
+                                },
+                              ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 }
