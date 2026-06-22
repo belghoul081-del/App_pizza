@@ -4,8 +4,8 @@ import 'package:app_pizza_owner/models/model_products/products_Model.dart';
 import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
 import 'package:app_pizza_owner/view/home/products/widget/products/botton_Cards.dart';
-import 'package:app_pizza_owner/view/home/products/widget/products/faverit_icon.dart';
 import 'package:app_pizza_owner/view/home/products/widget/products/sepliment/sepliment_Dialog.dart';
+import 'package:app_pizza_owner/view/home/widget/categories_bar/add_product_view.dart';
 import 'package:app_pizza_owner/widget/custom/costum_image_cards.dart';
 import 'package:app_pizza_owner/view/home/products/widget/products/text_cards.dart';
 import 'package:flutter/material.dart';
@@ -43,16 +43,6 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
       ),
       child: Stack(
         children: [
-          Widget_Faverit_Icon(
-            context,
-            selectFavIcon: widget.product.favorit,
-            ontab: () {
-              setState(() {
-                widget.product.favorit = !widget.product.favorit;
-              });
-              widget.onChanged();
-            },
-          ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: context.heightPct(0.5)),
             child: widget.product.isAvailable
@@ -81,59 +71,17 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             widget_Price_Cards(context, widget.product.price),
-                            Row(
-                              children: [
-                                widget_Botton_Cards(
-                                  context,
-                                  color: ColorApp_Background.backgroundcolorII,
-                                  icon: Icons.list,
-                                  onPress: () {
-                                    final provider =
-                                        Provider.of<SeplimentProvider>(
-                                          context,
-                                          listen: false,
-                                        ).clearSepliment();
-                                    showDialog(
-                                      barrierDismissible: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            provider;
-                                            Navigator.pop(context);
-                                          },
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {},
-                                              child: SeplimentDialog(
-                                                context,
-                                                product: widget.product,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
+
+                            widget_Botton_Cards(
+                              context,
+                              color: ColorApp_Botton.bottonOrange,
+                              icon: Icons.settings,
+                              onPress: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Add_Product_Page(product: widget.product),
                                 ),
-                                SizedBox(width: context.widthPct(1)),
-                                widget_Botton_Cards(
-                                  context,
-                                  color: ColorApp_Botton.bottonOrange,
-                                  icon: Icons.add,
-                                  onPress: () {
-                                    final seplimentProvider =
-                                        Provider.of<SeplimentProvider>(
-                                          context,
-                                          listen: false,
-                                        );
-                                    cartProvider.add_Cart(
-                                      widget.product,
-                                      seplimentProvider,
-                                    );
-                                  },
-                                ),
-                              ],
+                              ),
                             ),
                           ],
                         ),

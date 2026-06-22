@@ -15,9 +15,6 @@ class _Products_cards_homeState extends State<Products_cards_home> {
   @override
   Widget build(BuildContext context) {
     final filterProducts = Products_Data.cards_of_Products.where((protected) {
-      if (widget.selectedCategory == "favorit") {
-        return protected.favorit;
-      }
       return protected.categories == widget.selectedCategory;
     }).toList();
     return GridView.builder(

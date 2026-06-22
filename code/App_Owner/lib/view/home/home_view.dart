@@ -1,6 +1,5 @@
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/models/model_announcement/announcement_Model.dart';
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
 import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_owner/view/cart/cart_is_empty_view.dart';
 import 'package:app_pizza_owner/view/home/announcement_home.dart';
@@ -9,7 +8,6 @@ import 'package:app_pizza_owner/view/home/categories_home.dart';
 import 'package:app_pizza_owner/models/model_category/category_Model.dart';
 import 'package:app_pizza_owner/view/home/lo_noti_acc.dart';
 import 'package:app_pizza_owner/view/home/products/cards_home.dart';
-import 'package:app_pizza_owner/view/home/widget/categories_bar/favorit_category.dart';
 import 'package:app_pizza_owner/widget/custom/costum_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
