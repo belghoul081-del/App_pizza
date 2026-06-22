@@ -1,15 +1,15 @@
-import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
-import 'package:app_pizza_client/provider/cart/sepliment_Provider.dart';
-import 'package:app_pizza_client/view/cart/cart_view.dart';
-import 'package:app_pizza_client/view/chat/message.dart';
-import 'package:app_pizza_client/view/event/notification_view.dart';
-import 'package:app_pizza_client/view/profile/account_view.dart';
-import 'package:app_pizza_client/view/start/choose_L_R_view.dart';
-import 'package:app_pizza_client/view/start/welcome_view.dart';
+import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
+import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
+import 'package:app_pizza_owner/view/cart/cart_view.dart';
+import 'package:app_pizza_owner/view/chat/message.dart';
+import 'package:app_pizza_owner/view/event/notification_view.dart';
+import 'package:app_pizza_owner/view/profile/account_view.dart';
+import 'package:app_pizza_owner/view/start/choose_L_R_view.dart';
+import 'package:app_pizza_owner/view/start/welcome_view.dart';
 import 'package:flutter/material.dart';
-import 'package:app_pizza_client/constant/app_color.dart';
-import 'package:app_pizza_client/view/home/home_view.dart';
-import 'package:app_pizza_client/view/start/loading_view.dart';
+import 'package:app_pizza_owner/constant/app_color.dart';
+import 'package:app_pizza_owner/view/home/home_view.dart';
+import 'package:app_pizza_owner/view/start/loading_view.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
