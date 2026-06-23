@@ -5,7 +5,7 @@ import 'package:app_pizza_owner/models/model_products/products_Model.dart';
 import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
 import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
-import 'package:app_pizza_owner/view/home/products/widget/products/sepliment/buttton_of_sepliment.dart';
+import 'package:app_pizza_owner/view/home/products/widget/sepliment/buttton_of_sepliment.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,9 +44,9 @@ Dialog SeplimentDialog(
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: Sepliment_Data.sepliment.length,
+                itemCount: Sepliment_Data.general_supplements.length,
                 itemBuilder: (context, index) {
-                  final item = Sepliment_Data.sepliment[index];
+                  final item = Sepliment_Data.general_supplements[index];
                   return SizedBox(
                     height: context.heightPct(5), // تصغير ارتفاع كل صف
                     child: ButttonOfSepliment(

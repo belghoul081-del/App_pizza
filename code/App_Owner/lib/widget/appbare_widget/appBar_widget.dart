@@ -15,7 +15,7 @@ AppBar Widget_appBar(BuildContext context, {required String title}) {
       iconSize: context.heightPct(6),
 
       onPressed: () {
-        Navigator.of(context).pop();
+        Navigator.of(context).pop(true);
       },
     ),
     toolbarHeight: context.heightPct(10),

@@ -118,6 +118,7 @@ flutter:
     # icons 
     - assets/icons/sad-face.svg
     - assets/icons/ID_icone.svg
+    - assets/icons/cub_icone.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -4,8 +4,8 @@ import 'package:app_pizza_owner/models/model_products/products_Model.dart';
 import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
 import 'package:app_pizza_owner/view/home/products/widget/products/botton_Cards.dart';
-import 'package:app_pizza_owner/view/home/products/widget/products/sepliment/sepliment_Dialog.dart';
-import 'package:app_pizza_owner/view/home/widget/categories_bar/add_product_view.dart';
+import 'package:app_pizza_owner/view/home/products/widget/sepliment/sepliment_Dialog.dart';
+import 'package:app_pizza_owner/view/home/products/widget/detail_product/details_product_view.dart';
 import 'package:app_pizza_owner/widget/custom/costum_image_cards.dart';
 import 'package:app_pizza_owner/view/home/products/widget/products/text_cards.dart';
 import 'package:flutter/material.dart';
@@ -76,12 +76,19 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
                               context,
                               color: ColorApp_Botton.bottonOrange,
                               icon: Icons.settings,
-                              onPress: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      Add_Product_Page(product: widget.product),
-                                ),
-                              ),
+                              onPress: () async {
+                                final result = await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => details_Product_Page(
+                                      product: widget.product,
+                                      onChanged: widget.onChanged,
+                                    ),
+                                  ),
+                                );
+                                if (result == true) {
+                                  setState(() {});
+                                }
+                              },
                             ),
                           ],
                         ),
@@ -108,13 +115,42 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
                             color: ColorApp_Text.textred,
                           ),
                         ),
-                        Text(
-                          "in not avalibale",
-                          style: TextStyle(
-                            color: ColorApp_Text.textred,
-                            fontFamily: "InterBold",
-                          ),
-                          textAlign: TextAlign.center,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: context.heightPct(1),
+                              ),
+                              child: Text(
+                                "in not avalibale",
+                                style: TextStyle(
+                                  color: ColorApp_Text.textred,
+                                  fontFamily: "InterBold",
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            widget_Botton_Cards(
+                              context,
+                              color: ColorApp_Botton.bottonOrange,
+                              icon: Icons.settings,
+                              // بدلاً من مجرد .push()
+                              onPress: () async {
+                                final result = await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => details_Product_Page(
+                                      product: widget.product,
+                                      onChanged: widget.onChanged,
+                                    ),
+                                  ),
+                                );
+                                if (result == true) {
+                                  setState(() {});
+                                }
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
