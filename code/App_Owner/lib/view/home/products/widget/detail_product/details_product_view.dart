@@ -167,7 +167,7 @@ class _details_Product_PageState extends State<details_Product_Page> {
                           horizontal: context.heightPct(3),
                         ),
                         child: Text(
-                          "Suplient : ",
+                          "Supliment : ",
                           style: TextStyle(
                             fontSize: context.heightPct(4),
                             fontFamily: "InriaSerif",

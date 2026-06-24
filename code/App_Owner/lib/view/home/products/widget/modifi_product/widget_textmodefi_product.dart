@@ -1,66 +1,75 @@
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-Widget Text_Modefie_Product({
+Widget Text_show_Product({
   required BuildContext context,
-  required int? maxLength,
-  required int hintText, //text in side
-  required IconData icon, //icon
-  required TextEditingController controller,
-  TextInputType keyboardType = TextInputType.text, // type of text
-  Function(String)? onChanged,
-  String? Function(String?)? validator,
+  required String title,
+  required String item,
+  required VoidCallback onPressed,
 }) {
-  return Container(
-    height: context.heightPct(5.5),
-    width: context.widthPct(90),
-    decoration: BoxDecoration(
-      color: ColorApp_Background.spaceofwrite_info_massege,
-      border: Border.all(
-        color: const Color(0xFF472900),
-        width: context.heightPct(0.15),
-      ),
-      borderRadius: BorderRadius.all(Radius.circular(50)),
+  return Padding(
+    padding: EdgeInsets.symmetric(
+      horizontal: context.heightPct(2),
+      vertical: context.heightPct(0.5),
     ),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: EdgeInsets.only(
-            left: context.widthPct(2),
-            right: context.widthPct(3),
-          ),
-          child: Container(
-            child:Icon(
-                    icon,
-                    size: context.heightPct(5),
-                    color: ColorApp_Icon_border.bottonbrown,
-                  )
-                
-          ),
-        ),
-        Expanded(
-          child: TextFormField(
-            controller: controller,
-            maxLength: maxLength,
-            validator: validator,
-            keyboardType: keyboardType,
-            onChanged: onChanged,
-            initialValue: controller=null,
-            decoration: InputDecoration(
-              counterText: "",
-              hintStyle: TextStyle(
-                color: Colors.black38,
-                fontSize: context.heightPct(2),
+        /// text :
+        Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(
+                text: title,
+                style: TextStyle(
+                  fontSize: context.heightPct(3),
+                  fontFamily: "InterBold",
+                  color: ColorApp_Text.textbrown,
+                ),
               ),
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(bottom: context.heightPct(0.5)),
-            ),
+              TextSpan(
+                text: item,
+
+                style: TextStyle(
+                  fontSize: item.length < 16
+                      ? context.heightPct(3)
+                      : context.heightPct(2),
+                  fontFamily: "InterBold",
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
         ),
+        modifi__Button_Modifi(context, onPressed: onPressed),
       ],
+    ),
+  );
+}
+
+Widget modifi__Button_Modifi(
+  BuildContext context, {
+  required VoidCallback onPressed,
+}) {
+  return Container(
+    height: context.heightPct(4),
+    width: context.heightPct(4),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      border: Border.all(color: ColorApp_Icon_border.bottonbrown),
+      color: ColorApp_Background.appbarecolor,
+    ),
+
+    child: IconButton(
+      onPressed: onPressed,
+      icon: Icon(
+        Icons.edit_outlined,
+        size: context.heightPct(3),
+        color: ColorApp_Icon_border.bottonbrown,
+      ),
+      padding: EdgeInsets.zero,
+      constraints: BoxConstraints(),
     ),
   );
 }
