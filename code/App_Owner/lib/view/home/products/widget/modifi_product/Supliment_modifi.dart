@@ -4,7 +4,7 @@ import 'package:app_pizza_owner/models/model_products/products_Model.dart';
 import 'package:app_pizza_owner/service/service_supplements.dart';
 import 'package:app_pizza_owner/view/home/products/widget/modifi_product/widget_textModefi.dart';
 import 'package:app_pizza_owner/view/home/products/widget/modifi_product/widget_textmodefi_product.dart';
-import 'package:app_pizza_owner/widget/custom/costum_botton.dart';
+import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
@@ -198,6 +198,8 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                 },
                                 height: 7,
                                 width: 30,
+                                backgroundColor: ColorApp_Botton.bottonOrange,
+                                textColor: ColorApp_Background.backgroundcolor,
                               ),
                             ],
                           ),
@@ -479,6 +481,12 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                                                       },
                                                                       height: 7,
                                                                       width: 30,
+                                                                      backgroundColor:
+                                                                          ColorApp_Botton
+                                                                              .bottonOrange,
+                                                                      textColor:
+                                                                          ColorApp_Icon_border
+                                                                              .bottonbrown,
                                                                     ),
                                                                     MaterialButton(
                                                                       onPressed: () {

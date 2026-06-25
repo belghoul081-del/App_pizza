@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.1.5+1
   flutter_test:
     sdk: flutter
+  image_picker: ^1.2.2
 
 dev_dependencies:
 

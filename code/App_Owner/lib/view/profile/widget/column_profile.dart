@@ -1,7 +1,8 @@
+import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/models/admin/Admin_Model.dart';
 import 'package:app_pizza_owner/view/profile/widget/bottonOFOpenORClose.dart';
 import 'package:app_pizza_owner/view/profile/widget/widget_TextInfo.dart';
-import 'package:app_pizza_owner/view/profile/widget/widget_button_logout.dart';
+import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
 
@@ -75,9 +76,34 @@ Widget Widget_profile(BuildContext context, Admin_Model clientInf) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(child: Widget_botton_Blaklist(context)),
+                  Expanded(
+                    child: Widget_botton(
+                      context,
+                      text: 'Black list',
+                      onPressed: () {},
+                      height: 8,
+                      width: 50,
+                      backgroundColor: ColorApp_Icon_border.bottonbrown,
+                      textColor: Colors.white,
+                    ),
+                  ),
                   SizedBox(width: context.widthPct(0)),
-                  Flexible(child: Widget_botton_Logout(context)),
+                  Flexible(
+                    child: Widget_botton(
+                      context,
+                      text: 'Logout',
+                      onPressed: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          "Welcome",
+                          (Route<dynamic> route) => false,
+                        );
+                      },
+                      height: 8,
+                      width: 50,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ),

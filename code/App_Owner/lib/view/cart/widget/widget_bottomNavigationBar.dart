@@ -2,7 +2,7 @@ import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/view/cart/widget/showDialog/show_card_dialg.dart';
 import 'package:app_pizza_owner/widget/custom/costum_bar.dart';
-import 'package:app_pizza_owner/widget/custom/costum_botton.dart';
+import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
 import 'package:flutter/material.dart';
 
 Widget widget_BottomNavigationBar(
@@ -64,6 +64,8 @@ Widget widget_BottomNavigationBar(
             },
             height: 8,
             width: 90,
+             backgroundColor: ColorApp_Botton.bottonOrange,
+                     textColor: ColorApp_Background.backgroundcolor,
           ),
         ),
       ],

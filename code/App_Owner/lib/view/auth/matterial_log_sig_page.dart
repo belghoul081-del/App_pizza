@@ -1,7 +1,7 @@
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/admin/Admin_Model.dart';
-import 'package:app_pizza_owner/widget/custom/costum_botton.dart';
+import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
 import 'package:app_pizza_owner/view/auth/widget/body/image_rchma.dart';
 import 'package:app_pizza_owner/view/auth/widget/body/textArea.dart';
 import 'package:flutter/material.dart';
@@ -137,6 +137,8 @@ Widget buildSignInForm(
                 },
                 height: 7,
                 width: 60,
+                backgroundColor: ColorApp_Botton.bottonOrange,
+                textColor: ColorApp_Background.backgroundcolor,
               ),
             ],
           ),

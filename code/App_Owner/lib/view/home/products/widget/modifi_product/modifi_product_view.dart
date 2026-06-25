@@ -1,14 +1,18 @@
+import 'dart:io';
+
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/model_products/products_Model.dart';
+import 'package:app_pizza_owner/service/service_PhotoProduct.dart';
 import 'package:app_pizza_owner/view/home/products/widget/modifi_product/Supliment_modifi.dart';
 import 'package:app_pizza_owner/view/home/products/widget/modifi_product/widget_IconImage.dart';
 import 'package:app_pizza_owner/view/home/products/widget/modifi_product/widget_textModefi.dart';
 import 'package:app_pizza_owner/view/home/products/widget/modifi_product/widget_textmodefi_product.dart';
 import 'package:app_pizza_owner/widget/appbare_widget/appBar_widget.dart';
 import 'package:app_pizza_owner/widget/custom/costum_bar.dart';
-import 'package:app_pizza_owner/widget/custom/costum_botton.dart';
+import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Modifi_Product_Page extends StatefulWidget {
   final Products_model product;
@@ -21,6 +25,18 @@ class Modifi_Product_Page extends StatefulWidget {
 class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
+  File? _selectedImage; 
+  final ImagePickerService _imageService = ImagePickerService();
+
+  Future<void> _pickImage() async {
+    File? image = await _imageService.pickImage(ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _selectedImage = image;
+        // هنا يمكنك إضافة منطق تحديث مسار الصورة في الموديل الخاص بك لاحقاً
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +45,12 @@ class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
       body: Center(
         child: Column(
           children: [
-            Image_modifi(context, image: widget.product.imagePath),
+           Image_modifi(
+              context, 
+              image: widget.product.imagePath, 
+              selectedImage: _selectedImage, // نمرر الصورة المختارة
+              onPressed: _pickImage, // نمرر الدالة مباشرة
+            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: context.heightPct(2)),
               child: DashedLineDivider(
@@ -83,6 +104,8 @@ class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
                           },
                           height: 7,
                           width: 30,
+                           backgroundColor: ColorApp_Botton.bottonOrange,
+                          textColor: ColorApp_Icon_border.bottonbrown
                         ),
                       ],
                     ),
@@ -135,6 +158,8 @@ class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
                           },
                           height: 7,
                           width: 30,
+                          backgroundColor: ColorApp_Botton.bottonOrange,
+                          textColor: ColorApp_Icon_border.bottonbrown
                         ),
                       ],
                     ),
