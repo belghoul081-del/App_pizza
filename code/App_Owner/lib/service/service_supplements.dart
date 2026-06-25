@@ -1,3 +1,4 @@
+import 'package:app_pizza_owner/models/model_products/products_Model.dart';
 import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
 
 class SupplementService {
@@ -30,27 +31,42 @@ class SupplementService {
   static Future<void> addSupplement({
     required String name,
     required int price,
-    required bool isSpecific,
-    required String categories, // هذه هي الكاتيجوري الخاصة بالمنتج الحالي
+    required int type,
+    required String categories,
+    required Products_model productId,
   }) async {
-    // 1. توليد ID فريد
     String newId = generateUniqueId();
-
-    // 2. إنشاء كائن الإضافة الجديد
-    // إذا كانت 'isSpecific' صحيحة نضع الكاتيجوري، وإلا نتركها '' لتصبح عامة
     final newSupplement = Sepliment_model(
       id: newId,
       name: name,
       price: price,
-      categories: isSpecific ? categories : '',
+      categories: (type == 1) ? productId.categories : '',
+      ProductId: (type == 0) ? productId.id : '',
     );
-
-    // 3. الإضافة للقائمة الرئيسية (Sepliment_Data)
-    // بما أن القائمة هي المصدر الأساسي، فإن الإضافة إليها ستجعلها تظهر
-    // تلقائياً في الدوال الأخرى مثل getSupplementsForCategory
     Sepliment_Data.general_supplements.add(newSupplement);
-
-    // ملاحظة: إذا كنت تستخدم قاعدة بيانات خارجية (مثل Firebase)،
-    // قم هنا باستدعاء دالة الـ save أو الـ set الخاصة بها.
   }
+
+  static List<Sepliment_model> getSupplementsForProductsId(
+    Products_model product,
+  ) {
+    return Sepliment_Data.general_supplements.where((s) {
+      if (s.categories == '' && s.ProductId == '') {
+        return true;
+      }
+      if (s.categories == product.categories && s.ProductId == '') {
+        return true;
+      }
+      if (s.categories == product.categories && s.ProductId == product.id) {
+        return true;
+      }
+      return false;
+    }).toList();
+  }
+  
+  static Future<void> deleteSupplement({
+    required String id,
+  }) async {
+    Sepliment_Data.general_supplements.removeWhere((item)=> item.id ==id);
+  }
+
 }

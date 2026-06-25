@@ -61,16 +61,12 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                     TextEditingController newPriceController =
                         TextEditingController();
 
-                    // متغير لتخزين الحالة (false للعام، true للخاص)
-                    bool isSpecific = true;
+                    int isSpecific = 0;
 
                     widget.scaffoldKey.currentState!.showBottomSheet(
                       (context) => StatefulBuilder(
-                        // استخدام StatefulBuilder لتحديث الأزرار داخل الـ BottomSheet
                         builder: (context, setBottomSheetState) => Container(
-                          height: context.heightPct(
-                            40,
-                          ), // زدنا الارتفاع قليلاً لاستيعاب الأزرار
+                          height: context.heightPct(40),
                           padding: EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             color: ColorApp_Background.appbarecolor,
@@ -80,19 +76,48 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                           ),
                           child: Column(
                             children: [
-                              // زر اختيار النوع
                               Row(
                                 children: [
                                   Expanded(
                                     child: InkWell(
                                       onTap: () => setBottomSheetState(
-                                        () => isSpecific = true,
+                                        () => isSpecific = 0,
                                       ),
                                       child: Container(
                                         padding: EdgeInsets.all(10),
                                         decoration: BoxDecoration(
-                                          color: isSpecific
-                                              ? ColorApp_Icon_border.bottonbrown
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(20),
+                                          ),
+                                          color: isSpecific == 0
+                                              ? ColorApp_Botton.bottonOrange
+                                              : Colors.transparent,
+                                          border: Border.all(
+                                            color: ColorApp_Icon_border
+                                                .bottonbrown,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Only",
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: () => setBottomSheetState(
+                                        () => isSpecific = 1,
+                                      ),
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(20),
+                                          ),
+                                          color: isSpecific == 1
+                                              ? ColorApp_Botton.bottonOrange
                                               : Colors.transparent,
                                           border: Border.all(
                                             color: ColorApp_Icon_border
@@ -109,17 +134,20 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                   Expanded(
                                     child: InkWell(
                                       onTap: () => setBottomSheetState(
-                                        () => isSpecific = false,
+                                        () => isSpecific = 2,
                                       ),
                                       child: Container(
                                         padding: EdgeInsets.all(10),
                                         decoration: BoxDecoration(
-                                          color: !isSpecific
-                                              ? ColorApp_Icon_border.bottonbrown
+                                          color: isSpecific == 2
+                                              ? ColorApp_Botton.bottonOrange
                                               : Colors.transparent,
                                           border: Border.all(
                                             color: ColorApp_Icon_border
                                                 .bottonbrown,
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(20),
                                           ),
                                         ),
                                         child: Text(
@@ -133,7 +161,6 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                               ),
                               SizedBox(height: context.heightPct(2)),
 
-                              // باقي الحقول (Name & Price)
                               Text_Modefie_Product(
                                 context: context,
                                 controller: newNameController,
@@ -161,8 +188,9 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                               newPriceController.text,
                                             ) ??
                                             0,
-                                        isSpecific: isSpecific,
+                                        type: isSpecific,
                                         categories: widget.product.categories,
+                                        productId: widget.product,
                                       );
                                     });
                                     Navigator.pop(context);
@@ -230,18 +258,40 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                 child: Builder(
                                   builder: (context) {
                                     final category = widget.product.categories;
-                                    final specific =
-                                        SupplementService.getOnlySupplements(
-                                          category,
-                                        );
-                                    final global =
-                                        SupplementService.getAllSupplements(
-                                          category,
-                                        );
+                                    final productid = widget.product.id;
+
+                                    final productSpecific = Sepliment_Data
+                                        .general_supplements
+                                        .where(
+                                          (s) =>
+                                              s.ProductId == widget.product.id,
+                                        )
+                                        .toList();
+                                    final categorySpecific = Sepliment_Data
+                                        .general_supplements
+                                        .where(
+                                          (s) =>
+                                              s.categories == category &&
+                                              s.ProductId == '',
+                                        )
+                                        .toList();
+                                    final global = Sepliment_Data
+                                        .general_supplements
+                                        .where(
+                                          (s) =>
+                                              s.categories == '' &&
+                                              s.ProductId == '',
+                                        )
+                                        .toList();
                                     List<dynamic> displayList = [];
-                                    if (specific.isNotEmpty) {
-                                      displayList.add("Specially:");
-                                      displayList.addAll(specific);
+
+                                    if (productSpecific.isNotEmpty) {
+                                      displayList.add("Product Specific:");
+                                      displayList.addAll(productSpecific);
+                                    }
+                                    if (categorySpecific.isNotEmpty) {
+                                      displayList.add("Category Specific:");
+                                      displayList.addAll(categorySpecific);
                                     }
                                     if (global.isNotEmpty) {
                                       displayList.add("Global:");
@@ -253,7 +303,6 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                       itemBuilder: (context, index) {
                                         final item = displayList[index];
 
-                                        // التحقق: هل هو عنوان (String) أم إضافة (Supplement_model)؟
                                         if (item is String) {
                                           return Padding(
                                             padding: EdgeInsets.only(
@@ -404,33 +453,114 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                                                   height: 20,
                                                                 ),
 
-                                                                Widget_botton(
-                                                                  context,
-                                                                  text: 'save',
-                                                                  onPressed: () {
-                                                                    if (suplimentController
-                                                                            .text
-                                                                            .isNotEmpty &&
-                                                                        suplimentPriceController
-                                                                            .text
-                                                                            .isNotEmpty) {
-                                                                      setState(() {
-                                                                        item.name =
-                                                                            suplimentController.text;
-                                                                        item.price =
-                                                                            int.tryParse(
-                                                                              suplimentPriceController.text,
-                                                                            ) ??
-                                                                            0;
-                                                                      });
-                                                                    }
-
-                                                                    Navigator.pop(
+                                                                Row(
+                                                                  children: [
+                                                                    Widget_botton(
                                                                       context,
-                                                                    );
-                                                                  },
-                                                                  height: 7,
-                                                                  width: 30,
+                                                                      text:
+                                                                          'save',
+                                                                      onPressed: () {
+                                                                        if (suplimentController.text.isNotEmpty &&
+                                                                            suplimentPriceController.text.isNotEmpty) {
+                                                                          setState(() {
+                                                                            item.name =
+                                                                                suplimentController.text;
+                                                                            item.price =
+                                                                                int.tryParse(
+                                                                                  suplimentPriceController.text,
+                                                                                ) ??
+                                                                                0;
+                                                                          });
+                                                                        }
+
+                                                                        Navigator.pop(
+                                                                          context,
+                                                                        );
+                                                                      },
+                                                                      height: 7,
+                                                                      width: 30,
+                                                                    ),
+                                                                    MaterialButton(
+                                                                      onPressed: () {
+                                                                        setState(() {
+                                                                          if (suplimentController
+                                                                              .text
+                                                                              .isEmpty) {
+                                                                            SupplementService.deleteSupplement(
+                                                                              id: item.id,
+                                                                            );
+                                                                            Navigator.pop(
+                                                                              context,
+                                                                            );
+                                                                            ScaffoldMessenger.of(
+                                                                              context,
+                                                                            ).showSnackBar(
+                                                                              SnackBar(
+                                                                                behavior: SnackBarBehavior.floating,
+                                                                                shape: RoundedRectangleBorder(
+                                                                                  borderRadius: BorderRadius.circular(
+                                                                                    20,
+                                                                                  ),
+                                                                                ),
+                                                                                margin: EdgeInsets.all(
+                                                                                  10,
+                                                                                ),
+                                                                                content: Text(
+                                                                                  "Delete Suppliment : ${item.name}",
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          }
+                                                                        });
+
+                                                                        Navigator.pop(
+                                                                          context,
+                                                                        );
+                                                                      },
+                                                                      child: Container(
+                                                                        height: context
+                                                                            .heightPct(
+                                                                              7,
+                                                                            ),
+                                                                        width: context
+                                                                            .widthPct(
+                                                                              30,
+                                                                            ),
+                                                                        decoration: BoxDecoration(
+                                                                          color:
+                                                                              suplimentController.text.isEmpty
+                                                                              ? const Color.fromARGB(
+                                                                                  255,
+                                                                                  250,
+                                                                                  47,
+                                                                                  33,
+                                                                                )
+                                                                              : const Color.fromARGB(
+                                                                                  255,
+                                                                                  252,
+                                                                                  125,
+                                                                                  116,
+                                                                                ),
+                                                                          borderRadius: BorderRadius.all(
+                                                                            Radius.circular(
+                                                                              50,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        child: Center(
+                                                                          child: Text(
+                                                                            "Delete",
+                                                                            style: TextStyle(
+                                                                              color: ColorApp_Text.textbrown,
+                                                                              fontSize: context.heightPct(
+                                                                                3,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ],
                                                             ),

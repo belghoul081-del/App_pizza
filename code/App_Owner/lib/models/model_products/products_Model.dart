@@ -87,7 +87,7 @@ class Products_Data {
       price: 450,
       categories: '##-burger',
       imagePath: 'assets/images/prodect_images/burger/burger.png',
-      supplements: SupplementService.getSupplementsForCategory(''),
+      supplements: SupplementService.getSupplementsForCategory('##-burger'),
     ),
 
     // --- SANDWICH ---
@@ -97,7 +97,7 @@ class Products_Data {
       price: 400,
       categories: '##-sandwich',
       imagePath: 'assets/images/prodect_images/sandwich/sandwich_poli.png',
-      supplements: SupplementService.getSupplementsForCategory(''),
+      supplements: SupplementService.getSupplementsForCategory('##-sandwich'),
     ),
     Products_model(
       id: "S-002",
@@ -105,7 +105,7 @@ class Products_Data {
       price: 450,
       categories: '##-sandwich',
       imagePath: 'assets/images/prodect_images/sandwich/sandwich_viand.png',
-      supplements: SupplementService.getSupplementsForCategory(''),
+      supplements: SupplementService.getSupplementsForCategory('##sandwich'),
       isAvailable: false,
     ),
 
@@ -116,7 +116,7 @@ class Products_Data {
       price: 550,
       categories: '##-taccos',
       imagePath: 'assets/images/prodect_images/taccos/takos.png',
-      supplements: SupplementService.getSupplementsForCategory(''),
+      supplements: SupplementService.getSupplementsForCategory('##-taccos'),
     ),
 
     // --- JUES (مشروبات) ---
@@ -152,7 +152,7 @@ class Products_Data {
       price: 200,
       categories: '##-kaick',
       imagePath: 'assets/images/prodect_images/kaick/kaick.png',
-      supplements: SupplementService.getSupplementsForCategory(''),
+      supplements: SupplementService.getSupplementsForCategory('##-kaick'),
     ),
   ];
 }
