@@ -1,7 +1,7 @@
 class Sepliment_model {
   final String id;
-  final String name;
-  final int price;
+   String name;
+   int price;
  final String categories;
 
   Sepliment_model({required this.id, required this.name, required this.price,this.categories=''});
