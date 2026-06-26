@@ -1,5 +1,6 @@
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
+import 'package:app_pizza_owner/view/products/add_product/add_product_page.dart';
 import 'package:flutter/material.dart';
 
 Widget Button_ADD_product({required BuildContext context}) {
@@ -15,10 +16,17 @@ Widget Button_ADD_product({required BuildContext context}) {
     ),
     child: Container(
       padding: EdgeInsets.all(context.heightPct(0.2)),
-      child: Icon(
-        Icons.add,
-        color: ColorApp_Icon_border.bottonbrown,
-        size: context.heightPct(5),
+      child: InkWell(
+        child: Icon(
+          Icons.add,
+          color: ColorApp_Icon_border.bottonbrown,
+          size: context.heightPct(5),
+        ),
+        onTap: () {
+          Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (context) => Add_Product_Page()));
+        },
       ),
     ),
   );

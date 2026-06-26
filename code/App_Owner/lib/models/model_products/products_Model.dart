@@ -8,19 +8,15 @@ class Products_model {
   final String imagePath;
   final String categories;
   bool isAvailable;
-  bool favorit;
   final List<Sepliment_model> supplements;
 
-  void toggleFavorite() {
-    favorit = !favorit;
-  }
+  
 
   Products_model({
     required this.id,
     required this.name,
     required this.price,
     required this.categories,
-    this.favorit = false,
     // required this.isAvailable,
     required this.imagePath,
     this.isAvailable = true,

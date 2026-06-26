@@ -40,6 +40,7 @@ dependencies:
   flutter_test:
     sdk: flutter
   image_picker: ^1.2.2
+  path: ^1.9.1
 
 dev_dependencies:
 

@@ -1,7 +1,7 @@
 import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
 import 'package:app_pizza_owner/service/service_supplements.dart';
-import 'package:app_pizza_owner/view/home/products/widget/detail_product/details_product_view.dart';
+import 'package:app_pizza_owner/view/products/detail_product/details_product_view.dart';
 import 'package:flutter/material.dart';
 
 class Supplements_View extends StatelessWidget {

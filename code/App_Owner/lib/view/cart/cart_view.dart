@@ -2,6 +2,7 @@ import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/model_cart/cart_Model.dart';
 import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_owner/view/cart/cart_is_empty_view.dart';
+import 'package:app_pizza_owner/widget/appbare_widget/appBar_widget.dart';
 import 'package:app_pizza_owner/widget/appbare_widget/sliverAppBar_widget.dart';
 import 'package:app_pizza_owner/view/cart/widget/widget_bottomNavigationBar.dart';
 import 'package:app_pizza_owner/view/cart/widget/widget_cart.dart';
@@ -29,17 +30,10 @@ class _Order_PageState extends State<Order_Page> {
               context,
               priceTotal: cartProvider.total_Price_Cart(),
             ),
-
             body: CustomScrollView(
               slivers: [
                 //
-                widget_SliverAppBar(
-                  context,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  title: "Cart Details",
-                ),
+                Widget_appBar(context, title: "Cart Details"),
 
                 SliverPadding(
                   padding: EdgeInsets.only(top: context.heightPct(5)),

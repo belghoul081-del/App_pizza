@@ -7,7 +7,7 @@ import 'package:app_pizza_owner/view/home/b_N_Bar_home.dart';
 import 'package:app_pizza_owner/view/home/categories_home.dart';
 import 'package:app_pizza_owner/models/model_category/category_Model.dart';
 import 'package:app_pizza_owner/view/home/lo_noti_acc.dart';
-import 'package:app_pizza_owner/view/home/products/cards_home.dart';
+import 'package:app_pizza_owner/view/products/cards_home.dart';
 import 'package:app_pizza_owner/widget/custom/costum_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';

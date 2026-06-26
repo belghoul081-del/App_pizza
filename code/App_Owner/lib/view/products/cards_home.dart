@@ -1,6 +1,6 @@
 import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/view/home/products/widget/products/cards_product.dart';
+import 'package:app_pizza_owner/view/products/widget/products/cards_product.dart';
 import 'package:flutter/material.dart';
 
 class Products_cards_home extends StatefulWidget {

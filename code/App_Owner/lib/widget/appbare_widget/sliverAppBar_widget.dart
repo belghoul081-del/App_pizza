@@ -34,7 +34,7 @@ Widget widget_SliverAppBar(
 
     /// line
     bottom: PreferredSize(
-      preferredSize: Size.fromHeight(1.0), // سماكة الخط
+      preferredSize: Size.fromHeight(1.0),
       child: Container(
         color: ColorApp_Icon_border.bottonbrown,
         height: context.heightPct(0.3),

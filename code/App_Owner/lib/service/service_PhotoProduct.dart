@@ -9,5 +9,6 @@ class ImagePickerService {
   Future<File?> pickImage(ImageSource source) async {
     final XFile? pickedFile = await _picker.pickImage(source: source);
     return pickedFile != null ? File(pickedFile.path) : null;
+    
   }
 }

@@ -2,8 +2,8 @@ import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/model_products/products_Model.dart';
 import 'package:app_pizza_owner/service/service_supplements.dart';
-import 'package:app_pizza_owner/view/home/products/widget/modifi_product/widget_textModefi.dart';
-import 'package:app_pizza_owner/view/home/products/widget/modifi_product/widget_textmodefi_product.dart';
+import 'package:app_pizza_owner/view/products/modifi_product/widget_textModefi.dart';
+import 'package:app_pizza_owner/view/products/modifi_product/widget_textmodefi_product.dart';
 import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -70,8 +70,12 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                           padding: EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             color: ColorApp_Background.appbarecolor,
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(30),
+                            border: Border.all(
+                              color: ColorApp_Icon_border.bottonbrown,
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
                             ),
                           ),
                           child: Column(
@@ -104,7 +108,7 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                       ),
                                     ),
                                   ),
-
+                                  SizedBox(width: context.heightPct(1)),
                                   Expanded(
                                     child: InkWell(
                                       onTap: () => setBottomSheetState(
@@ -131,6 +135,7 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(width: context.heightPct(1)),
                                   Expanded(
                                     child: InkWell(
                                       onTap: () => setBottomSheetState(
