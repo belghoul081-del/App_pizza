@@ -2,7 +2,7 @@ import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
 import 'package:app_pizza_owner/provider/product/product_Provider.dart';
 import 'package:app_pizza_owner/view/cart/cart_view.dart';
-import 'package:app_pizza_owner/view/chat/message.dart';
+import 'package:app_pizza_owner/view/chat/messageGeneral.dart';
 import 'package:app_pizza_owner/view/event/notification_view.dart';
 import 'package:app_pizza_owner/view/profile/account_view.dart';
 import 'package:app_pizza_owner/view/start/choose_L_R_view.dart';

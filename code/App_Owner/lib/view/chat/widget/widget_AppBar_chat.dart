@@ -42,7 +42,7 @@ AppBar Widget_appBar_chat(BuildContext context) {
             ),
             IconButton(
               icon: Icon(
-                Icons.headset_mic_outlined,
+                Icons.settings_outlined,
                 color: ColorApp_Botton.bottonOrange,
               ),
               iconSize: context.heightPct(5),

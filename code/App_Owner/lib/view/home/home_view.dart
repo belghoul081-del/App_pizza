@@ -1,7 +1,6 @@
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/models/model_announcement/announcement_Model.dart';
 import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
-import 'package:app_pizza_owner/view/cart/cart_is_empty_view.dart';
 import 'package:app_pizza_owner/view/home/announcement_home.dart';
 import 'package:app_pizza_owner/view/home/b_N_Bar_home.dart';
 import 'package:app_pizza_owner/view/home/categories_home.dart';
@@ -33,25 +32,65 @@ class _Home_PageState extends State<Home_Page> {
     double screenWidht = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      floatingActionButton: SizedBox(
+        height: context.heightPct(10),
+        width: context.heightPct(10),
+        child: FloatingActionButton(
+          shape: CircleBorder(),
+          backgroundColor: Colors.amber,
+          onPressed: () {
+            
+              Navigator.of(context).pushNamed("Cart");
+            
+          },
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Icon(
+                Icons.shopping_cart,
+                color: ColorApp_Background.appbarecolor,
+                size: context.heightPct(7.5),
+              ),
+              Positioned(
+                top: -context.heightPct(3),
+                left: 0,
+                right: -context.heightPct(7),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: context.heightPct(5),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: ColorApp_Background.appbarecolor,
+                    border: Border.all(color: ColorApp_Icon_border.bottonbrown),
+                  ),
+                  child: Text(
+                    "${cartProvider.carts.length}",
+                    style: TextStyle(
+                      color: ColorApp_Text.textred,
+                      fontFamily: "SemiBold",
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: bottomNavigationBar_home(context, _currentIndex, (
-        value,
+        index,
       ) {
-        if (value == 0) {
-          setState(() {
-            _currentIndex = value;
-          });
-        } else if (value == 1) {
-          if (cartProvider.carts.isEmpty) {
-            Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (context) => empty_Order_Page()));
-          } else {
-            Navigator.of(context).pushNamed("Cart");
+        setState(() {
+          if (index == 0) {
+            _currentIndex = 0;
+          } else if (index == 1) {
+            _currentIndex = 1;
+          } else if (index == 2) {
+            Navigator.of(context).pushNamed("Chat");
           }
-        } else if (value == 2) {
-          Navigator.of(context).pushNamed("Chat");
-        }
-      }, quantity: cartProvider.carts.length),
+        });
+      }),
       body: SafeArea(
         child: Column(
           children: [
@@ -125,10 +164,9 @@ class _Home_PageState extends State<Home_Page> {
                     padding: EdgeInsets.zero,
                     sliver: SliverToBoxAdapter(
                       child: Products_cards_home(
-                        selectedCategory
-                            : Category_Data
-                                  .categories[_selectedCategoryIndex]
-                                  .categories,
+                        selectedCategory: Category_Data
+                            .categories[_selectedCategoryIndex]
+                            .categories,
                       ),
                     ),
                   ),
@@ -141,3 +179,4 @@ class _Home_PageState extends State<Home_Page> {
     );
   }
 }
+

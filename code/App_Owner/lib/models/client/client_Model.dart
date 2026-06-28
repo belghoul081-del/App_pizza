@@ -1,4 +1,4 @@
-class Admin_Model {
+class Client_Model {
   //int uID;
   String name;
   //رمز اشعار
@@ -7,11 +7,11 @@ class Admin_Model {
   String number;
   String password;
 
-  Admin_Model({
+  Client_Model({
     this.number = '0559853037',
     this.password = 'kader0811',
     this.name = 'Kader081',
-    this.image = "assets/images/profila_pucture.png",
+    this.image = "assets/images/profila_client.png",
   });
 }
 

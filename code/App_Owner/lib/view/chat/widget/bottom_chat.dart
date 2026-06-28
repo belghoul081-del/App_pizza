@@ -21,7 +21,7 @@ Widget Bottom_chat(BuildContext context) {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              Icons.camera_alt_outlined,
+              Icons.chat,
               color: ColorApp_Icon_border.bottonbrown,
               size: context.heightPct(5),
             ),
