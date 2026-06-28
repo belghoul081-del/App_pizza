@@ -3,15 +3,18 @@ import 'dart:io';
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/model_products/products_Model.dart';
+import 'package:app_pizza_owner/provider/product/product_Provider.dart';
 import 'package:app_pizza_owner/service/service_PhotoProduct.dart';
 import 'package:app_pizza_owner/view/products/modifi_product/Supliment_modifi.dart';
 import 'package:app_pizza_owner/view/products/modifi_product/widget_IconImage.dart';
 import 'package:app_pizza_owner/view/products/modifi_product/widget_textmodefi_product.dart';
 import 'package:app_pizza_owner/widget/appbare_widget/appBar_widget.dart';
 import 'package:app_pizza_owner/widget/custom/costom_showBottomSheet.dart';
+import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
 import 'package:app_pizza_owner/widget/custom/costum_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class Modifi_Product_Page extends StatefulWidget {
   final Products_model product;
@@ -36,8 +39,17 @@ class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
     }
   }
 
+  late Products_model tempProduct;
+  @override
+  void initState() {
+    super.initState();
+    tempProduct = widget.product.copy();
+  }
+
   @override
   Widget build(BuildContext context) {
+    String name = widget.product.name;
+    int price = widget.product.price;
     return Scaffold(
       key: scaffoldKey,
       appBar: Widget_appBar(context, title: "product details"),
@@ -69,7 +81,7 @@ class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
             Text_show_Product(
               context: context,
               title: "Name : ",
-              item: widget.product.name,
+              item: tempProduct.name,
               onPressed: () {
                 TextEditingController nameController = TextEditingController(
                   text: widget.product.name,
@@ -81,10 +93,11 @@ class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
                     controller: nameController,
                     onpressed: () {
                       setState(() {
-                        widget.product.name = nameController.text;
+                        tempProduct.name = nameController.text;
                       });
                       Navigator.pop(context);
                     },
+
                     hintText: "enetr new name",
                   ),
                 );
@@ -94,7 +107,7 @@ class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
             Text_show_Product(
               context: context,
               title: "Price : ",
-              item: "${widget.product.price} Da",
+              item: "${tempProduct.price} Da",
               onPressed: () {
                 TextEditingController priceController = TextEditingController(
                   text: widget.product.price.toString(),
@@ -104,10 +117,11 @@ class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
                   (context) => Widget_ShowBottomSheet(
                     height: 20,
                     controller: priceController,
+
                     onpressed: () {
                       setState(() {
-                        widget.product.price =
-                            int.tryParse(priceController.text) ?? 0;
+                        // تعديل النسخة المؤقتة وليس الأصلية
+                        tempProduct.price = int.parse(priceController.text);
                       });
                       Navigator.pop(context);
                     },
@@ -118,6 +132,67 @@ class _Modifi_Product_PageState extends State<Modifi_Product_Page> {
             ),
             //supliment
             Sepliment_Widget(product: widget.product, scaffoldKey: scaffoldKey),
+            SizedBox(height: context.heightPct(27)),
+
+            /// delete / add
+            Row(
+              children: [
+                Expanded(
+                  child: Widget_botton(
+                    context,
+                    text: "Delete",
+                    onPressed: () {
+                      Provider.of<ProductProvider>(
+                        context,
+                        listen: false,
+                      ).removeProduct(widget.product.id);
+                      print("delete=====");
+                      Navigator.of(context).pushReplacementNamed("Home");
+                    },
+                    height: 7,
+                    width: 40,
+                    backgroundColor: const Color.fromARGB(255, 198, 40, 40),
+                    textColor: ColorApp_Text.textbrown,
+                  ),
+                ),
+                SizedBox(width: context.heightPct(1)),
+                Expanded(
+                  child: Widget_botton(
+                    context,
+                    text: "Add",
+                    onPressed: () {
+                      if (name == "" || price <= 0) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('please enter corruct Name or Price'),
+                          ),
+                        );
+                        return;
+                      }
+                      // هنا فقط نقوم بتحديث المنتج الأصلي
+                      setState(() {
+                        widget.product.name = tempProduct.name;
+                        widget.product.price = tempProduct.price;
+                        if (_selectedImage != null) {
+                          // widget.product.imagePath = _selectedImage!.path;
+                        }
+                      });
+
+                      Provider.of<ProductProvider>(
+                        context,
+                        listen: false,
+                      ).notifyListeners();
+                      Navigator.pop(context); // الخروج بعد التأكيد فقط
+                    },
+
+                    height: 7,
+                    width: 40,
+                    backgroundColor: ColorApp_Botton.bottonOrange,
+                    textColor: ColorApp_Text.textbrown,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

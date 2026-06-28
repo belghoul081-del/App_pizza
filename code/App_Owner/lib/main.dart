@@ -1,5 +1,6 @@
 import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
+import 'package:app_pizza_owner/provider/product/product_Provider.dart';
 import 'package:app_pizza_owner/view/cart/cart_view.dart';
 import 'package:app_pizza_owner/view/chat/message.dart';
 import 'package:app_pizza_owner/view/event/notification_view.dart';
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => SeplimentProvider()),
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

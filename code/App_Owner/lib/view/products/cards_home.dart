@@ -1,7 +1,8 @@
 import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
+import 'package:app_pizza_owner/provider/product/product_Provider.dart';
 import 'package:app_pizza_owner/view/products/widget/products/cards_product.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Products_cards_home extends StatefulWidget {
   final String selectedCategory;
@@ -14,33 +15,44 @@ class Products_cards_home extends StatefulWidget {
 class _Products_cards_homeState extends State<Products_cards_home> {
   @override
   Widget build(BuildContext context) {
-    final filterProducts = Products_Data.cards_of_Products.where((protected) {
-      return protected.categories == widget.selectedCategory;
-    }).toList();
-    return GridView.builder(
-      padding: EdgeInsets.only(
-        top: context.heightPct(1),
-        left: context.heightPct(2),
-        right: context.heightPct(2),
-        bottom: context.heightPct(5),
-      ),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+    return Consumer<ProductProvider>(
+      builder: (context, provider, child) {
+        // داخل الـ Consumer
+        final filterProducts = provider.products.where((p) {
+          return p.categories == widget.selectedCategory;
+        }).toList();
 
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: context.heightPct(1.2),
-        mainAxisSpacing: context.heightPct(1),
-        childAspectRatio: 0.85,
-      ),
+        // ... باقي كود GridView
 
-      itemCount: filterProducts.length,
-      itemBuilder: (context, index) {
-        final currentProduct = filterProducts[index];
-        return Widget_Cards_product(
-          product: currentProduct,
-          onChanged: () {
-            setState(() {});
+        return GridView.builder(
+          key: ValueKey(widget.selectedCategory),
+          padding: EdgeInsets.only(
+            top: context.heightPct(1),
+            left: context.heightPct(2),
+            right: context.heightPct(2),
+            bottom: context.heightPct(5),
+          ),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: context.heightPct(1.2),
+            mainAxisSpacing: context.heightPct(1),
+            childAspectRatio: 0.85,
+          ),
+
+          itemCount: filterProducts.length,
+          itemBuilder: (context, index) {
+            final product = filterProducts[index];
+            return Widget_Cards_product(
+              key: ValueKey(product.id),
+              product: product,
+              onChanged: () {
+                setState(() {});
+                provider.notifyListeners();
+              },
+            );
           },
         );
       },

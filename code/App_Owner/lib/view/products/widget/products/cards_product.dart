@@ -1,15 +1,11 @@
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
-import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
 import 'package:app_pizza_owner/view/products/widget/products/botton_Cards.dart';
-import 'package:app_pizza_owner/view/products/widget/sepliment/sepliment_Dialog.dart';
 import 'package:app_pizza_owner/view/products/detail_product/details_product_view.dart';
 import 'package:app_pizza_owner/widget/custom/costum_image_cards.dart';
 import 'package:app_pizza_owner/view/products/widget/products/text_cards.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Widget_Cards_product extends StatefulWidget {
   final Products_model product;
@@ -27,7 +23,6 @@ class Widget_Cards_product extends StatefulWidget {
 class _Widget_Cards_productState extends State<Widget_Cards_product> {
   @override
   Widget build(BuildContext context) {
-    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return Container(
       decoration: BoxDecoration(
         color: ColorApp_Background.appbarecolor,

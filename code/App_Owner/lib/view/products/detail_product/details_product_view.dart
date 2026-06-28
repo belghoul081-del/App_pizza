@@ -38,7 +38,7 @@ class _details_Product_PageState extends State<details_Product_Page> {
       body: Center(
         child: Padding(
           padding: EdgeInsets.only(
-            top: context.heightPct(5),
+            top: context.heightPct(2),
             left: context.heightPct(2),
             right: context.heightPct(2),
           ),
@@ -75,13 +75,24 @@ class _details_Product_PageState extends State<details_Product_Page> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        vertical: context.heightPct(2),
+                        vertical: context.heightPct(1),
                       ),
                       child: DashedLineDivider(
                         height: 5,
                         dashWidth: 3,
                         dashSpace: 0,
                         color: ColorApp_Icon_border.bottonbrown,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: context.heightPct(3)),
+                      child: Text(
+                        widget.product.name,
+                        style: TextStyle(
+                          fontSize: context.heightPct(4),
+                          fontFamily: "InriaSerif",
+                          color: const Color(0xFF472900),
+                        ),
                       ),
                     ),
                     Padding(

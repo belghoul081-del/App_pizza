@@ -3,9 +3,7 @@ import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/model_products/products_Model.dart';
 import 'package:app_pizza_owner/service/service_supplements.dart';
 import 'package:app_pizza_owner/view/products/modifi_product/widget_textModefi.dart';
-import 'package:app_pizza_owner/view/products/modifi_product/widget_textmodefi_product.dart';
 import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
 
@@ -23,6 +21,7 @@ class Sepliment_Widget extends StatefulWidget {
 }
 
 class _Sepliment_WidgetState extends State<Sepliment_Widget> {
+  late Sepliment_model sepliment;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -265,7 +264,7 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                 child: Builder(
                                   builder: (context) {
                                     final category = widget.product.categories;
-                                    final productid = widget.product.id;
+                                    
 
                                     final productSpecific = Sepliment_Data
                                         .general_supplements
@@ -496,34 +495,30 @@ class _Sepliment_WidgetState extends State<Sepliment_Widget> {
                                                                     MaterialButton(
                                                                       onPressed: () {
                                                                         setState(() {
-                                                                          if (suplimentController
-                                                                              .text
-                                                                              .isEmpty) {
-                                                                            SupplementService.deleteSupplement(
-                                                                              id: item.id,
-                                                                            );
-                                                                            Navigator.pop(
-                                                                              context,
-                                                                            );
-                                                                            ScaffoldMessenger.of(
-                                                                              context,
-                                                                            ).showSnackBar(
-                                                                              SnackBar(
-                                                                                behavior: SnackBarBehavior.floating,
-                                                                                shape: RoundedRectangleBorder(
-                                                                                  borderRadius: BorderRadius.circular(
-                                                                                    20,
-                                                                                  ),
-                                                                                ),
-                                                                                margin: EdgeInsets.all(
-                                                                                  10,
-                                                                                ),
-                                                                                content: Text(
-                                                                                  "Delete Suppliment : ${item.name}",
+                                                                          SupplementService.deleteSupplement(
+                                                                            id: item.id,
+                                                                          );
+                                                                          print(
+                                                                            "delete=====",
+                                                                          );
+                                                                          ScaffoldMessenger.of(
+                                                                            context,
+                                                                          ).showSnackBar(
+                                                                            SnackBar(
+                                                                              behavior: SnackBarBehavior.floating,
+                                                                              shape: RoundedRectangleBorder(
+                                                                                borderRadius: BorderRadius.circular(
+                                                                                  20,
                                                                                 ),
                                                                               ),
-                                                                            );
-                                                                          }
+                                                                              margin: EdgeInsets.all(
+                                                                                10,
+                                                                              ),
+                                                                              content: Text(
+                                                                                "Delete Suppliment : ${item.name}",
+                                                                              ),
+                                                                            ),
+                                                                          );
                                                                         });
 
                                                                         Navigator.pop(

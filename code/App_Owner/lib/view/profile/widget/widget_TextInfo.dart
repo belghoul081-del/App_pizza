@@ -1,6 +1,5 @@
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/admin/Admin_Model.dart';
 import 'package:flutter/material.dart';
 
 Widget Text_info_profile(

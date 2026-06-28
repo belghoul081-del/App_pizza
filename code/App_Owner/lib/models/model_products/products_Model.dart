@@ -4,13 +4,22 @@ import 'package:app_pizza_owner/service/service_supplements.dart';
 class Products_model {
   final String id;
   String name;
-   int price;
+  int price;
   final String imagePath;
   final String categories;
   bool isAvailable;
   final List<Sepliment_model> supplements;
 
-  
+  Products_model copy() {
+    return Products_model(
+      id: id,
+      name: name,
+      price: price,
+      categories: categories,
+      imagePath: imagePath,
+      supplements: List.from(supplements)
+    );
+  }
 
   Products_model({
     required this.id,

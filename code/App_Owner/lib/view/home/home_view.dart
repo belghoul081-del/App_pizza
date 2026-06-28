@@ -125,8 +125,7 @@ class _Home_PageState extends State<Home_Page> {
                     padding: EdgeInsets.zero,
                     sliver: SliverToBoxAdapter(
                       child: Products_cards_home(
-                        selectedCategory: _selectedCategoryIndex == -1
-                            ? "favorit"
+                        selectedCategory
                             : Category_Data
                                   .categories[_selectedCategoryIndex]
                                   .categories,
