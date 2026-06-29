@@ -123,6 +123,13 @@ flutter:
     - assets/icons/sad-face.svg
     - assets/icons/ID_icone.svg
     - assets/icons/cub_icone.svg
+    # icons order
+    - assets/icons/order/Icon_box.svg
+    - assets/icons/order/Icon_cook.svg
+    - assets/icons/order/Icon_delivery.svg
+    - assets/icons/order/Icon_pizza.svg
+    - assets/icons/order/Icon_QR.svg
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

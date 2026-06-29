@@ -86,34 +86,32 @@ Dialog costumAlertDialog(BuildContext context, {required int priceTotal}) {
 }
 
 Widget Dialogbotton_Location(BuildContext context) {
-  return MaterialButton(
-    onPressed: () {},
-    padding: EdgeInsets.zero,
+  return InkWell(
+    onTap: () {},
     child: Container(
-      height: context.heightPct(7),
-      width: double.infinity,
+      height: context.heightPct(5),
+      width: context.widthPct(40),
       decoration: BoxDecoration(
-        color: const Color(0xFFFDE6C8),
+        color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(50)),
         border: Border.all(color: ColorApp_Icon_border.bottonbrown),
       ),
-      child: Center(
-        child: Row(
-          children: [
-            Icon(
-              Icons.location_on,
-              color: ColorApp_Icon_border.bottonbrown,
-              size: context.heightPct(5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.location_on,
+            color: ColorApp_Icon_border.bottonbrown,
+            size: context.heightPct(4),
+          ),
+          Text(
+            "Location",
+            style: TextStyle(
+              color: ColorApp_Text.textbrown,
+              fontSize: context.heightPct(2.5),
             ),
-            Text(
-              "Location",
-              style: TextStyle(
-                color: ColorApp_Text.textbrown,
-                fontSize: context.heightPct(2.5),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     ),
   );

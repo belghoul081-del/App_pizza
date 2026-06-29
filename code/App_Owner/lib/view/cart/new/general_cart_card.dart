@@ -1,14 +1,17 @@
 import 'package:app_pizza_owner/constant/app_color.dart';
 import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/client/client_Model.dart';
+import 'package:app_pizza_owner/models/order/order_Model.dart';
+import 'package:app_pizza_owner/view/cart/new/page_cart_order.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-Widget general_card_cart(BuildContext context) {
+
+Widget cardOrder(BuildContext context, {required Order_Model order}) {
   return InkWell(
     onTap: () {
-      // Navigator.of(
-      //   context,
-      // ).push(MaterialPageRoute(builder: (context) => Message_page(information_Client: Client_Model(),)));
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => Page_Cart_Order(order: order)),
+      );
     },
     child: Padding(
       padding: EdgeInsets.symmetric(
@@ -36,69 +39,83 @@ Widget general_card_cart(BuildContext context) {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: ColorApp_Icon_border.bottonbrown),
-                  image: DecorationImage(
-                    image: AssetImage(Client_Model().image),
-                  ),
+                  image: DecorationImage(image: AssetImage(order.client.image)),
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: context.heightPct(0.5),
-                bottom: context.heightPct(0.5),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    Client_Model().name,
-                    style: TextStyle(
-                      fontFamily: "InterBold",
-                      fontSize: context.heightPct(2),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: context.heightPct(0.5),
+                  bottom: context.heightPct(0.5),
+                  right: context.heightPct(4),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      order.client.name,
+                      style: TextStyle(
+                        fontFamily: "InterBold",
+                        fontSize: context.heightPct(2),
+                      ),
                     ),
-                  ),
-                  Text(
-                    "ID: ${Client_Model().number}",
-                    style: TextStyle(
-                      fontFamily: "InterBold",
-                      fontSize: context.heightPct(1.5),
+                    Text(
+                      "ID: ${order.orderId}",
+                      style: TextStyle(
+                        fontFamily: "InterBold",
+                        fontSize: context.heightPct(1.5),
+                      ),
                     ),
-                  ),
-                  Text(
-                    "number: ${Client_Model().number}",
-                    style: TextStyle(
-                      fontFamily: "InterBold",
-                      fontSize: context.heightPct(1.5),
+                    Text(
+                      "time : 1 min",
+                      style: TextStyle(
+                        fontFamily: "InterBold",
+                        fontSize: context.heightPct(1.5),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Row(
               children: [
-                Container(
-                  height: context.heightPct(7),
-                  width: context.heightPct(7),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: ColorApp_Icon_border.bottonbrown),
-                  ),
-                ),
+                buildOrderIconButton(context, order.status.imagePath, () {}),
                 SizedBox(width: context.heightPct(1)),
-                Container(
-                  height: context.heightPct(7),
-                  width: context.heightPct(7),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: ColorApp_Icon_border.bottonbrown),
-                  ),
+                buildOrderIconButton(
+                  context,
+                  "assets/icons/order/Icon_QR.svg",
+                  () {},
                 ),
+                SizedBox(width: context.heightPct(0.5)),
               ],
             ),
           ],
         ),
       ),
+    ),
+  );
+}
+ 
+ 
+Widget buildOrderIconButton(
+  BuildContext context,
+  String assetPath,
+  VoidCallback onTap,
+) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      padding: EdgeInsets.all(context.heightPct(1.2)),
+      height: context.heightPct(7),
+      width: context.heightPct(7),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: ColorApp_Background.backgroundcolorII,
+        border: Border.all(color: ColorApp_Icon_border.bottonbrown),
+      ),
+      child: SvgPicture.asset(assetPath, fit: BoxFit.contain),
     ),
   );
 }

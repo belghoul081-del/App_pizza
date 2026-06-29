@@ -4,7 +4,7 @@ import 'package:app_pizza_owner/constant/app_size.dart';
 import 'package:app_pizza_owner/models/model_category/category_Model.dart';
 import 'package:app_pizza_owner/models/model_products/products_Model.dart';
 import 'package:app_pizza_owner/provider/product/product_Provider.dart';
-import 'package:app_pizza_owner/service/service_AddProduct.dart';
+import 'package:app_pizza_owner/service/service_Add_removeproduct.dart';
 import 'package:app_pizza_owner/service/service_PhotoProduct.dart';
 import 'package:app_pizza_owner/service/service_supplements.dart';
 import 'package:app_pizza_owner/view/products/modifi_product/widget_textmodefi_product.dart';
@@ -195,13 +195,12 @@ class _Add_Product_PageState extends State<Add_Product_Page> {
               backgroundColor: ColorApp_Botton.bottonOrange,
               textColor: ColorApp_Icon_border.bottonbrown,
               onPressed: () async {
-                // 1. التحقق من أن المستخدم أدخل بيانات صحيحة ولم يترك القيم الافتراضية
                 if (name == "enter name" ||
                     price <= 0 ||
                     _selectedImage == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('الرجاء إدخال الاسم والسعر واختيار صورة'),
+                      content: Text('please enter name & price & choise photo'),
                     ),
                   );
                   return;

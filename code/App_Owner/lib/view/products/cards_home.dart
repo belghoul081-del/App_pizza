@@ -17,12 +17,10 @@ class _Products_cards_homeState extends State<Products_cards_home> {
   Widget build(BuildContext context) {
     return Consumer<ProductProvider>(
       builder: (context, provider, child) {
-        // داخل الـ Consumer
+
         final filterProducts = provider.products.where((p) {
           return p.categories == widget.selectedCategory;
         }).toList();
-
-        // ... باقي كود GridView
 
         return GridView.builder(
           key: ValueKey(widget.selectedCategory),
