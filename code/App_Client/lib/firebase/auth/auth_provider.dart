@@ -27,7 +27,8 @@ class AuthProvider extends ChangeNotifier {
       );
       if (userCredential.user != null) {
         final uid = userCredential.user!.uid;
-        ///  جلب بيانات المستخدم وتخزينها في الذاكرة 
+
+        ///  جلب بيانات المستخدم وتخزينها في الذاكرة
         _currentClient = await _clientsService.getClientProfile(uid);
         notifyListeners();
         return true;
@@ -58,7 +59,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  /// إنشاء حساب زبون جديد بالاسم/الرقم/كلمة السر 
+  /// إنشاء حساب زبون جديد بالاسم/الرقم/كلمة السر
   Future<bool> newaccount({
     required String number,
     required String password,
@@ -77,10 +78,11 @@ class AuthProvider extends ChangeNotifier {
 
       await _clientsService.createClientProfile(uid, newClient);
       // await NotificationService().updateTokenIfNeeded();
- await _chatsService.createChatThread(
+      await _chatsService.createChatThread(
         clientId: uid,
         clientName: newClient.name,
         clientImage: newClient.image,
+        clientNumber: newClient.number,
       );
       return true;
     } catch (e) {
@@ -91,7 +93,8 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-   Future<String?> changePassword({
+
+  Future<String?> changePassword({
     required String number,
     required String currentPassword,
     required String newPassword,
@@ -107,8 +110,9 @@ class AuthProvider extends ChangeNotifier {
       return null;
     } on Exception catch (e) {
       final message = e.toString();
-      if (message.contains('wrong-password') || message.contains('invalid-credential')) {
-       return "The current password is incorrect";
+      if (message.contains('wrong-password') ||
+          message.contains('invalid-credential')) {
+        return "The current password is incorrect";
       }
       if (message.contains('weak-password')) {
         return "The new password is too weak";
@@ -119,5 +123,4 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 }

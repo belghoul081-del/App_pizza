@@ -36,11 +36,13 @@ class ChatsFirestoreService {
     required String clientId,
     required String clientName,
     required String clientImage,
+    required String clientNumber,
   }) async {
     await _chatsRef.doc(clientId).set({
       'clientID': clientId,
       'clientName': clientName,
       'clientImage': clientImage,
+      'clientNumber':clientNumber,
       'lastMessage': '',
       'lastMessageAt': FieldValue.serverTimestamp(),
       'unreadByOwner': false,
