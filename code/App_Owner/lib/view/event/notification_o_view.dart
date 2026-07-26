@@ -1,13 +1,10 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_image.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/admin/Admin_Model.dart';
-import 'package:app_pizza_owner/models/model_notification/notification_Model.dart';
-import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
-import 'package:app_pizza_owner/provider/event/time.dart';
-import 'package:app_pizza_owner/view/profile/account_view.dart';
-import 'package:app_pizza_owner/widget/appbare_widget/appBar_widget.dart';
-import 'package:app_pizza_owner/widget/custom/costum_bar.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_image.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/models/model_notification/notification_Model.dart';
+import 'package:app_owner/provider/event/time.dart';
+import 'package:app_owner/widget/appbare_widget/appBar_widget.dart';
+import 'package:app_owner/widget/custom/costum_bar.dart';
 import 'package:flutter/material.dart';
 
 class Notification_O_View extends StatelessWidget {
@@ -16,6 +13,8 @@ class Notification_O_View extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final order = notification.order;
+
     return Scaffold(
       appBar: Widget_appBar(context, title: notification.title),
       body: SafeArea(
@@ -37,29 +36,33 @@ class Notification_O_View extends StatelessWidget {
                     child: WidgetTextRich(
                       context,
                       text: "timer: ",
-                      content:
-                          '${Time_Calculate().showFullTime(notification.createdTime)}',
+                      content: notification.createdTime != null
+                          ? Time_Calculate().showFullTime(
+                              notification.createdTime!,
+                            )
+                          : "--",
                       colorContent: Colors.black,
                     ),
                   ),
                   WidgetTextRich(
                     context,
-                    text: "Orger: ",
-                    content: "1000D293RR",
+                    text: "Order: ",
+                    content: order.orderId,
+                    colorContent: Colors.black,
+                  ),
+                  WidgetTextRich(
+                    context,
+                    text: "Number: ",
+                    content: order.client.number,
                     colorContent: Colors.black,
                   ),
                   WidgetTextRich(
                     context,
                     text: "Name: ",
-                    content: "${Admin_Model().name}",
+                    content: order.client.name,
                     colorContent: Colors.black,
                   ),
-                  WidgetTextRich(
-                    context,
-                    text: "Location: ",
-                    content: "Dalas-100-b2",
-                    colorContent: Colors.black,
-                  ),
+
                   WidgetTextRich(
                     context,
                     text: "Price: ",

@@ -1,14 +1,23 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:app_pizza_client/models/client/client_Model.dart';
+import 'package:app_pizza_client/models/model_cart/cart_Model.dart';
+import 'package:app_pizza_client/provider/order/order_Provider.dart';
+import 'package:app_pizza_client/view/cart/widget/showDialog/orderActivenow.dart';
 import 'package:app_pizza_client/view/cart/widget/showDialog/show_card_dialg.dart';
 import 'package:app_pizza_client/widget/custom/costum_bar.dart';
 import 'package:app_pizza_client/widget/custom/costum_botton.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 Widget widget_BottomNavigationBar(
   BuildContext context, {
   required int priceTotal,
+  required Client_Model client,
+  required List<Cart_model> items,
 }) {
+    final orderProvider = Provider.of<OrderProvider>(context);
+
   return Container(
     height: context.heightPct(20),
     width: double.infinity,
@@ -54,11 +63,30 @@ Widget widget_BottomNavigationBar(
           child: Widget_botton(
             context,
             text: "Checkout",
+            backgroundColor: ColorApp_Botton.bottonOrange,
+            textColor: ColorApp_Text.textblack,
             onPressed: () {
+               if (orderProvider.hasActiveOrder) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return activeOrderDialog(
+                      context,
+                      order: orderProvider.activeOrder!,
+                    );
+                  },
+                );
+                return;
+              }
               showDialog(
                 context: context,
                 builder: (context) {
-                  return costumAlertDialog(context,priceTotal:priceTotal);
+                  return costumAlertDialog(
+                    context,
+                    priceTotal: priceTotal,
+                    client: client,
+                    items: items,
+                  );
                 },
               );
             },

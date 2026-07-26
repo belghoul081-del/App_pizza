@@ -1,43 +1,37 @@
+import 'package:app_owner/models/order/order_Model.dart';
+
 class Notification_Model {
+  final String orderId;
   final String title;
   final String image;
   final String description;
-  final DateTime createdTime;
+  final DateTime? createdTime;
   final int price;
-  bool isRead;
+  final bool isRead;
+  final Order_Model order;
+
   Notification_Model({
+    required this.orderId,
     required this.title,
     required this.image,
     required this.description,
     required this.createdTime,
     required this.price,
-    this.isRead = false,
+    required this.isRead,
+    required this.order,
   });
-}
 
-class Notification_Data {
-  static List<Notification_Model> notification = [
-    Notification_Model(
-      title: "Delevery",
-      image: "assets/images/categories_images/categories_pizza.png",
-      description: """your order has arrived ,
-please collect it .""",
-      createdTime: DateTime.now(),
-      price: 1000,
-    ),
-    Notification_Model(
-      title: "order",
-      image: "assets/images/categories_images/categories_pizza.png",
-      description: "your order has arrived",
-      createdTime: DateTime.now(),
-      price: 1000,
-    ),
-    Notification_Model(
-      title: "Delevery",
-      image: "assets/images/categories_images/categories_pizza.png",
-      description: "your order has arrived",
-      createdTime: DateTime.utc(2026, 06, 05, 0),
-      price: 1200,
-    ),
-  ];
+  factory Notification_Model.fromOrder(Order_Model order) {
+    return Notification_Model(
+      orderId: order.orderId,
+      title: "new order",
+      image: order.client.image,
+      description:
+          "new order ${order.client.name} At cost ${order.totalOrderPrice} Da",
+      createdTime: order.createdAt,
+      price: order.totalOrderPrice,
+      isRead: order.readByOwner,
+      order: order,
+    );
+  }
 }

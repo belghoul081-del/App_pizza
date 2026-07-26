@@ -1,4 +1,3 @@
-import 'package:app_pizza_client/models/model_notification/notification_Model.dart';
 import 'package:flutter/material.dart';
 
 class Time_Calculate with ChangeNotifier {
@@ -24,9 +23,31 @@ class Time_Calculate with ChangeNotifier {
     return "${createdTime.day}-${createdTime.month}-${createdTime.year} / ${createdTime.hour}:${createdTime.minute}";
   }
 
-  static List<Notification_Model> getActiveNotification() {
-    return Notification_Data.notification.where((n) {
-      return DateTime.now().difference(n.createdTime).inDays > 7;
-    }).toList();
+  String getChatMessageTime(DateTime createdTime) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final messageDay = DateTime(
+      createdTime.year,
+      createdTime.month,
+      createdTime.day,
+    );
+    final differenceInDays = today.difference(messageDay).inDays;
+
+    final String hh = createdTime.hour.toString().padLeft(2, '0');
+    final String mm = createdTime.minute.toString().padLeft(2, '0');
+
+    if (differenceInDays == 0) {
+      // نفس اليوم: تظهر الساعة فقط
+      return "$hh:$mm";
+    } else if (differenceInDays == 1) {
+      // البارحة
+      return "yesterday $hh:$mm";
+    } else {
+      // أقدم من يومين: التاريخ الكامل (يوم/شهر/سنة)
+      final String dd = createdTime.day.toString().padLeft(2, '0');
+      final String moM = createdTime.month.toString().padLeft(2, '0');
+      return "$dd/$moM/${createdTime.year}";
+    }
   }
+
 }

@@ -1,46 +1,35 @@
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/models/model_sepliment/sepliment_Model.dart';
-import 'package:app_pizza_client/provider/cart/sepliment_Provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class ButttonOfSepliment extends StatefulWidget {
+class ButttonOfSepliment extends StatelessWidget {
   final String name;
   final int price;
-  final Function(bool?) onchange; // تأكد من مطابقة هذا النوع
+  final bool value;
+  final ValueChanged<bool?> onchange;
+
   const ButttonOfSepliment({
     super.key,
     required this.name,
     required this.price,
+    required this.value,
     required this.onchange,
   });
 
   @override
-  State<ButttonOfSepliment> createState() => _ButttonOfSeplimentState();
-}
-
-class _ButttonOfSeplimentState extends State<ButttonOfSepliment> {
-  final currentSupplement = Sepliment_model;
-
-  @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<SeplimentProvider>(context);
-    bool isChecked = provider.carts.any((item) => item.name == widget.name);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "${widget.name} (${widget.price} Da)",
+          "${name} (${price} Da)",
           style: TextStyle(
             fontSize: context.heightPct(2),
             fontWeight: FontWeight.bold,
           ),
         ),
         Checkbox(
-          value: isChecked,
-          onChanged: (bool? value) {
-            widget.onchange(value);
-          },
+          value: value,
+          onChanged: onchange,
         ),
       ],
     );

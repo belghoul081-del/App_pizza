@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
+import 'package:app_owner/constant/app_size.dart';
 
 Widget Widget_botton(
   BuildContext context, {
   required String text,
   required VoidCallback onPressed,
-  required double height ,
-  required double width ,
+  required double height,
+  required double width,
   required Color backgroundColor,
   required Color textColor,
 }) {
@@ -22,10 +22,7 @@ Widget Widget_botton(
       child: Center(
         child: Text(
           text,
-          style: TextStyle(
-            color: textColor ,
-            fontSize: context.heightPct(3),
-          ),
+          style: TextStyle(color: textColor, fontSize: context.heightPct(3)),
         ),
       ),
     ),

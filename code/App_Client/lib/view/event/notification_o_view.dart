@@ -1,23 +1,31 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_image.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/models/client/client_Model.dart';
 import 'package:app_pizza_client/models/model_notification/notification_Model.dart';
-import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
 import 'package:app_pizza_client/provider/event/time.dart';
-import 'package:app_pizza_client/view/profile/account_view.dart';
 import 'package:app_pizza_client/widget/appbare_widget/appBar_widget.dart';
 import 'package:app_pizza_client/widget/custom/costum_bar.dart';
 import 'package:flutter/material.dart';
 
-class Notification_O_View extends StatelessWidget {
+class Notification_O_View extends StatefulWidget {
   final Notification_Model notification;
   const Notification_O_View({super.key, required this.notification});
 
   @override
+  State<Notification_O_View> createState() => _Notification_O_ViewState();
+}
+
+class _Notification_O_ViewState extends State<Notification_O_View> {
+  @override
   Widget build(BuildContext context) {
+    final notification = widget.notification;
+    final location = notification.order.location;
+    final String locationLabel = location.isSet
+        ? "${location.lat.toStringAsFixed(5)}, ${location.lng.toStringAsFixed(5)}"
+        : "undefined";
+
     return Scaffold(
-      appBar: Widget_appBar(context, title: notification.title),
+      appBar: Widget_appBar(context, title: "Order"),
       body: SafeArea(
         child: Stack(
           fit: StackFit.expand,
@@ -37,27 +45,30 @@ class Notification_O_View extends StatelessWidget {
                     child: WidgetTextRich(
                       context,
                       text: "timer: ",
-                      content:
-                          '${Time_Calculate().showFullTime(notification.createdTime)}',
+                      content: notification.createdTime != null
+                          ? Time_Calculate().showFullTime(
+                              notification.createdTime!,
+                            )
+                          : "--",
                       colorContent: Colors.black,
                     ),
                   ),
                   WidgetTextRich(
                     context,
-                    text: "Orger: ",
-                    content: "1000D293RR",
+                    text: "Order: ",
+                    content: notification.title,
                     colorContent: Colors.black,
                   ),
                   WidgetTextRich(
                     context,
-                    text: "Name: ",
-                    content: "${Client_Model().name}",
+                    text: "Status: ",
+                    content: notification.order.status.name,
                     colorContent: Colors.black,
                   ),
                   WidgetTextRich(
                     context,
                     text: "Location: ",
-                    content: "Dalas-100-b2",
+                    content: locationLabel,
                     colorContent: Colors.black,
                   ),
                   WidgetTextRich(

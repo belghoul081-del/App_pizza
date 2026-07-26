@@ -1,17 +1,25 @@
-// dart run merge_script.dart
+/* 
+dart run merge_script.dart 
+*/
 
 import 'dart:io';
 
 void main() async {
+  // تحديد مجلد lib فقط للبحث بداخله بدلاً من المشروع بالكامل
+  final dirlib = Directory('lib');
+  if (!await dirlib.exists()) {
+    print('خطأ: مجلد lib غير موجود في هذا المسار!');
+    return;
+  }
   // اسم المجلد الذي يحتوي على ملفاتك (النقطة تعني المجلد الحالي)
-  final dir = Directory('.');
-  final outputFile = File('full_project.txt');
+  //final dir = Directory('.');
+  final outputFile = File('owner_file.txt');
   
   // فتح الملف للكتابة (سيمسح محتواه القديم إن وجد)
   final sink = outputFile.openWrite();
 
   // البحث عن كل ملفات .dart بشكل متكرر (Recurse)
-  await for (final entity in dir.list(recursive: true)) {
+  await for (final entity in dirlib.list(recursive: true)) {
     if (entity is File && entity.path.endsWith('.dart')) {
       // تجاهل ملف السكربت نفسه حتى لا يدخل في الحلقة
       if (entity.path.endsWith('merge_script.dart')) continue;

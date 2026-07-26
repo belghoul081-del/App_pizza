@@ -16,4 +16,9 @@ class State_Order_Date {
     State_Order_Model(name: "Progress", imagePath: "assets/icons/order/Icon_delivery.svg", state: "Delivery"),
     State_Order_Model(name: "Finish", imagePath: "assets/icons/order/Icon_pizza.svg", state: "Finish")
   ];
+  static State_Order_Model cancelled = State_Order_Model(
+    name: "Rejected",
+    imagePath: "assets/icons/order/Icon_box.svg",
+    state: "Cancelled",
+  );
 }

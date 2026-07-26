@@ -1,18 +1,18 @@
 import 'dart:io';
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/model_category/category_Model.dart';
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/provider/product/product_Provider.dart';
-import 'package:app_pizza_owner/service/service_Add_removeproduct.dart';
-import 'package:app_pizza_owner/service/service_PhotoProduct.dart';
-import 'package:app_pizza_owner/service/service_supplements.dart';
-import 'package:app_pizza_owner/view/products/modifi_product/widget_textmodefi_product.dart';
-import 'package:app_pizza_owner/widget/appbare_widget/appBar_widget.dart';
-import 'package:app_pizza_owner/widget/custom/costom_showBottomSheet.dart';
-import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
-import 'package:app_pizza_owner/widget/custom/costum_bar.dart';
-import 'package:app_pizza_owner/widget/custom/costum_image_cards.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/firebase/firestore/service/service_supplements.dart';
+import 'package:app_owner/models/model_category/category_Model.dart';
+import 'package:app_owner/models/model_products/products_Model.dart';
+import 'package:app_owner/provider/product/product_Provider.dart';
+import 'package:app_owner/service/service_Add_removeproduct.dart';
+import 'package:app_owner/service/service_PhotoProduct.dart';
+import 'package:app_owner/view/products/modifi_product/widget_textmodefi_product.dart';
+import 'package:app_owner/widget/appbare_widget/appBar_widget.dart';
+import 'package:app_owner/widget/custom/costom_showBottomSheet.dart';
+import 'package:app_owner/widget/custom/costum_Button.dart';
+import 'package:app_owner/widget/custom/costum_bar.dart';
+import 'package:app_owner/widget/custom/costum_image_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -40,6 +40,7 @@ class _Add_Product_PageState extends State<Add_Product_Page> {
   GlobalKey _menukey = GlobalKey();
   File? _selectedImage;
   final ImagePickerService _imageService = ImagePickerService();
+  bool _isSaving = false;
 
   Future<void> _pickImage(ImageSource choise) async {
     File? image = await _imageService.pickImage(choise);
@@ -50,183 +51,238 @@ class _Add_Product_PageState extends State<Add_Product_Page> {
     }
   }
 
+  Future<void> _submit() async {
+    if (name == "enter name" || name.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('please enter a product name')),
+      );
+      return;
+    }
+    if (price <= 0) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('please enter a price')));
+      return;
+    }
+    if (categories.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('please choose a category')));
+      return;
+    }
+    if (_selectedImage == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('please choose a photo')));
+      return;
+    }
+
+    setState(() => _isSaving = true);
+
+    final newProduct = Products_model(
+      id: Service_Addproduct.generateUniqueId(categories),
+      name: name,
+      price: price,
+      categories: categories,
+      imagePath: '',
+      supplements: SupplementService.getSupplementsForCategory(categories),
+    );
+
+    try {
+      await Provider.of<ProductProvider>(
+        context,
+        listen: false,
+      ).addProduct(newProduct, _selectedImage!);
+
+      if (!mounted) return;
+      Navigator.pop(context);
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isSaving = false);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to add product: $e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       appBar: Widget_appBar(context, title: "add product"),
-      body: Center(
-        child: Column(
-          children: [
-            Image_Add(
-              context,
-              image: imagePath,
-              selectedImage: _selectedImage,
-              scaffoldKey: scaffoldKey,
-              onPressedGallery: () {
-                _pickImage(ImageSource.gallery);
-              },
-              onPressedCamera: () {
-                _pickImage(ImageSource.camera);
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: context.heightPct(2)),
-              child: DashedLineDivider(
-                height: 3,
-                dashWidth: 3,
-                dashSpace: 0,
-                color: ColorApp_Icon_border.bottonbrown,
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: context.heightPct(2),
-                  bottom: context.heightPct(1),
-                ),
-                child: Stack(
-                  children: [
-                    Widget_popupMenuCategory(
-                      context,
-                      _menukey,
-                      onSelected: (value) {
-                        setState(() {
-                          categories = value;
-                          var selectCategories = Category_Data.categories
-                              .firstWhere((cat) => cat.categories == value);
-                          iconCategories = selectCategories.imagePath;
-                        });
-                      },
-                      categoriesList: Category_Data.categories,
+      body: Stack(
+        children: [
+          Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Image_Add(
+                    context,
+                    image: imagePath,
+                    selectedImage: _selectedImage,
+                    scaffoldKey: scaffoldKey,
+                    onPressedGallery: () {
+                      Navigator.pop(context);
+                      _pickImage(ImageSource.gallery);
+                    },
+                    onPressedCamera: () {
+                      Navigator.pop(context);
+                      _pickImage(ImageSource.camera);
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: context.heightPct(2),
                     ),
-                    InkWell(
-                      onTap: () {
-                        dynamic state = _menukey.currentState;
-                        state.showButtonMenu();
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(8.0),
-                        height: context.heightPct(7),
-                        width: context.heightPct(7),
-                        decoration: BoxDecoration(
-                          color: ColorApp_Background.backgroundcolorII,
-                          border: Border.all(
-                            color: ColorApp_Botton.bottonOrange,
+                    child: DashedLineDivider(
+                      height: 3,
+                      dashWidth: 3,
+                      dashSpace: 0,
+                      color: ColorApp_Icon_border.bottonbrown,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: context.heightPct(2),
+                        bottom: context.heightPct(1),
+                      ),
+                      child: Stack(
+                        children: [
+                          Widget_popupMenuCategory(
+                            context,
+                            _menukey,
+                            onSelected: (value) {
+                              setState(() {
+                                categories = value;
+                                var selectCategories = Category_Data.categories
+                                    .firstWhere(
+                                      (cat) => cat.categories == value,
+                                    );
+                                iconCategories = selectCategories.imagePath;
+                              });
+                            },
+                            categoriesList: Category_Data.categories,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        child: iconCategories != ''
-                            ? Image.asset(iconCategories, fit: BoxFit.cover)
-                            : SvgPicture.asset(
-                                "assets/icons/cub_icone.svg",
-                                fit: BoxFit.cover,
+                          InkWell(
+                            onTap: () {
+                              dynamic state = _menukey.currentState;
+                              state.showButtonMenu();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(8.0),
+                              height: context.heightPct(7),
+                              width: context.heightPct(7),
+                              decoration: BoxDecoration(
+                                color: ColorApp_Background.backgroundcolorII,
+                                border: Border.all(
+                                  color: ColorApp_Botton.bottonOrange,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
                               ),
+                              child: iconCategories != ''
+                                  ? Image.asset(
+                                      iconCategories,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : SvgPicture.asset(
+                                      "assets/icons/cub_icone.svg",
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  //name
+                  Text_show_Product(
+                    context: context,
+                    title: "Name : ",
+                    item: name,
+                    onPressed: () {
+                      TextEditingController nameController =
+                          TextEditingController(text: name);
+
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: Widget_ShowBottomSheet(
+                            height: 20,
+                            controller: nameController,
+                            onpressed: () {
+                              setState(() {
+                                name = nameController.text;
+                              });
+                              Navigator.pop(context);
+                            },
+                            hintText: "enetr new name",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  //price
+                  Text_show_Product(
+                    context: context,
+                    title: "Price : ",
+                    item: "${price} Da",
+                    onPressed: () {
+                      TextEditingController priceController =
+                          TextEditingController(text: price.toString());
+
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: Widget_ShowBottomSheet(
+                            height: 20,
+                            controller: priceController,
+                            onpressed: () {
+                              setState(() {
+                                price = int.tryParse(priceController.text) ?? 0;
+                              });
+                              Navigator.pop(context);
+                            },
+                            hintText: "enter new price",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  Widget_botton(
+                    context,
+                    text: _isSaving ? 'Saving...' : 'Add Product',
+                    height: 7,
+                    width: 50,
+                    backgroundColor: ColorApp_Botton.bottonOrange,
+                    textColor: ColorApp_Icon_border.bottonbrown,
+                    onPressed: _isSaving ? () {} : _submit,
+                  ),
+                  SizedBox(height: context.heightPct(3)),
+                ],
               ),
             ),
-            //name
-            Text_show_Product(
-              context: context,
-              title: "Name : ",
-              item: name,
-              onPressed: () {
-                TextEditingController nameController = TextEditingController(
-                  text: name,
-                );
-
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => Widget_ShowBottomSheet(
-                    height: 20,
-                    controller: nameController,
-                    onpressed: () {
-                      setState(() {
-                        name = nameController.text;
-                      });
-                      Navigator.pop(context);
-                    },
-                    hintText: "enetr new name",
-                  ),
-                );
-              },
+          ),
+          if (_isSaving)
+            Container(
+              color: Colors.black26,
+              child: const Center(child: CircularProgressIndicator()),
             ),
-            //price
-            Text_show_Product(
-              context: context,
-              title: "Price : ",
-              item: "${price} Da",
-              onPressed: () {
-                TextEditingController priceController = TextEditingController(
-                  text: price.toString(),
-                );
-
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => Widget_ShowBottomSheet(
-                    height: 20,
-                    controller: priceController,
-                    onpressed: () {
-                      setState(() {
-                        price = int.tryParse(priceController.text) ?? 0;
-                      });
-                      Navigator.pop(context);
-                    },
-                    hintText: "enter new price",
-                  ),
-                );
-              },
-            ),
-
-            // أضف هذا داخل الـ Column في صفحة Add_Product_Page
-            const SizedBox(height: 30),
-
-            Widget_botton(
-              context,
-              text: 'Add Product',
-              height: 7,
-              width: 50,
-              backgroundColor: ColorApp_Botton.bottonOrange,
-              textColor: ColorApp_Icon_border.bottonbrown,
-              onPressed: () async {
-                if (name == "enter name" ||
-                    price <= 0 ||
-                    _selectedImage == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('please enter name & price & choise photo'),
-                    ),
-                  );
-                  return;
-                }
-
-                final newProduct = Products_model(
-                  id: Service_Addproduct.generateUniqueId(categories),
-                  name: name,
-                  price: price,
-                  categories: categories,
-                  imagePath: _selectedImage!.path,
-                  supplements: SupplementService.getSupplementsForCategory(
-                    categories,
-                  ),
-                );
-
-                Provider.of<ProductProvider>(
-                  context,
-                  listen: false,
-                ).addProduct(newProduct);
-
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -273,6 +329,9 @@ Widget Image_Add(
         selectedImage != null
             ? Container(
                 height: context.heightPct(25),
+                width: context.heightPct(
+                  25,
+                ),
                 decoration: BoxDecoration(
                   color: ColorApp_Icon_border.bottonbrown,
                   shape: BoxShape.circle,
@@ -298,11 +357,8 @@ Widget Image_Add(
 
             child: IconButton(
               onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (context) => Container(
+                scaffoldKey.currentState!.showBottomSheet(
+                  (context) => Container(
                     height: context.heightPct(20),
                     width: double.infinity,
                     padding: EdgeInsets.all(20),
@@ -337,10 +393,7 @@ Widget Image_Add(
                               child: Widget_botton(
                                 context,
                                 text: 'gallery',
-                                onPressed: () {
-                                  onPressedGallery();
-                                  Navigator.pop(context);
-                                },
+                                onPressed: onPressedGallery,
                                 height: 5,
                                 width: 40,
                                 backgroundColor: ColorApp_Botton.bottonOrange,
@@ -351,11 +404,7 @@ Widget Image_Add(
                               child: Widget_botton(
                                 context,
                                 text: 'camera',
-                                onPressed: () {
-                                  onPressedCamera();
-                                  Navigator.pop(context);
-                                  ;
-                                },
+                                onPressed: onPressedCamera,
                                 height: 5,
                                 width: 40,
                                 backgroundColor: ColorApp_Botton.bottonOrange,

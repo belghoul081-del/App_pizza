@@ -1,7 +1,7 @@
-import 'package:app_pizza_owner/models/model_cart/cart_Model.dart';
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
-import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
+import 'package:app_owner/models/model_cart/cart_Model.dart';
+import 'package:app_owner/models/model_products/products_Model.dart';
+import 'package:app_owner/models/model_sepliment/sepliment_Model.dart';
+import 'package:app_owner/provider/cart/sepliment_Provider.dart';
 import 'package:flutter/material.dart';
 
 class CartProvider with ChangeNotifier {

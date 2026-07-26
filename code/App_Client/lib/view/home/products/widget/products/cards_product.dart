@@ -14,10 +14,14 @@ import 'package:provider/provider.dart';
 class Widget_Cards_product extends StatefulWidget {
   final Products_model product;
   final VoidCallback onChanged;
+  final bool jus;
+  final bool cack;
   const Widget_Cards_product({
     super.key,
     required this.product,
     required this.onChanged,
+    required this.jus,
+    required this.cack,
   });
 
   @override
@@ -83,54 +87,89 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
                             widget_Price_Cards(context, widget.product.price),
                             Row(
                               children: [
-                                widget_Botton_Cards(
-                                  context,
-                                  color: ColorApp_Background.backgroundcolorII,
-                                  icon: Icons.list,
-                                  onPress: () {
-                                    final provider =
-                                        Provider.of<SeplimentProvider>(
-                                          context,
-                                          listen: false,
-                                        ).clearSepliment();
-                                    showDialog(
-                                      barrierDismissible: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            provider;
-                                            Navigator.pop(context);
-                                          },
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {},
-                                              child: SeplimentDialog(
-                                                context,
-                                                product: widget.product,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
+                                widget.jus
+                                    ? Container()
+                                    : widget_Botton_Cards(
+                                        context,
+                                        color: ColorApp_Background
+                                            .backgroundcolorII,
+                                        icon: Icons.list,
+                                        onPress: () {
+                                          Provider.of<SeplimentProvider>(
+                                            context,
+                                            listen: false,
+                                          ).clearSepliment();
+
+                                          // 1. تحديد المنتج الذي سيُمرر للـ Dialog
+                                          Products_model productForDialog =
+                                              widget.product;
+
+                                          // 2. إذا كان المنتج من فئة الكعك فقط، نقوم بتصفية الإضافات وإزالة العامة
+                                          if (widget.cack) {
+                                            final filteredSupplements = widget
+                                                .product
+                                                .supplements
+                                                .where((supp) {
+                                                  // الإضافة تكون عامة إذا كانت لا تنتمي لفئة ولا لمنتج معين
+                                                  bool isGeneral =
+                                                      supp.categories
+                                                          .trim()
+                                                          .isEmpty &&
+                                                      supp.ProductId.trim()
+                                                          .isEmpty;
+
+                                                  // نحتفظ بالإصافة فقط إذا لم تكن عامة (أي خاصة بالفئة أو خاصة بالمنتج)
+                                                  return !isGeneral;
+                                                })
+                                                .toList();
+
+                                            // إنشاء نسخة من المنتج بالإضافات المفلترة فقط
+                                            productForDialog = Products_model(
+                                              id: widget.product.id,
+                                              name: widget.product.name,
+                                              price: widget.product.price,
+                                              categories:
+                                                  widget.product.categories,
+                                              imagePath:
+                                                  widget.product.imagePath,
+                                              isAvailable:
+                                                  widget.product.isAvailable,
+                                              favorit: widget.product.favorit,
+                                              supplements: filteredSupplements,
+                                            );
+                                          }
+
+                                          // 3. عرض الـ Dialog بالمنتج المناسب
+                                          showDialog(
+                                            barrierDismissible: true,
+                                            context: context,
+                                            builder: (context) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Center(
+                                                  child: GestureDetector(
+                                                    onTap:
+                                                        () {}, // لمنع إغلاق النافذة عند الضغط داخلها
+                                                    child: SeplimentDialog(
+                                                      context,
+                                                      product: productForDialog,
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
                                 SizedBox(width: context.widthPct(1)),
                                 widget_Botton_Cards(
                                   context,
                                   color: ColorApp_Botton.bottonOrange,
                                   icon: Icons.add,
                                   onPress: () {
-                                    final seplimentProvider =
-                                        Provider.of<SeplimentProvider>(
-                                          context,
-                                          listen: false,
-                                        );
-                                    cartProvider.add_Cart(
-                                      widget.product,
-                                      seplimentProvider,
-                                    );
+                                    cartProvider.add_Cart(widget.product, []);
                                   },
                                 ),
                               ],

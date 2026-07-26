@@ -1,4 +1,4 @@
-name: app_pizza_owner
+name: app_owner
 description: "This project is for a pizza shop, and this version is for the owner; it is an initial version 1.0.0 ."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -42,9 +42,30 @@ dependencies:
   image_picker: ^1.2.2
   path: ^1.9.1
 
+
+  # firebase :
+  firebase_core: ^4.11.0
+  cloud_firestore: ^6.6.0
+  firebase_storage: ^13.1.0
+  firebase_messaging: ^16.1.2
+  firebase_auth: ^6.2.0
+  google_sign_in: ^7.2.0
+  firebase_app_check: ^0.4.1+5
+  http: ^1.6.0
+  flutter_local_notifications: ^20.1.0
+  url_launcher: ^6.3.2
+  flutter_map: ^8.3.1
+  latlong2: ^0.10.1
+  geolocator: ^14.0.2
+  image_cropper: ^12.2.1
+  marquee: ^2.3.0
+  connectivity_plus: ^7.3.0
+
 dev_dependencies:
 
   flutter_launcher_icons: "^0.14.4"
+  flutter_lints: ^6.0.0
+
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
@@ -100,25 +121,8 @@ flutter:
     - assets/images/home_images/announc/announc.png
     - assets/images/home_images/announc/announc_II.png
  
-    # Burger
-    - assets/images/prodect_images/burger/burger.png
-    # Jues
-    - assets/images/prodect_images/jues/canet_cocacola.png
-    - assets/images/prodect_images/jues/cocacola_1L_.png
-    - assets/images/prodect_images/jues/cocacola_33Cl_.png
-    - assets/images/prodect_images/jues/gif_canet_cocacola.png
-    - assets/images/prodect_images/jues/gif_cocacola_1L_.png
-    # Kaick
-    - assets/images/prodect_images/kaick/kaick.png
-    # Pizza
     - assets/images/prodect_images/pizza/pizza_4Fromage.png
-    - assets/images/prodect_images/pizza/pizza_Vegitaria.png
-    - assets/images/prodect_images/pizza/pizza_Viande.png
-    # Sandwich
-    - assets/images/prodect_images/sandwich/sandwich_poli.png
-    - assets/images/prodect_images/sandwich/sandwich_viand.png
-    # Taccos
-    - assets/images/prodect_images/taccos/takos.png
+
     # icons 
     - assets/icons/sad-face.svg
     - assets/icons/ID_icone.svg
@@ -129,6 +133,7 @@ flutter:
     - assets/icons/order/Icon_delivery.svg
     - assets/icons/order/Icon_pizza.svg
     - assets/icons/order/Icon_QR.svg
+    - assets/logo_privet.png
 
 
 

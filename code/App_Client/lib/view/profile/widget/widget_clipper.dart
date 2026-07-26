@@ -3,7 +3,9 @@ import 'package:app_pizza_client/models/client/client_Model.dart';
 import 'package:app_pizza_client/view/profile/widget/column_profile.dart';
 import 'package:flutter/material.dart';
 
-ClipPath widget_ClipPath(BuildContext context,Client_Model clientInf) {
+ClipPath widget_ClipPath(BuildContext context,{
+   required Client_Model clientInf,
+  required Function() onPressed,}) {
   return ClipPath(
     clipper: Widget_CustomClipper(context: context),
     child: Container(
@@ -13,7 +15,7 @@ ClipPath widget_ClipPath(BuildContext context,Client_Model clientInf) {
         color: const Color(0xFFFFA11F),
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
-      child: Widget_profile(context,clientInf),
+      child: Widget_profile(context, onPressed: onPressed ,clientInf: clientInf),
     ),
   );
 }

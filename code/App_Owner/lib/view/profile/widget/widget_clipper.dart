@@ -1,9 +1,13 @@
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/admin/Admin_Model.dart';
-import 'package:app_pizza_owner/view/profile/widget/column_profile.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/models/admin/admin_model.dart';
+import 'package:app_owner/view/profile/widget/column_profile.dart';
 import 'package:flutter/material.dart';
 
-ClipPath widget_ClipPath(BuildContext context, Admin_Model clientInf) {
+ClipPath widget_ClipPath(
+  BuildContext context, {
+   required Admin_Model adminInf,
+  required Function() onPressed,
+}) {
   return ClipPath(
     clipper: Widget_CustomClipper(context: context),
     child: Container(
@@ -13,7 +17,7 @@ ClipPath widget_ClipPath(BuildContext context, Admin_Model clientInf) {
         color: const Color.fromARGB(62, 255, 162, 31),
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
-      child: Widget_profile(context, clientInf),
+      child: Widget_profile(context, onPressed: onPressed ,adminInf:adminInf),
     ),
   );
 }

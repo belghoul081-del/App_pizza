@@ -1,4 +1,4 @@
-package com.example.app_client
+package com.infinitypizza.app_client
 
 import io.flutter.embedding.android.FlutterActivity
 

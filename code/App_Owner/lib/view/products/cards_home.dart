@@ -1,6 +1,6 @@
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/provider/product/product_Provider.dart';
-import 'package:app_pizza_owner/view/products/widget/products/cards_product.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/provider/product/product_Provider.dart';
+import 'package:app_owner/view/products/widget/products/cards_product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +17,25 @@ class _Products_cards_homeState extends State<Products_cards_home> {
   Widget build(BuildContext context) {
     return Consumer<ProductProvider>(
       builder: (context, provider, child) {
+        if (provider.error != null) {
+          return Padding(
+            padding: EdgeInsets.all(context.heightPct(3)),
+            child: Center(
+              child: Text(
+                provider.error!,
+                style: const TextStyle(color: Colors.red),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
+
+        if (provider.isLoading) {
+          return const Padding(
+            padding: EdgeInsets.all(24),
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
 
         final filterProducts = provider.products.where((p) {
           return p.categories == widget.selectedCategory;
@@ -32,14 +51,12 @@ class _Products_cards_homeState extends State<Products_cards_home> {
           ),
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: context.heightPct(1.2),
             mainAxisSpacing: context.heightPct(1),
             childAspectRatio: 0.85,
           ),
-
           itemCount: filterProducts.length,
           itemBuilder: (context, index) {
             final product = filterProducts[index];
@@ -47,8 +64,8 @@ class _Products_cards_homeState extends State<Products_cards_home> {
               key: ValueKey(product.id),
               product: product,
               onChanged: () {
-                setState(() {});
-                provider.notifyListeners();
+                // setState(() {});
+                // provider.notifyListeners();
               },
             );
           },

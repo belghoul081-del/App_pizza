@@ -1,6 +1,6 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_image.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_image.dart';
+import 'package:app_owner/constant/app_size.dart';
 import 'package:flutter/material.dart';
 
 class Widget_StarePage extends StatelessWidget {

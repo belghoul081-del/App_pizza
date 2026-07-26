@@ -1,4 +1,4 @@
-import 'package:app_pizza_client/constant/text/text_logo_studio.dart';
+import 'package:app_pizza_client/constant/text/text_Logo_Studio.dart';
 import 'package:app_pizza_client/view/auth/login_view.dart';
 import 'package:app_pizza_client/view/start/widget/image_text.dart';
 import 'package:app_pizza_client/view/start/widget/log_reg.dart';
@@ -39,7 +39,9 @@ class Welcome_chose_L_or_R extends StatelessWidget {
                       text_b: 'i have ',
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => Login_Page(x: 0,)),
+                          MaterialPageRoute(
+                            builder: (context) => Login_Page(x: 0),
+                          ),
                         );
                       },
                     ),
@@ -51,15 +53,19 @@ class Welcome_chose_L_or_R extends StatelessWidget {
                       l_or_r: 'register',
                       text_o: 'new',
                       text_b: 'creat ',
-                      onPressed: () {Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => Login_Page(x: 1,)),
-                        );},
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => Login_Page(x: 1),
+                          ),
+                        );
+                      },
                     ),
                   ),
                   SizedBox(height: context.heightPct(17.49)),
 
                   /// logo
-                  Logo_Studio(),
+                  LogoStudio(),
                 ],
               ),
             ),

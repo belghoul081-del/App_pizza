@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 Widget image_rchma(BuildContext context) {
   return Align(
-    alignment:
-        Alignment.centerRight, // 👈 يضعها في منتصف الجانب الأيمن تلقائياً
+    alignment: Alignment.centerRight,
     child: Opacity(
       opacity: 0.3,
       child: Padding(

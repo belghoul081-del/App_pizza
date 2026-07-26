@@ -1,7 +1,7 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/view/products/modifi_product/widget_textModefi.dart';
-import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/view/products/modifi_product/widget_textModefi.dart';
+import 'package:app_owner/widget/custom/costum_Button.dart';
 import 'package:flutter/material.dart';
 
 class Widget_ShowBottomSheet extends StatelessWidget {

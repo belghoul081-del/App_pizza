@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/view/products/modifi_product/modifi_product_view.dart';
-import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
-import 'package:app_pizza_owner/widget/custom/costum_image_cards.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/models/model_products/products_Model.dart';
+import 'package:app_owner/view/products/modifi_product/modifi_product_view.dart';
+import 'package:app_owner/widget/custom/costum_Button.dart';
+import 'package:app_owner/widget/custom/costum_image_cards.dart';
 import 'package:flutter/material.dart';
 
 Widget Image_modifi(
@@ -24,6 +24,7 @@ Widget Image_modifi(
         selectedImage != null
             ? Container(
                 height: context.heightPct(25),
+                width: context.heightPct(25),
                 decoration: BoxDecoration(
                   color: ColorApp_Icon_border.bottonbrown,
                   shape: BoxShape.circle,
@@ -31,6 +32,7 @@ Widget Image_modifi(
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(100)),
+                  // الصورة تصل هنا مقصوصة مسبقًا 1:1 من ImagePickerService،
                   child: Image.file(selectedImage, fit: BoxFit.cover),
                 ),
               )

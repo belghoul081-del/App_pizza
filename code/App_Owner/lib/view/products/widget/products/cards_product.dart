@@ -1,10 +1,10 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/view/products/widget/products/botton_Cards.dart';
-import 'package:app_pizza_owner/view/products/detail_product/details_product_view.dart';
-import 'package:app_pizza_owner/widget/custom/costum_image_cards.dart';
-import 'package:app_pizza_owner/view/products/widget/products/text_cards.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/models/model_products/products_Model.dart';
+import 'package:app_owner/view/products/widget/products/botton_Cards.dart';
+import 'package:app_owner/view/products/detail_product/details_product_view.dart';
+import 'package:app_owner/widget/custom/costum_image_cards.dart';
+import 'package:app_owner/view/products/widget/products/text_cards.dart';
 import 'package:flutter/material.dart';
 
 class Widget_Cards_product extends StatefulWidget {
@@ -130,7 +130,6 @@ class _Widget_Cards_productState extends State<Widget_Cards_product> {
                               context,
                               color: ColorApp_Botton.bottonOrange,
                               icon: Icons.settings,
-                              // بدلاً من مجرد .push()
                               onPress: () async {
                                 final result = await Navigator.of(context).push(
                                   MaterialPageRoute(

@@ -1,7 +1,6 @@
 import 'package:app_pizza_client/models/model_cart/cart_Model.dart';
 import 'package:app_pizza_client/models/model_products/products_Model.dart';
 import 'package:app_pizza_client/models/model_sepliment/sepliment_Model.dart';
-import 'package:app_pizza_client/provider/cart/sepliment_Provider.dart';
 import 'package:flutter/material.dart';
 
 class CartProvider with ChangeNotifier {
@@ -13,11 +12,9 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  ///دالة اضافة للسلة
-  void add_Cart(Products_model cartItem, SeplimentProvider sepliment) {
-    List<Sepliment_model> selectSepliment = sepliment.carts;
+  void add_Cart(Products_model cartItem,  List<Sepliment_model> selectedSupplements) {
     String newId =
-        "${cartItem.id}_${selectSepliment.map((e) => e.name).join('_')}";
+        "${cartItem.id}_${selectedSupplements.map((e) => e.id).join('_')}";
 
     int index = _carts.indexWhere((element) => element.uniqueId == newId);
     if (index != -1) {
@@ -27,14 +24,13 @@ class CartProvider with ChangeNotifier {
         Cart_model(
           product: cartItem,
           quantity: 1,
-          sepliment: List.from(selectSepliment),
+          sepliment: List.from(selectedSupplements),
         ),
       );
     }
     notifyListeners();
   }
 
-  ///دالة زيادة كمية المنتج
   void addQuantity(Cart_model cartItem) {
     int index = _carts.indexWhere(
       (element) => element.uniqueId == cartItem.uniqueId,
@@ -45,7 +41,6 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  ///دالة انقاص كمية المنتج
   void removeQuantity(Cart_model cartItem) {
     int index = _carts.indexWhere(
       (element) => element.uniqueId == cartItem.uniqueId,
@@ -53,14 +48,13 @@ class CartProvider with ChangeNotifier {
     if (index != -1) {
       if (_carts[index].quantity > 1) {
         _carts[index].quantity = _carts[index].quantity - 1;
+      } else {
+        removeFromCart(cartItem);
+        return;
       }
-    } else if (index != -1 && _carts[index].quantity == 1) {
-      removeFromCart(cartItem);
     }
     notifyListeners();
   }
-
-  ///تحقق اذا كان في الكارت قبلا
 
   bool productExist(Cart_model cartItem) {
     return _carts.indexWhere(
@@ -69,7 +63,6 @@ class CartProvider with ChangeNotifier {
         -1;
   }
 
-  ///حذف من الكارد
   void removeFromCart(Cart_model cartItem) {
     int index = _carts.indexWhere(
       (element) => element.uniqueId == cartItem.uniqueId,
@@ -80,7 +73,6 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  ///سعر اجمالي
   int total_Price_Cart() {
     int total = 0;
     for (var i = 0; i < _carts.length; i++) {

@@ -1,11 +1,10 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/text/text_logo_studio.dart';
-import 'package:app_pizza_owner/view/start/widget/image_text.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/text/text_logo_studio.dart';
+import 'package:app_owner/view/start/widget/image_text.dart';
 import 'package:flutter/material.dart';
-import 'package:app_pizza_owner/constant/app_image.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
+import 'package:app_owner/constant/app_image.dart';
+import 'package:app_owner/constant/app_size.dart';
 
-// ignore: camel_case_types
 class Welcome_Page extends StatelessWidget {
   const Welcome_Page({super.key});
 
@@ -15,7 +14,6 @@ class Welcome_Page extends StatelessWidget {
       body: SafeArea(
         top: true,
         child: Stack(
-          // fit: StackFit.expand,
           children: [
             /// background image
             Positioned.fill(child: AppImage_background()),

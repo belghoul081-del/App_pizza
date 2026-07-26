@@ -1,54 +1,26 @@
 class Client_Model {
-  //int uID;
+  String uID;
   String name;
-  //رمز اشعار
-  //String addres;
   String image;
   String number;
-  String password;
 
   Client_Model({
-    this.number = '0559853037',
-    this.password = 'kader0811',
-    this.name = 'Kader081',
-    this.image = "assets/images/profila_pucture.png",
-  });
-}
-
-
-/*
-class ClientModel {
-  String? uID;        // 👈 أضفنا المعرف الفريد الذي يمنحه فايربيس لكل مستخدم
-  String name;
-  String number;
-  String password;    // ⚠️ ملاحظة: كلمة المرور لا تُخزن في قاعدة البيانات بل تُرسل فقط للـ Authentication
-
-  ClientModel({
-    this.uID,
-    this.name = '',
+    this.uID = '',
     this.number = '',
-    this.password = '',
+    this.name = 'Client',
+    this.image = "assets/images/profila_client.png",
   });
-
-  // 1️⃣ الدالة السحرية الأولى: تحويل كود Dart إلى خريطة Map لإرسالها لفايربيس
-  Map<String, dynamic> toMap() {
-    return {
-      'uID': uID,
-      'name': name,
-      'number': number,
-      // لا نضع كلمة المرور هنا لحماية خصوصية المستخدم في قاعدة البيانات
-    };
+  Map<String, dynamic> toMap( String authenticatedUid) {
+    uID = authenticatedUid;
+    return {'uID':uID,'name': name, 'number': number, 'image': image};
   }
 
-  // 2️⃣ الدالة السحرية الثانية: استقبال البيانات القادمة من فايربيس وتحويلها لكائن Dart نفهمه
-  factory ClientModel.fromMap(Map<String, dynamic> map) {
-    return ClientModel(
-      uID: map['uID'] as String?,
-      name: map['name'] as String? ?? '',
-      number: map['number'] as String? ?? '',
+  factory Client_Model.fromMap(Map<String, dynamic> map) {
+    return Client_Model(
+      uID: map['uID'] ?? '',
+      name: map['name'] ?? 'Client',
+      number: map['number'] ?? '',
+      image: map['image'] ?? "assets/images/profila_client.png",
     );
   }
 }
-
-
- */

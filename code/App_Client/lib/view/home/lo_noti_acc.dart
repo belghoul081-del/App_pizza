@@ -1,10 +1,21 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/models/client/client_Model.dart';
+import 'package:app_pizza_client/provider/admin/admin_provider.dart';
+import 'package:app_pizza_client/provider/client/client_Provider.dart';
+import 'package:app_pizza_client/provider/order/order_Provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 Widget Bar_Location_Notificaion_Bccount({required BuildContext context}) {
-  final clientInf = Client_Model();
+  final adminProvider = Provider.of<AdminProvider>(context);
+
+  final clientInf = Provider.of<ClientProvider>(context).client;
+  final bool isNetwork =
+      clientInf.image.startsWith('http://') ||
+      clientInf.image.startsWith('https://');
+  final orderProvider = Provider.of<OrderProvider>(context);
+  final bool hasUnreadNotification = orderProvider.hasUnreadNotification;
+
   return Container(
     margin: EdgeInsets.symmetric(vertical: context.heightPct(1)),
     padding: EdgeInsets.symmetric(horizontal: context.heightPct(2)),
@@ -20,11 +31,11 @@ Widget Bar_Location_Notificaion_Bccount({required BuildContext context}) {
               Icon(
                 Icons.location_on_outlined,
                 color: ColorApp_Botton.bottonOrange,
-                size: context.heightPct(7),
+                size: context.heightPct(6.5),
               ),
               Expanded(
                 child: Text(
-                  "siamitale , 400",
+                  adminProvider.admin.address,
                   style: TextStyle(
                     color: ColorApp_Text.textbrown,
                     fontSize: context.heightPct(2.5),
@@ -41,10 +52,29 @@ Widget Bar_Location_Notificaion_Bccount({required BuildContext context}) {
             onPressed: () {
               Navigator.of(context).pushNamed("Notification");
             },
-            child: Icon(
-              Icons.notifications_none_rounded,
-              color: ColorApp_Botton.bottonOrange,
-              size: context.heightPct(7),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Icon(
+                  Icons.notifications_none_rounded,
+                  color: ColorApp_Botton.bottonOrange,
+                  size: context.heightPct(7),
+                ),
+                // التحقق من وجود إشعارات غير مقروءة
+                if (hasUnreadNotification)
+                  Positioned(
+                    right: 6, 
+                    top: 10,
+                    child: Container(
+                      width: context.heightPct(1.5), 
+                      height: context.heightPct(1.5), 
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red, 
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
         ),
@@ -60,7 +90,9 @@ Widget Bar_Location_Notificaion_Bccount({required BuildContext context}) {
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: Image.asset(clientInf.image, fit: BoxFit.cover),
+                  child: isNetwork
+                      ? Image.network(clientInf.image, fit: BoxFit.cover)
+                      : Image.asset(clientInf.image, fit: BoxFit.cover),
                 ),
                 Positioned.fill(
                   child: Material(
@@ -68,6 +100,7 @@ Widget Bar_Location_Notificaion_Bccount({required BuildContext context}) {
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(19)),
                       onTap: () {
+                        print("${clientInf.name} /// ${clientInf.number}");
                         Navigator.of(context).pushNamed("Profile");
                       },
                     ),

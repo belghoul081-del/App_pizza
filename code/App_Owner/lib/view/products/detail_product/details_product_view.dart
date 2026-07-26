@@ -1,14 +1,16 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
-import 'package:app_pizza_owner/view/products/modifi_product/widget_IconImage.dart';
-import 'package:app_pizza_owner/view/products/detail_product/widget_isValid_not.dart';
-import 'package:app_pizza_owner/view/products/detail_product/widget_Supliment.dart';
-import 'package:app_pizza_owner/widget/appbare_widget/appBar_widget.dart';
-import 'package:app_pizza_owner/widget/custom/costum_bar.dart';
-import 'package:app_pizza_owner/widget/custom/costum_image_cards.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/models/model_products/products_Model.dart';
+import 'package:app_owner/models/model_sepliment/sepliment_Model.dart';
+import 'package:app_owner/provider/product/product_Provider.dart';
+import 'package:app_owner/view/products/modifi_product/widget_IconImage.dart';
+import 'package:app_owner/view/products/detail_product/widget_isValid_not.dart';
+import 'package:app_owner/view/products/detail_product/widget_Supliment.dart';
+import 'package:app_owner/widget/appbare_widget/appBar_widget.dart';
+import 'package:app_owner/widget/custom/costum_bar.dart';
+import 'package:app_owner/widget/custom/costum_image_cards.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class details_Product_Page extends StatefulWidget {
   final Products_model product;
@@ -33,6 +35,7 @@ class _details_Product_PageState extends State<details_Product_Page> {
 
   @override
   Widget build(BuildContext context) {
+     final live = context.watch<ProductProvider>().getById(widget.product.id) ?? widget.product;
     return Scaffold(
       appBar: Widget_appBar(context, title: "product details"),
       body: Center(
@@ -109,7 +112,7 @@ class _details_Product_PageState extends State<details_Product_Page> {
                               setState(() {
                                 widget.product.isAvailable = value;
                               });
-                              widget.onChanged;
+                          //  widget.onChanged?.call();
                               print("${value}");
                             },
                           ),
@@ -188,7 +191,7 @@ class _details_Product_PageState extends State<details_Product_Page> {
                       ),
                     ),
 
-                    Supplements_View(widget: widget),
+                    Supplements_View(product: live),
                   ],
                 ),
               ],

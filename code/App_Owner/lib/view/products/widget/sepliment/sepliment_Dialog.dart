@@ -1,11 +1,10 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/model_cart/cart_Model.dart';
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
-import 'package:app_pizza_owner/provider/cart/cart_Provider.dart';
-import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
-import 'package:app_pizza_owner/view/products/widget/sepliment/buttton_of_sepliment.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/models/model_products/products_Model.dart';
+import 'package:app_owner/models/model_sepliment/sepliment_Model.dart';
+import 'package:app_owner/provider/cart/cart_Provider.dart';
+import 'package:app_owner/provider/cart/sepliment_Provider.dart';
+import 'package:app_owner/view/products/widget/sepliment/buttton_of_sepliment.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +16,7 @@ Dialog SeplimentDialog(
     backgroundColor: Colors.transparent,
     insetPadding: EdgeInsets.symmetric(
       horizontal: context.widthPct(5),
-    ), // تصغير الهوامش الجانبية
+    ),
     child: Container(
       padding: EdgeInsets.all(context.heightPct(2)),
       decoration: BoxDecoration(
@@ -27,9 +26,19 @@ Dialog SeplimentDialog(
       ),
       child: Consumer<SeplimentProvider>(
         builder: (context, provider, child) {
+          final allSupplements = Sepliment_Data.general_supplements.where((s) {
+            // خاص بالمنتج
+            if (s.ProductId == product.id) return true;
+            // خاص بالفئة
+            if (s.categories == product.categories && s.ProductId == '')
+              return true;
+            // عام
+            if (s.categories == '' && s.ProductId == '') return true;
+            return false;
+          }).toList();
           return Column(
             mainAxisSize:
-                MainAxisSize.min, // سيجعل الدايلوج يأخذ حجم المحتوى فقط
+                MainAxisSize.min, 
             children: [
               Text(
                 "Sepliment",
@@ -44,11 +53,11 @@ Dialog SeplimentDialog(
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: Sepliment_Data.general_supplements.length,
+                itemCount: allSupplements.length,
                 itemBuilder: (context, index) {
-                  final item = Sepliment_Data.general_supplements[index];
+                  final item = allSupplements[index];
                   return SizedBox(
-                    height: context.heightPct(5), // تصغير ارتفاع كل صف
+                    height: context.heightPct(5),
                     child: ButttonOfSepliment(
                       name: item.name,
                       price: item.price,
@@ -59,8 +68,8 @@ Dialog SeplimentDialog(
                 },
               ),
 
-              const Divider(), // فاصل جمالي
-              // الجزء السفلي (السعر والزر)
+              const Divider(),
+              //   (السعر والزر)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -85,7 +94,7 @@ Dialog SeplimentDialog(
                       cartProvider.add_Cart(product, seplimentProvider);
                       seplimentProvider.clearSepliment();
                       Navigator.pop(context);
-                    }, // إغلاق الدايلوج
+                    }, 
                     color: ColorApp_Botton.bottonOrange,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),

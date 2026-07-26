@@ -1,10 +1,10 @@
-import 'package:app_pizza_owner/constant/text/text_logo_studio.dart';
-import 'package:app_pizza_owner/view/auth/login_view.dart';
-import 'package:app_pizza_owner/view/start/widget/image_text.dart';
-import 'package:app_pizza_owner/view/start/widget/log_reg.dart';
+import 'package:app_owner/constant/text/text_logo_studio.dart';
+import 'package:app_owner/view/auth/login_view.dart';
+import 'package:app_owner/view/start/widget/image_text.dart';
+import 'package:app_owner/view/start/widget/log_reg.dart';
 import 'package:flutter/material.dart';
-import 'package:app_pizza_owner/constant/app_image.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
+import 'package:app_owner/constant/app_image.dart';
+import 'package:app_owner/constant/app_size.dart';
 
 class Welcome_chose_L_or_R extends StatelessWidget {
   const Welcome_chose_L_or_R({super.key});
@@ -40,9 +40,7 @@ class Welcome_chose_L_or_R extends StatelessWidget {
                       text_b: 'b9b9 ',
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => Login_Page(),
-                          ),
+                          MaterialPageRoute(builder: (context) => Login_Page()),
                         );
                       },
                     ),

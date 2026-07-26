@@ -1,40 +1,39 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/view/home/widget/bottom_bar/navigationDestination_homr.dart';
 import 'package:flutter/material.dart';
 
 Widget bottomNavigationBar_home(
   BuildContext context,
   int _currentIndex,
-  ValueChanged<int> ontap,
-  {int?quantity,}
+  Function(int) ontap,
 ) {
-  return NavigationBarTheme(
-    data: NavigationBarThemeData(
-      backgroundColor: ColorApp_Background.appbarecolor,
-      indicatorColor: const Color.fromARGB(0, 0, 0, 0),
-      iconTheme: WidgetStateProperty.resolveWith((states) {
-        if (states.contains(WidgetState.selected)) {
-          return IconThemeData(
+  return BottomAppBar(
+    height: context.heightPct(9),
+    color: ColorApp_Background.appbarecolor,
+    shape: const CircularNotchedRectangle(),
+    notchMargin: 8.0,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        IconButton(
+          icon: Icon(
+            Icons.home_sharp,
+            color: ColorApp_Icon_border.bottonbrown,
+
+            size: context.heightPct(5),
+          ),
+          onPressed: () => ontap(0),
+        ),
+
+        SizedBox(width: context.widthPct(20)),
+        IconButton(
+          icon: Icon(
+            Icons.chat_outlined,
             color: ColorApp_Icon_border.bottonbrown,
             size: context.heightPct(5),
-          );
-        }
-        return IconThemeData(
-          color: ColorApp_Icon_border.bottonbrown,
-          size: context.heightPct(4.5),
-        );
-      }),
-    ),
-    child: NavigationBar(
-      selectedIndex: _currentIndex,
-      onDestinationSelected: ontap,
-      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-      height: context.heightPct(7.5),
-      destinations: [
-        NavigationDestination_bar_home(context: context, x: 1),
-        NavigationDestination_bar_home(context: context, x: 2,quantity:quantity ),
-        NavigationDestination_bar_home(context: context, x: 3),
+          ),
+          onPressed: () => ontap(1),
+        ),
       ],
     ),
   );

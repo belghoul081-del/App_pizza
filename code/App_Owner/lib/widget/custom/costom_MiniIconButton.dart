@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
 
 class CustomMiniIconButton extends StatelessWidget {
   final IconData icon;

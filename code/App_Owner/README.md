@@ -1,4 +1,4 @@
-# owner_app
+# app_owner
 
 A new Flutter project.
 

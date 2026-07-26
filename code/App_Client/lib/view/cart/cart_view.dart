@@ -1,6 +1,7 @@
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:app_pizza_client/models/model_cart/cart_Model.dart';
 import 'package:app_pizza_client/provider/cart/cart_Provider.dart';
+import 'package:app_pizza_client/provider/client/client_Provider.dart';
 import 'package:app_pizza_client/view/cart/cart_is_empty_view.dart';
 import 'package:app_pizza_client/widget/appbare_widget/sliverAppBar_widget.dart';
 import 'package:app_pizza_client/view/cart/widget/widget_bottomNavigationBar.dart';
@@ -19,6 +20,7 @@ class _Order_PageState extends State<Order_Page> {
   @override
   Widget build(BuildContext context) {
     CartProvider cartProvider = Provider.of<CartProvider>(context);
+    ClientProvider clientProvider = Provider.of<ClientProvider>(context);
 
     List<Cart_model> carts = cartProvider.carts.reversed.toList();
 
@@ -28,6 +30,8 @@ class _Order_PageState extends State<Order_Page> {
             bottomNavigationBar: widget_BottomNavigationBar(
               context,
               priceTotal: cartProvider.total_Price_Cart(),
+              client: clientProvider.client,
+              items: cartProvider.carts,
             ),
 
             body: CustomScrollView(
@@ -50,44 +54,23 @@ class _Order_PageState extends State<Order_Page> {
 
                       return ListTile(
                         minVerticalPadding: context.heightPct(1.5),
-                        title: item.sepliment.isEmpty
-                            ? widget_Card_Cart(
-                                context,
-                                onAdd: () {
-                                  cartProvider.addQuantity(item);
-                                },
-                                onRemove: () {
-                                  cartProvider.removeQuantity(item);
-                                },
-                                quantity: item.quantity,
-                                price: item.product.price * item.quantity,
-                                imagePath: item.product.imagePath,
-                                name: item.product.name,
-                                sepliment: List.empty(),
-                                delete_press: () {
-                                  cartProvider.removeFromCart(item);
-                                },
-                              )
-                            : widget_Card_Cart(
-                                context,
-                                onAdd: () {
-                                  cartProvider.addQuantity(item);
-                                },
-                                onRemove: () {
-                                  cartProvider.removeQuantity(item);
-                                },
-                                quantity: item.quantity,
-
-                                price: item.pricePerUnit * item.quantity,
-
-                                imagePath: item.product.imagePath,
-                                name: item.product.name,
-                                sepliment: item.sepliment,
-                                delete_press: () {
-                                  cartProvider.removeFromCart(item);
-                                },
-                              ),
-                      );
+                        title:widget_Card_Cart(
+                          context,
+                          onAdd: () {
+                            cartProvider.addQuantity(item);
+                          },
+                          onRemove: () {
+                            cartProvider.removeQuantity(item);
+                          },
+                          quantity: item.quantity,
+                          price: item.pricePerUnit * item.quantity,
+                          imagePath: item.product.imagePath,
+                          name: item.product.name,
+                          sepliment: item.sepliment,
+                          delete_press: () {
+                            cartProvider.removeFromCart(item);
+                          },
+                        ),);
                     },
                   ),
                 ),
@@ -96,3 +79,5 @@ class _Order_PageState extends State<Order_Page> {
           );
   }
 }
+
+

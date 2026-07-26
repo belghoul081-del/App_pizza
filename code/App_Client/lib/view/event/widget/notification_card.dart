@@ -10,6 +10,19 @@ class Widget_Notification_Card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String textStatus() {
+      if (notification.order.status == "Done") {
+        return "order has been prepared";
+      }
+      if (notification.order.status == "Delivery") {
+        return "the order is way to you.";
+      } else {
+        return "order has been delivered";
+      }
+    }
+
+    final bool isNetwork = notification.image.startsWith('http');
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       height: context.heightPct(10),
@@ -55,35 +68,47 @@ class Widget_Notification_Card extends StatelessWidget {
 
           Container(
             height: context.heightPct(7),
+            width: context.heightPct(7),
             decoration: BoxDecoration(shape: BoxShape.circle),
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(200)),
-              child: Image.asset(notification.image, fit: BoxFit.cover),
+              child: isNetwork
+                  ? Image.network(notification.image, fit: BoxFit.cover)
+                  : Image.asset(notification.image, fit: BoxFit.cover),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(left: context.widthPct(2)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    notification.title,
+                    style: TextStyle(
+                      fontSize: context.heightPct(2.5),
+                      fontFamily: "InriaSerif",
+                    ),
+                  ),
+                  Text(
+                    textStatus(),
+                    style: TextStyle(fontSize: context.heightPct(1.75)),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: context.widthPct(2)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  notification.title,
-                  style: TextStyle(
-                    fontSize: context.heightPct(3.5),
-                    fontFamily: "SemiBold",
-                  ),
-                ),
-                Text(
-                  notification.description,
-                  style: TextStyle(fontSize: context.heightPct(2)),
-                  maxLines: 1,
-                ),
-              ],
+            padding: EdgeInsets.only(right: context.heightPct(1)),
+            child: Text(
+              notification.createdTime != null
+                  ? Time_Calculate().getTimeAgo(notification.createdTime!)
+                  : "--",
+              style: TextStyle(fontSize: context.heightPct(2)),
             ),
-          ),
-          Text(
-            Time_Calculate().getTimeAgo(notification.createdTime),
-            style: TextStyle(fontSize: context.heightPct(2)),
           ),
         ],
       ),

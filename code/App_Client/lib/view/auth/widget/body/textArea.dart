@@ -1,6 +1,7 @@
 import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
+import 'package:flutter/services.dart';
 
 Widget text_Area({
   required BuildContext context,
@@ -12,6 +13,7 @@ Widget text_Area({
   TextInputType keyboardType = TextInputType.text, // type of text
   Function(String)? onChanged,
   String? Function(String?)? validator,
+  List<TextInputFormatter>? inputFormatters,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,6 +62,7 @@ Widget text_Area({
                 obscureText: isPassword,
                 keyboardType: keyboardType,
                 onChanged: onChanged,
+                inputFormatters: inputFormatters,
                 decoration: InputDecoration(
                   counterText: "",
                   hintText: hintText,

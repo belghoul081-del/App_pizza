@@ -1,9 +1,14 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/admin/Admin_Model.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/models/order/location_Model.dart';
+import 'package:app_owner/view/location/location_viewer_page.dart';
 import 'package:flutter/material.dart';
 
-Dialog costumAlertDialog(BuildContext context, {required int priceTotal}) {
+Dialog costumAlertDialog(
+  BuildContext context, {
+  required VoidCallback onPresseddelete,
+  required VoidCallback onPressedcancel,
+}) {
   return Dialog(
     backgroundColor: Colors.transparent,
     child: Container(
@@ -22,60 +27,51 @@ Dialog costumAlertDialog(BuildContext context, {required int priceTotal}) {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.heightPct(1)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("${DateTime.now().hour}:${DateTime.now().minute}"),
-                Text(
-                  "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                "delete order",
+                style: TextStyle(
+                  fontSize: context.heightPct(3),
+                  fontFamily: "InterBold",
+                  color: ColorApp_Text.textred,
                 ),
-              ],
+              ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: context.heightPct(3)),
-            child: WidgetTextRich_Dialog(
-              context,
-              text: "Orger: ",
-              content: "1000D293RR",
+            padding: const EdgeInsets.all(10.0),
+            child: Center(
+              child: Text(
+                "do you want delete order",
+                style: TextStyle(
+                  fontSize: context.heightPct(2),
+                  fontFamily: "InterBold",
+                  color: ColorApp_Text.textbrown,
+                ),
+              ),
             ),
           ),
-          WidgetTextRich_Dialog(
-            context,
-            text: "Name: ",
-            content: "${Admin_Model().name}",
-          ),
-          WidgetTextRich_Dialog(
-            context,
-            text: "Location: ",
-            content: "Dalas-100-b2",
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              left: context.heightPct(7),
-              top: context.heightPct(2),
-              bottom: context.heightPct(1),
-            ),
-            child: WidgetTextRich_Dialog(
-              context,
-              text: "Price: ",
-              content: "${priceTotal} Da",
-            ),
-          ),
-
           Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceBetween, // هذا سيوفر التباعد للأطراف
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // لا نستخدم Expanded هنا، بل نستخدم عرضاً محدداً للزر
               SizedBox(
-                width: context.widthPct(35),
-                child: Dialogbotton_Location(context),
+                width: context.widthPct(30),
+                child: Dialogbotton_Confirm(
+                  context,
+                  onPressed: onPresseddelete,
+                  name: "delete",
+                  color: ColorApp_Text.textred,
+                ),
               ),
               SizedBox(
                 width: context.widthPct(30),
-                child: Dialogbotton_Confirm(context),
+                child: Dialogbotton_Confirm(
+                  context,
+                  onPressed: onPressedcancel,
+                  name: "cancel",
+                  color: ColorApp_Botton.bottonOrange,
+                ),
               ),
             ],
           ),
@@ -85,92 +81,81 @@ Dialog costumAlertDialog(BuildContext context, {required int priceTotal}) {
   );
 }
 
-Widget Dialogbotton_Location(BuildContext context) {
-  return InkWell(
-    onTap: () {},
-    child: Container(
-      height: context.heightPct(5),
-      width: context.widthPct(40),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(50)),
-        border: Border.all(color: ColorApp_Icon_border.bottonbrown),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.location_on,
-            color: ColorApp_Icon_border.bottonbrown,
-            size: context.heightPct(4),
-          ),
-          Text(
-            "Location",
-            style: TextStyle(
-              color: ColorApp_Text.textbrown,
-              fontSize: context.heightPct(2.5),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
+Widget Dialogbotton_Location(
+  BuildContext context, {
+  required Location_Model location,
+}) {
+  final bool hasLocation = location.isSet;
 
-Widget Dialogbotton_Confirm(BuildContext context) {
   return MaterialButton(
-    onPressed: () {},
+    onPressed: !hasLocation
+        ? null
+        : () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => LocationViewerPage(location: location),
+              ),
+            );
+          },
     padding: EdgeInsets.zero,
     child: Container(
       height: context.heightPct(7),
-      width: double.infinity,
       decoration: BoxDecoration(
-        color: ColorApp_Botton.bottonOrange,
+        color: hasLocation ? const Color(0xFFFDE6C8) : Colors.grey.shade300,
         borderRadius: BorderRadius.all(Radius.circular(50)),
+        border: Border.all(
+          color: hasLocation ? ColorApp_Icon_border.bottonbrown : Colors.grey,
+        ),
       ),
       child: Center(
-        child: Text(
-          "Confirm",
-          style: TextStyle(
-            color: ColorApp_Text.textbrown,
-            fontSize: context.heightPct(2.5),
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.location_on,
+              color: hasLocation
+                  ? ColorApp_Icon_border.bottonbrown
+                  : Colors.grey,
+              size: context.heightPct(5),
+            ),
+            Text(
+              hasLocation ? "View Location" : "No Location",
+              style: TextStyle(
+                color: ColorApp_Text.textbrown,
+                fontSize: context.heightPct(2.2),
+              ),
+            ),
+          ],
         ),
       ),
     ),
   );
 }
 
-Widget WidgetTextRich_Dialog(
+Widget Dialogbotton_Confirm(
   BuildContext context, {
-  required String text,
-  required String content,
+  required VoidCallback onPressed,
+  required String name,
+  required Color color,
 }) {
-  return Padding(
-    padding: EdgeInsets.symmetric(
-      horizontal: context.heightPct(3),
-      vertical: context.heightPct(0.5),
-    ),
-    child: Text.rich(
-      TextSpan(
-        children: [
-          TextSpan(
-            text: text,
-            style: TextStyle(
-              fontSize: context.heightPct(2),
-              fontFamily: "InterBold",
-              color: ColorApp_Botton.bottonOrange,
-            ),
+  return MaterialButton(
+    onPressed: onPressed,
+    padding: EdgeInsets.zero,
+    child: Container(
+      height: context.heightPct(7),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+      ),
+      child: Center(
+        child: Text(
+          name,
+          style: TextStyle(
+            color: ColorApp_Text.textbrown,
+            fontSize: context.heightPct(2.5),
           ),
-          TextSpan(
-            text: content,
-            style: TextStyle(
-              fontSize: context.heightPct(2),
-              fontFamily: "InterBold",
-              color: Colors.black,
-            ),
-          ),
-        ],
+        ),
       ),
     ),
   );

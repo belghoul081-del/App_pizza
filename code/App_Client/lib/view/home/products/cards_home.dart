@@ -1,7 +1,8 @@
 import 'package:app_pizza_client/constant/app_size.dart';
-import 'package:app_pizza_client/models/model_products/products_Model.dart';
+import 'package:app_pizza_client/provider/product/product_Provider.dart';
 import 'package:app_pizza_client/view/home/products/widget/products/cards_product.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Products_cards_home extends StatefulWidget {
   final String selectedCategory;
@@ -14,36 +15,66 @@ class Products_cards_home extends StatefulWidget {
 class _Products_cards_homeState extends State<Products_cards_home> {
   @override
   Widget build(BuildContext context) {
-    final filterProducts = Products_Data.cards_of_Products.where((protected) {
-      if (widget.selectedCategory == "favorit") {
-        return protected.favorit;
-      }
-      return protected.categories == widget.selectedCategory;
-    }).toList();
-    return GridView.builder(
-      padding: EdgeInsets.only(
-        top: context.heightPct(1),
-        left: context.heightPct(2),
-        right: context.heightPct(2),
-        bottom: context.heightPct(5),
-      ),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+    return Consumer<ProductProvider>(
+      builder: (context, provider, child) {
+        if (provider.error != null) {
+          return Padding(
+            padding: EdgeInsets.all(context.heightPct(3)),
+            child: Center(
+              child: Text(
+                provider.error!,
+                style: const TextStyle(color: Colors.red),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
 
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: context.heightPct(1.2),
-        mainAxisSpacing: context.heightPct(1),
-        childAspectRatio: 0.85,
-      ),
+        if (provider.isLoading) {
+          return const Padding(
+            padding: EdgeInsets.all(24),
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
 
-      itemCount: filterProducts.length,
-      itemBuilder: (context, index) {
-        final currentProduct = filterProducts[index];
-        return Widget_Cards_product(
-          product: currentProduct,
-          onChanged: () {
-            setState(() {});
+        final filterProducts = provider.products.where((p) {
+          if (widget.selectedCategory == "favorit") {
+            return p.favorit;
+          }
+          return p.categories == widget.selectedCategory;
+        }).toList();
+
+        // ✅ مقارنة مباشرة وبسيطة بدون الحاجة للرجوع للقائمة
+        final bool filterJus = widget.selectedCategory == "##-jues";
+        final bool filtercack = widget.selectedCategory == "##-kaick";
+
+        return GridView.builder(
+          padding: EdgeInsets.only(
+            top: context.heightPct(1),
+            left: context.heightPct(2),
+            right: context.heightPct(2),
+            bottom: context.heightPct(5),
+          ),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: context.heightPct(1.2),
+            mainAxisSpacing: context.heightPct(1),
+            childAspectRatio: 0.85,
+          ),
+          itemCount: filterProducts.length,
+          itemBuilder: (context, index) {
+            final currentProduct = filterProducts[index];
+            return Widget_Cards_product(
+              key: ValueKey(currentProduct.id),
+              product: currentProduct,
+              onChanged: () {
+                setState(() {});
+              },
+              cack: filtercack,
+              jus: filterJus,
+            );
           },
         );
       },

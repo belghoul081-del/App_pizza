@@ -2,42 +2,43 @@ import 'package:app_pizza_client/constant/app_color.dart';
 import 'package:app_pizza_client/constant/app_size.dart';
 import 'package:flutter/material.dart';
 
-Widget widget_SliverAppBar(BuildContext context ,{required VoidCallback onPressed ,required String title})
-{
-
+Widget widget_SliverAppBar(
+  BuildContext context, {
+  required VoidCallback onPressed,
+  required String title,
+}) {
   return SliverAppBar(
-              backgroundColor: ColorApp_Background.backgroundcolor,
+    backgroundColor: ColorApp_Background.backgroundcolor,
 
-              /// icon
-              leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back_ios_new,
-                  color: ColorApp_Icon_border.bottonbrown,
-                ),
-                iconSize: context.heightPct(6),
+    /// icon
+    leading: IconButton(
+      icon: Icon(
+        Icons.arrow_back_ios_new,
+        color: ColorApp_Icon_border.bottonbrown,
+      ),
+      iconSize: context.heightPct(6),
 
-                onPressed: onPressed
-              ),
-              toolbarHeight: context.heightPct(10),
-              title: Center(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: context.heightPct(5),
-                    fontFamily: "InriaSerif",
-                    color: ColorApp_Icon_border.bottonbrown,
-                  ),
-                ),
-              ),
+      onPressed: onPressed,
+    ),
+    toolbarHeight: context.heightPct(10),
+    title: Center(
+      child: Text(
+        title,
+        style: TextStyle(
+          fontSize: context.heightPct(5),
+          fontFamily: "InriaSerif",
+          color: ColorApp_Icon_border.bottonbrown,
+        ),
+      ),
+    ),
 
-              /// line
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(1.0), // سماكة الخط
-                child: Container(
-                  color: ColorApp_Icon_border.bottonbrown,
-                  height: context.heightPct(0.3),
-                ),
-              ),
-            )
-          ;
+    /// line
+    bottom: PreferredSize(
+      preferredSize: Size.fromHeight(1.0),
+      child: Container(
+        color: ColorApp_Icon_border.bottonbrown,
+        height: context.heightPct(0.3),
+      ),
+    ),
+  );
 }

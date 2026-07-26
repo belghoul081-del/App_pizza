@@ -1,5 +1,5 @@
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
+import 'package:app_owner/models/model_products/products_Model.dart';
+import 'package:app_owner/models/model_sepliment/sepliment_Model.dart';
 
 class Cart_model {
   final Products_model product;
@@ -23,6 +23,6 @@ class Cart_model {
 class Cart_Data {
   static List<Cart_model> cart_of_Products = [
     // --- PIZZA ---
-    Cart_model(product: Products_Data.cards_of_Products[1],quantity: 1)
+    Cart_model(product: Products_Data.cards_of_Products[1], quantity: 1),
   ];
 }

@@ -1,0 +1,43 @@
+/// sigIn :
+
+onPressed: authProvider.isLoading
+        ? () {}
+        : () async {
+        if (_siginINFromKey.currentState!.validate()) {
+        bool success = await authProvider.signIn(
+        controllerEmail.text,
+        controllerPassword.text,
+        );
+
+        if (success && mounted) {
+        Navigator.of(context).pushReplacementNamed("Home");
+        } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+         const SnackBar(
+        content: Text(            
+        "فشل تسجيل الدخول، تأكد من البيانات",
+                ),
+            ),
+          );
+        }
+    }
+},
+
+
+// logout 
+onPressed: authProvider.isLoading ? () {}
+                    : () async {
+                          bool success = await authProvider.logout();
+                          
+
+                          if (success && mounted) {
+                            Navigator.of(context).pushReplacementNamed("Loading");
+                          } else if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  "Logout failed. Please check your details.",
+                                ),
+                              ),
+                            );
+                          }},

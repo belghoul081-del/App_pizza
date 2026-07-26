@@ -1,5 +1,5 @@
 import 'package:app_pizza_client/constant/app_color.dart';
-import 'package:app_pizza_client/constant/text/text_logo_studio.dart';
+import 'package:app_pizza_client/constant/text/text_Logo_Studio.dart';
 import 'package:app_pizza_client/view/start/widget/image_text.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pizza_client/constant/app_image.dart';
@@ -96,7 +96,7 @@ class Welcome_Page extends StatelessWidget {
                   SizedBox(height: context.heightPct(3.05)),
 
                   /// logo
-                  Logo_Studio(),
+                  LogoStudio(),
                 ],
               ),
             ),

@@ -1,10 +1,10 @@
-import 'package:app_pizza_owner/constant/app_size.dart';
+import 'package:app_owner/constant/app_size.dart';
 import 'package:flutter/material.dart';
 
 Widget image_rchma(BuildContext context) {
   return Align(
     alignment:
-        Alignment.centerRight, // 👈 يضعها في منتصف الجانب الأيمن تلقائياً
+        Alignment.centerRight,
     child: Opacity(
       opacity: 0.3,
       child: Padding(

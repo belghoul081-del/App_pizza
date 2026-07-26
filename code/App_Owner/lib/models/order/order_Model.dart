@@ -1,13 +1,17 @@
-import 'package:app_pizza_owner/models/client/client_Model.dart';
-import 'package:app_pizza_owner/models/model_cart/cart_Model.dart';
-import 'package:app_pizza_owner/models/order/state_order_Model.dart';
+import 'package:app_owner/models/client/client_Model.dart';
+import 'package:app_owner/models/order/order_item_Model.dart';
+import 'package:app_owner/models/order/state_order_Model.dart';
+import 'package:app_owner/models/order/location_Model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Order_Model {
   final String orderId;
   final Client_Model client;
-  final List<Cart_model> items;
+  final List<OrderItem_Model> items;
   final int totalOrderPrice;
-  // final DateTime orderTime;
+  final DateTime? createdAt;
+  final Location_Model location;
+  final bool readByOwner;
   State_Order_Model status;
 
   Order_Model({
@@ -15,54 +19,36 @@ class Order_Model {
     required this.client,
     required this.items,
     required this.totalOrderPrice,
-    //  required this.orderTime,
     required this.status,
+    this.createdAt,
+    required this.location,
+    this.readByOwner = false,
   });
-}
 
-class order_Data {
-  List<Order_Model> order = [
-    Order_Model(
-      orderId: "1000D293RR",
-      client: Client_Model(
-        name: "Kader081",
-        image: "assets/images/profila_client.png",
-      ),
-      items: [],
-      totalOrderPrice: 1200,
-      status: State_Order_Date.state[0], // Pending
-    ),
-    Order_Model(
-      orderId: "ORD-001",
-      client: Client_Model(
-        name: "عبد القادر",
-        image: "assets/images/user1.png",
-      ),
-      items: [],
-      totalOrderPrice: 1500,
-      status: State_Order_Date.state[0], // Pending
-    ),
-    Order_Model(
-      orderId: "ORD-002",
-      client: Client_Model(name: "محمد", image: "assets/images/user2.png"),
-      items: [],
-      totalOrderPrice: 2200,
-      status: State_Order_Date.state[1], // Preparation
-    ),
-    Order_Model(
-      orderId: "ORD-002",
-      client: Client_Model(name: "محمد", image: "assets/images/user2.png"),
-      items: [],
-      totalOrderPrice: 2200,
-      status: State_Order_Date.state[2], // Preparation
-    ),
+  factory Order_Model.fromMap(String id, Map<String, dynamic> map) {
+    final String statusKey = map['status'] ?? State_Order_Date.state.first.state;
+    final State_Order_Model matchedStatus = statusKey == State_Order_Date.cancelled.state
+        ? State_Order_Date.cancelled
+        : State_Order_Date.state.firstWhere(
+            (s) => s.state == statusKey,
+            orElse: () => State_Order_Date.state.first,
+          );
+    final rawItems = (map['items'] as List?) ?? [];
 
-    Order_Model(
-      orderId: "ORD-002",
-      client: Client_Model(name: "محمد", image: "assets/images/user2.png"),
-      items: [],
-      totalOrderPrice: 2200,
-      status: State_Order_Date.state[3], // Preparation
-    ),
-  ];
+
+    return Order_Model(
+      orderId: id,
+      client: Client_Model.fromMap(Map<String, dynamic>.from(map['client'] ?? {})),
+      items: rawItems
+          .map((e) => OrderItem_Model.fromMap(Map<String, dynamic>.from(e)))
+          .toList(),
+      totalOrderPrice: (map['totalOrderPrice'] as num?)?.toInt() ?? 0,
+      status: matchedStatus,
+      location: Location_Model.fromMap(map['location'] as Map<String, dynamic>?),
+      readByOwner: map['readByOwner'] == true,
+      createdAt: map['createdAt'] is Timestamp
+          ? (map['createdAt'] as Timestamp).toDate()
+          : null,
+    );
+  }
 }

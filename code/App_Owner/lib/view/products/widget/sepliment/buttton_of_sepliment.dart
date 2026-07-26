@@ -1,13 +1,13 @@
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
-import 'package:app_pizza_owner/provider/cart/sepliment_Provider.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/models/model_sepliment/sepliment_Model.dart';
+import 'package:app_owner/provider/cart/sepliment_Provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ButttonOfSepliment extends StatefulWidget {
   final String name;
   final int price;
-  final Function(bool?) onchange; // تأكد من مطابقة هذا النوع
+  final Function(bool?) onchange; 
   const ButttonOfSepliment({
     super.key,
     required this.name,

@@ -1,12 +1,17 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/models/admin/Admin_Model.dart';
-import 'package:app_pizza_owner/view/profile/widget/bottonOFOpenORClose.dart';
-import 'package:app_pizza_owner/view/profile/widget/widget_TextInfo.dart';
-import 'package:app_pizza_owner/widget/custom/costum_Button.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/models/admin/admin_model.dart';
+import 'package:app_owner/view/blacklist/blacklist_view.dart';
+import 'package:app_owner/view/profile/widget/bottonOFOpenORClose.dart';
+import 'package:app_owner/view/profile/widget/widget_TextInfo.dart';
+import 'package:app_owner/widget/custom/costum_Button.dart';
 import 'package:flutter/material.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
+import 'package:app_owner/constant/app_size.dart';
 
-Widget Widget_profile(BuildContext context, Admin_Model clientInf) {
+Widget Widget_profile(
+  BuildContext context, {
+  required Function() onPressed,
+  required Admin_Model adminInf,
+}) {
   return Column(
     children: [
       Padding(
@@ -16,7 +21,9 @@ Widget Widget_profile(BuildContext context, Admin_Model clientInf) {
         ),
         child: MaterialButton(
           height: context.heightPct(5),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed("Settings");
+          },
           child: Icon(Icons.settings, size: context.heightPct(6)),
         ),
       ),
@@ -29,7 +36,7 @@ Widget Widget_profile(BuildContext context, Admin_Model clientInf) {
         child: Column(
           children: [
             Text(
-              clientInf.name,
+              adminInf.name,
               style: TextStyle(
                 fontSize: context.heightPct(5),
                 fontWeight: FontWeight.bold,
@@ -37,17 +44,17 @@ Widget Widget_profile(BuildContext context, Admin_Model clientInf) {
             ),
             Text_info_profile(
               context,
-              textInf: clientInf.number,
+              textInf: adminInf.number,
               icon: Icons.numbers,
             ),
             Text_info_profile(
               context,
-              textInf: clientInf.number2,
+              textInf: adminInf.number2,
               icon: Icons.numbers,
             ),
             Text_info_profile(
               context,
-              textInf: clientInf.addres,
+              textInf: adminInf.addres,
               icon: Icons.location_on,
             ),
             Padding(
@@ -57,7 +64,7 @@ Widget Widget_profile(BuildContext context, Admin_Model clientInf) {
               ),
               child: Row(
                 children: [
-                  SwitchOpenORClose(),
+                  SwitchOpenORClose(isOpen: adminInf.isOpen),
                   Padding(
                     padding: EdgeInsets.only(left: context.heightPct(5)),
                     child: Text(
@@ -80,7 +87,13 @@ Widget Widget_profile(BuildContext context, Admin_Model clientInf) {
                     child: Widget_botton(
                       context,
                       text: 'Black list',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const Blacklist_Page(),
+                          ),
+                        );
+                      },
                       height: 8,
                       width: 50,
                       backgroundColor: ColorApp_Icon_border.bottonbrown,
@@ -92,12 +105,7 @@ Widget Widget_profile(BuildContext context, Admin_Model clientInf) {
                     child: Widget_botton(
                       context,
                       text: 'Logout',
-                      onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                          "Welcome",
-                          (Route<dynamic> route) => false,
-                        );
-                      },
+                      onPressed: onPressed,
                       height: 8,
                       width: 50,
                       backgroundColor: Colors.red,

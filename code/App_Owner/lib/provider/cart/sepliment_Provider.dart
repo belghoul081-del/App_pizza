@@ -1,5 +1,4 @@
-import 'package:app_pizza_owner/models/model_products/products_Model.dart';
-import 'package:app_pizza_owner/models/model_sepliment/sepliment_Model.dart';
+import 'package:app_owner/models/model_sepliment/sepliment_Model.dart';
 
 import 'package:flutter/material.dart';
 

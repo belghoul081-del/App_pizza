@@ -1,7 +1,6 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
 import 'package:flutter/material.dart';
-
 
 Widget Botton_of_avlide_or_not(
   BuildContext context, {

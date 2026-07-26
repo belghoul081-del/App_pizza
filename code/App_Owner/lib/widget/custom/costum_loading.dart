@@ -1,4 +1,4 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_color.dart';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types

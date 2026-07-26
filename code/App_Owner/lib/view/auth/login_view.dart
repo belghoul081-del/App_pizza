@@ -1,7 +1,8 @@
-import 'package:app_pizza_owner/models/admin/Admin_Model.dart';
-import 'package:app_pizza_owner/view/auth/matterial_log_sig_page.dart';
-import 'package:app_pizza_owner/view/auth/appbare.dart';
+import 'package:app_owner/firebase/auth/auth_provider.dart';
+import 'package:app_owner/view/auth/matterial_log_sig_page.dart';
+import 'package:app_owner/view/auth/appbare.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Login_Page extends StatefulWidget {
   const Login_Page({super.key});
@@ -14,8 +15,11 @@ class _Login_PageState extends State<Login_Page>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final GlobalKey<FormState> _siginINFromKey = GlobalKey<FormState>();
-  final Admin_Model clientDataInstance = Admin_Model();
-  bool _rememberMe = false;
+
+  /// controllers
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPassword = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -28,6 +32,8 @@ class _Login_PageState extends State<Login_Page>
   @override
   void dispose() {
     _tabController.dispose();
+    controllerEmail.dispose();
+    controllerPassword.dispose();
     super.dispose();
   }
 
@@ -39,21 +45,57 @@ class _Login_PageState extends State<Login_Page>
       appBar: isKeyboardOpen
           ? appbarecostume_II(context, _tabController)
           : appbarecostume_I(context, _tabController),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          buildSignInForm(
-            context,
-            _siginINFromKey,
-            _rememberMe,
-            clientDataInstance,
-            (newValue) {
-              setState(() {
-                _rememberMe = newValue;
-              });
-            },
-          ),
-        ],
+      body: Consumer<AuthProvider>(
+        builder: (context, authProvider, child) {
+          return TabBarView(
+            controller: _tabController,
+            children: [
+              buildSignInForm(
+                context,
+                onChanged_ID: (val) => controllerEmail.text = val,
+                onChanged_Password: (val) => controllerPassword.text = val,
+                siginInFromKey: _siginINFromKey,
+                valudate_ID: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return "pleaze enter your email";
+                  }
+                  return null;
+                },
+                valudate_Password: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return "pleaze enter password";
+                  }
+
+                  return null;
+                },
+                onPressed: authProvider.isLoading
+                    ? () {}
+                    : () async {
+                        if (_siginINFromKey.currentState!.validate()) {
+                          bool success = await authProvider.signIn(
+                            controllerEmail.text.trim(),
+                            controllerPassword.text,
+                          );
+
+                          if (!mounted) return;
+
+                          if (success) {
+                            Navigator.of(context).pushReplacementNamed("Home");
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  "Login failed, check your email and password",
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      },
+              ),
+            ],
+          );
+        },
       ),
     );
   }

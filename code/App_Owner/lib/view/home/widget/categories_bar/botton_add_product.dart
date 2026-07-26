@@ -1,6 +1,6 @@
-import 'package:app_pizza_owner/constant/app_color.dart';
-import 'package:app_pizza_owner/constant/app_size.dart';
-import 'package:app_pizza_owner/view/products/add_product/add_product_page.dart';
+import 'package:app_owner/constant/app_color.dart';
+import 'package:app_owner/constant/app_size.dart';
+import 'package:app_owner/view/products/add_product/add_product_page.dart';
 import 'package:flutter/material.dart';
 
 Widget Button_ADD_product({required BuildContext context}) {
